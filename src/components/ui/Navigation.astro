@@ -1,6 +1,14 @@
 ---
 import Container from "./Container.astro";
-const navItems: any[] = [];
+
+import directus from "../../lib/directus";
+import { readItems } from "@directus/sdk";
+
+const siteSettings = await directus.request(readItems("site_settings"));
+const navItems: { href: string; label: string }[] = [
+  { label: "Home", href: "/" },
+  ...siteSettings.nav_items,
+];
 ---
 
 <header class="bg1">
@@ -32,21 +40,12 @@ const navItems: any[] = [];
     </div>
     <nav class="font-light">
       <ul class="inline-flex flex-wrap list-none m-0 p-0 -mx-4">
-        <li>
-          <a
-            data-navlink
-            class={`nc-focus-outline transition-colors no-underline px-4 py-4 block hover:underline text-sm md:text-base`}
-            href="/"
-          >
-            Home
-          </a>
-        </li>
         {
           navItems.map((nav) => (
             <li>
               <a
                 data-navlink
-                class={`nc-focus-outline transition-colors no-underline px-4 py-4 block hover:underline text-sm md:text-base`}
+                class="nc-focus-outline transition-colors no-underline px-4 py-4 block hover:underline text-sm md:text-base"
                 href={nav.href}
               >
                 {nav.label}
@@ -55,33 +54,6 @@ const navItems: any[] = [];
           ))
         }
       </ul>
-
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const pathname = window.location.pathname;
-          const navLinks = document.querySelectorAll("[data-navlink]");
-          navLinks.forEach((link) => {
-            const href = link.getAttribute("href")!;
-
-            if (
-              (href === "/" && pathname === "/") ||
-              pathname.startsWith(href)
-            ) {
-              link.classList.add(
-                "bg-gray-100",
-                "text-slate-800",
-                "dark:bg-cinder-600",
-                "dark:text-white",
-              );
-            } else {
-              link.classList.add(
-                "hover:bg-sky-900",
-                "hover:dark:bg-cinder-500",
-              );
-            }
-          });
-        });
-      </script>
     </nav>
   </Container>
 </header>
@@ -100,3 +72,24 @@ const navItems: any[] = [];
     </div>
   </Container>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const pathname = window.location.pathname;
+    const navLinks = document.querySelectorAll("[data-navlink]");
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href")!;
+
+      if ((href === "/" && pathname === "/") || pathname.startsWith(href)) {
+        link.classList.add(
+          "bg-gray-100",
+          "text-slate-800",
+          "dark:bg-cinder-600",
+          "dark:text-white",
+        );
+      } else {
+        link.classList.add("hover:bg-sky-900", "hover:dark:bg-cinder-500");
+      }
+    });
+  });
+</script>

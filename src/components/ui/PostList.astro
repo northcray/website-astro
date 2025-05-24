@@ -1,0 +1,38 @@
+---
+import List from "./List.astro";
+
+export interface Post {
+  title: string;
+  slug: string;
+  date: string;
+  type: string;
+  topics: string[];
+  content?: string;
+  image?: string;
+}
+
+export interface Props {
+  posts: Post[];
+  grid?: number;
+  vertical?: boolean;
+  class?: string;
+}
+
+const { posts, grid, vertical = true, class: className = "" } = Astro.props;
+
+const items = posts.map((post) => ({
+  key: post.slug,
+  href: `/news/${post.slug}`,
+  label: post.title,
+  subtitle: new Date(post.date).toDateString(),
+  image: post.image,
+}));
+---
+
+<List
+  items={items}
+  grid={grid}
+  imageKey="large-thumbnail"
+  vertical={vertical}
+  class={className}
+/>

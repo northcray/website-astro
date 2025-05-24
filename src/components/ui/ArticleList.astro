@@ -1,0 +1,32 @@
+---
+import type { Article } from "@/lib/types";
+import List from "./List.astro";
+
+export interface Props {
+  articles: Article[];
+  grid?: number;
+  vertical?: boolean;
+  class?: string;
+}
+
+const { articles, grid, vertical = true, class: className = "" } = Astro.props;
+
+const items = articles.map((article) => ({
+  key: String(article.id),
+  href: `/articles/${article.topic.slug}/${article.id}`,
+  label: article.title,
+  subtitle: new Date(article.first_published_at).toDateString(),
+  image: article.image,
+  // tag: {
+  //   label: article.topic.title,
+  // }
+}));
+---
+
+<List
+  items={items}
+  grid={grid}
+  imageKey="large-thumbnail"
+  vertical={vertical}
+  class={className}
+/>

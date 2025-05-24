@@ -1,0 +1,26 @@
+---
+export interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id, class: className = "" } = Astro.props;
+---
+
+<div class={`nc-display text-4xl font-semibold mb-4 ${className}`}>
+  {
+    id ? (
+      <a
+        id={id}
+        href={`#${id}`}
+        class="pt-1 border-t-2 border-t-gray-200 dark:border-t-gray-700 text-inherit"
+      >
+        <slot />
+      </a>
+    ) : (
+      <div class="pt-1 border-t-2 border-t-gray-200 dark:border-t-gray-700 text-inherit">
+        <slot />
+      </div>
+    )
+  }
+</div>

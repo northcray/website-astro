@@ -1,8 +1,114 @@
 ---
 import Main from "../components/layouts/Main.astro";
+import {
+  getPosts,
+  getArticles,
+  getGroups,
+  getEvents,
+} from "../lib/directus/queries";
+import Container from "../components/ui/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import PostList from "../components/ui/PostList.astro";
+import ArticleList from "../components/ui/ArticleList.astro";
+import List from "../components/ui/List.astro";
+import EventList from "../components/ui/EventList.astro";
+
+const posts = await getPosts("newsmail");
+const articles = await getArticles();
+const groups = await getGroups();
+const events = await getEvents();
+
+const groupList = groups.map((group) => ({
+  key: group.short_name,
+  label: group.name,
+  href: group.website,
+  // subtitle: group.description,
+  image: group.image,
+}));
+
+const eventList = events.map((event) => ({
+  key: event.id,
+  label: event.name,
+  href: `/events/${event.id}`,
+  date: event.start,
+  subtitle: `${event.category} - ${event.location}`
+    .replaceAll("_", " ")
+    .toUpperCase(),
+}));
+
+const mainCards = [
+  {
+    heading: "Our Association",
+    message: "Read about our mission, structure and committee.",
+    href: "/association",
+  },
+  {
+    heading: "The Local Area",
+    message: "Learn about the exciting history, and why we're unique.",
+    href: "/area",
+  },
+  {
+    heading: "Resources",
+    message: "Find useful information and links for residents.",
+    href: "/resources",
+  },
+  {
+    heading: "Membership",
+    message: "Find our about our meetings, how to join and get involved.",
+    href: "/membership",
+  },
+];
 ---
 
 <Main>
-  <h1>Astro</h1>
-  <p>Welcome to Astro!</p>
+  <main class="mb-10 mt-0">
+    {/* cards */}
+    <figure class="h-96 bg-[url(/27171_032.jpg)] bg-cover bg-center relative">
+      <figcaption
+        class="absolute bottom-0 right-0 bg-black text-white px-2 py-1 text-xs opacity-60"
+      >
+        © Historic England
+      </figcaption>
+    </figure>
+    <Container classes="gap-20 flex flex-col">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-10 -mt-5 z-10"
+      >
+        {
+          mainCards.map((card) => (
+            <a
+              href={card.href}
+              class="border dark:bg-cinder-600 bg-white border-gray-300 dark:border-gray-700 p-4 no-underline hover:underline focus:underline focus:outline-offset-2 focus:outline-amber-300 focus:outline focus:outline-4"
+            >
+              <div class="nc-display text-2xl font-semibold mb-2">
+                {card.heading}
+              </div>
+              <div class="text-base">{card.message}</div>
+            </a>
+          ))
+        }
+      </div>
+      <div>
+        <SectionHeader id="news">Latest News</SectionHeader>
+        <PostList grid={4} posts={posts} />
+      </div>
+      <div>
+        <SectionHeader id="news">Recent Articles</SectionHeader>
+        <ArticleList grid={2} vertical={false} articles={articles} />
+      </div>
+      <div>
+        <SectionHeader id="events">Upcoming Events</SectionHeader>
+        <EventList items={eventList} />
+      </div>
+      <div>
+        <SectionHeader id="groups">Local Groups</SectionHeader>
+        <List
+          vertical
+          grid={6}
+          items={groupList}
+          imageKey="medium-thumbnail-inside"
+        />
+      </div>
+    </Container>
+  </main>
 </Main>
