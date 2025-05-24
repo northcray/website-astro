@@ -1,0 +1,104 @@
+---
+import Container from "./Container.astro";
+
+const links = [
+  {
+    title: "Bexley Council",
+    items: [
+      {
+        label: "Planning Applications",
+        href: "https://pa.bexley.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+        newWindow: true,
+      },
+      {
+        label: "Major Roadworks",
+        href: "https://www.bexley.gov.uk/services/parking-transport-and-streets/major-roadworks/around-borough",
+        newWindow: true,
+      },
+      {
+        label: "Make a report",
+        href: "https://www.bexley.gov.uk/directory#report",
+        newWindow: true,
+      },
+      {
+        label: "Borough Events",
+        href: "https://www.bexley.gov.uk/events",
+        newWindow: true,
+      },
+    ],
+  },
+  {
+    title: "North Cray",
+    items: [
+      {
+        label: "News for residents",
+        href: "/news",
+        newWindow: false,
+      },
+      {
+        label: "Articles",
+        href: "/articles",
+        newWindow: false,
+      },
+      {
+        label: "About the association",
+        href: "/association",
+        newWindow: false,
+      },
+      {
+        label: "Membership and Subscriptions",
+        href: "/membership",
+        newWindow: false,
+      },
+      {
+        label: "Area Map",
+        href: "/map",
+        newWindow: false,
+      },
+    ],
+  },
+  {
+    title: "Local Community",
+    items: [
+      {
+        label: "Groups",
+        href: "/groups",
+        newWindow: false,
+      },
+      {
+        label: "Local Events",
+        href: "/events",
+        newWindow: false,
+      },
+    ],
+  },
+];
+---
+
+<footer
+  class="py-6 bg-gray-100 dark:bg-cinder-600 border-solid border-0 border-t border-gray-200 dark:border-gray-800"
+>
+  <Container classes="grid grid-cols-4 gap-4">
+    {
+      links.map(({ title, items }) => (
+        <div>
+          <h5 class="m-0">{title}</h5>
+          <ul class="list-none m-0 p-0 flex flex-col">
+            {items.map(({ label, href, newWindow }) => (
+              <li>
+                <a
+                  href={href}
+                  target={newWindow ? "_blank" : undefined}
+                  rel={newWindow ? "noopener noreferrer" : undefined}
+                  class="block py-2 nc-link nc-focus"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </Container>
+</footer>

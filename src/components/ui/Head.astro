@@ -1,0 +1,11 @@
+---
+import { Font } from "astro:assets";
+---
+
+<Font cssVariable="--font-lato" preload={true} />
+
+<style>
+  body {
+    font-family: var(--font-lato), sans-serif;
+  }
+</style>

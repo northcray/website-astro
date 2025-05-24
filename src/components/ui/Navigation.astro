@@ -1,0 +1,102 @@
+---
+import Container from "./Container.astro";
+const navItems: any[] = [];
+---
+
+<header class="bg1">
+  <div class="bg-sky-900 dark:bg-cinder-800 text-white relative">
+    <Container class="py-1">
+      <div class="justify-between items-center flex gap-4">
+        <div class="text-sm font-medium opacity-80 uppercase">NCRA</div>
+
+        <div class="gap-2 hidden md:flex">todo</div>
+      </div>
+    </Container>
+  </div>
+
+  <Container class="sticky top-0 z-10">
+    <div class="justify-between items-center flex gap-4 my-2 md:my-8">
+      <a
+        href="/"
+        class="no-underline px-4 -mx-4 gap-3 focus:bg-yellow-300 focus:text-black"
+      >
+        <div
+          class="text-lg md:text-2xl flex gap-2 justify-center items-center uppercase"
+        >
+          <div class="leading-none">
+            <div class="font-semibold">North Cray</div>
+            <div class="font-normal">Residents Association</div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <nav class="font-light">
+      <ul class="inline-flex flex-wrap list-none m-0 p-0 -mx-4">
+        <li>
+          <a
+            data-navlink
+            class={`nc-focus-outline transition-colors no-underline px-4 py-4 block hover:underline text-sm md:text-base`}
+            href="/"
+          >
+            Home
+          </a>
+        </li>
+        {
+          navItems.map((nav) => (
+            <li>
+              <a
+                data-navlink
+                class={`nc-focus-outline transition-colors no-underline px-4 py-4 block hover:underline text-sm md:text-base`}
+                href={nav.href}
+              >
+                {nav.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const pathname = window.location.pathname;
+          const navLinks = document.querySelectorAll("[data-navlink]");
+          navLinks.forEach((link) => {
+            const href = link.getAttribute("href")!;
+
+            if (
+              (href === "/" && pathname === "/") ||
+              pathname.startsWith(href)
+            ) {
+              link.classList.add(
+                "bg-gray-100",
+                "text-slate-800",
+                "dark:bg-cinder-600",
+                "dark:text-white",
+              );
+            } else {
+              link.classList.add(
+                "hover:bg-sky-900",
+                "hover:dark:bg-cinder-500",
+              );
+            }
+          });
+        });
+      </script>
+    </nav>
+  </Container>
+</header>
+<section class="hidden bg-amber-300">
+  <Container>
+    <div class="flex flex-col gap-4 py-4 text-lg max-w-3xl">
+      <div class="nc-display font-bold text-3xl">Important Announcement!</div>
+      <div class="grow flex flex-col gap-4">
+        <div>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          mattis sapien eu lacus congue, id venenatis erat luctus. Fusce
+        </div>
+
+        <div>Take Action</div>
+      </div>
+    </div>
+  </Container>
+</section>
