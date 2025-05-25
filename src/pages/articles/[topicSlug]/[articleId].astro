@@ -1,5 +1,5 @@
 ---
-import { DIRECTUS_API_URL } from "astro:env/client";
+import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 import MainLayout from "@layouts/MainLayout.astro";
 import PageHeader from "@ui/PageHeader.astro";
 import Container from "@ui/Container.astro";
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
 type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
-const { articleId } = Astro.params as Params;
+const { articleId, topicSlug } = Astro.params as Params;
 const { article } = Astro.props as Props;
 ---
 
@@ -46,11 +46,11 @@ const { article } = Astro.props as Props;
       { label: "Articles", href: "/articles" },
       {
         label: article.topic.title,
-        href: `/articles/${article.topic.slug}`,
+        href: `/articles/${topicSlug}`,
       },
       {
         label: "Article",
-        href: `/articles/${article.topic.slug}/${article.id}`,
+        href: `/articles/${topicSlug}/${articleId}`,
         active: true,
       },
     ]}
@@ -66,7 +66,7 @@ const { article } = Astro.props as Props;
     article.image && (
       <Container classes="my-8">
         <img
-          src={`${DIRECTUS_API_URL}/assets/${article.image}`}
+          src={`${PUBLIC_DIRECTUS_URL}/assets/${article.image}`}
           alt={article.title}
           width={1000}
           height={500}
@@ -77,7 +77,7 @@ const { article } = Astro.props as Props;
   }
 
   {
-    article.blocks.map((block) => (
+    article.blocks.map((block: any) => (
       <Container key={block.item.id} class="my-8">
         {block.collection === "blocks_content" && (
           <Markdown>{block.item.content}</Markdown>

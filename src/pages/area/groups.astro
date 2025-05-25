@@ -1,5 +1,5 @@
 ---
-import { DIRECTUS_API_URL } from "astro:env/client";
+import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 
 import PageHeader from "@ui/PageHeader.astro";
 import Container from "@ui/Container.astro";
@@ -40,23 +40,21 @@ const nav = groups.map((group) => ({
             <SectionHeader id={group.short_name}>
               {group.name} ({group.short_name})
             </SectionHeader>
-            <div class="flex gap-8">
+            <article class="flex gap-8">
               {group.image && (
-                <div>
-                  <img
-                    alt={group.short_name}
-                    width={180}
-                    height={100}
-                    src={`${DIRECTUS_API_URL}/assets/${group.image}`}
-                  />
-                </div>
+                <img
+                  alt={group.short_name}
+                  width={180}
+                  height={100}
+                  src={`${PUBLIC_DIRECTUS_URL}/assets/${group.image}`}
+                />
               )}
               <div>
                 <Markdown children={group.description} />
                 {group.content && <Markdown children={group.content} />}
                 <a href={group.website}>{group.website}</a>
               </div>
-            </div>
+            </article>
           </Section>
         ))
       }

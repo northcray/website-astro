@@ -17,7 +17,7 @@ export default defineConfig({
   env: {
     validateSecrets: true,
     schema: {
-      DIRECTUS_API_URL: envField.string({
+      PUBLIC_DIRECTUS_URL: envField.string({
         context: "client",
         access: "public",
         url: true,

@@ -12,9 +12,9 @@ RUN bun i --frozen-lockfile --ignore-scripts
 FROM build-deps AS build
 COPY . .
 
-ARG DIRECTUS_API_URL
+ARG PUBLIC_DIRECTUS_URL
 
-ENV DIRECTUS_API_URL=$DIRECTUS_API_URL
+ENV PUBLIC_DIRECTUS_URL=$PUBLIC_DIRECTUS_URL
 
 RUN bun run build
 
