@@ -1,0 +1,106 @@
+---
+import PageHeader from "@ui/PageHeader.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import Container from "@ui/Container.astro";
+import Section from "@ui/Section.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
+import Markdown from "@ui/Markdown.astro";
+import List from "@ui/List.astro";
+import Sidenav from "@ui/Sidenav.astro";
+import { getAssociation, getCommittee } from "@lib/directus/queries";
+
+const headings: { [key: string]: { title: string; id: string } } = {
+  HowItWorks: {
+    title: "How it works",
+    id: "How it works".toLowerCase().replaceAll(" ", "-"),
+  },
+  AimsObjectives: {
+    title: "Aims and Objectives",
+    id: "Aims and Objectives".toLowerCase().replaceAll(" ", "-"),
+  },
+  HowToHelp: {
+    title: "How to help",
+    id: "How to help".toLowerCase().replaceAll(" ", "-"),
+  },
+  ExecutiveCommittee: {
+    title: "Executive Committee",
+    id: "Executive Committee".toLowerCase().replaceAll(" ", "-"),
+  },
+};
+
+const sidenameItems: { href: string; label: string }[] = Object.keys(
+  headings,
+).map((k) => ({
+  href: `#${headings[k].id}`,
+  label: headings[k].title,
+}));
+
+const association = await getAssociation();
+const committee = await getCommittee();
+---
+
+<MainLayout>
+  <PageHeader
+    title="Association"
+    subtitle={association.mission_statement}
+    meta={[
+      {
+        label: "Founded",
+        value: new Date(association.founded).toDateString(),
+      },
+    ]}
+  />
+
+  <Container classes="mb-20 lg:grid grid-cols-4 gap-20">
+    <aside class="relative">
+      <Sidenav items={sidenameItems} />
+    </aside>
+
+    <div class="col-span-3">
+      <Section>
+        <SectionHeader id={headings.HowItWorks.id}>
+          {headings.HowItWorks.title}
+        </SectionHeader>
+        <div class="py-2"></div>
+        <Markdown children={association.how_it_works} />
+      </Section>
+
+      <Section>
+        <SectionHeader id={headings.AimsObjectives.id}>
+          {headings.AimsObjectives.title}
+        </SectionHeader>
+        <div class="py-2"></div>
+        <Markdown children={association.aims_and_objectives} />
+      </Section>
+
+      <Section>
+        <SectionHeader id={headings.HowToHelp.id}>
+          {headings.HowToHelp.title}
+        </SectionHeader>
+        <div class="py-2"></div>
+        <Markdown children={association.how_to_help} />
+      </Section>
+
+      <Section>
+        <SectionHeader id={headings.ExecutiveCommittee.id}>
+          {headings.ExecutiveCommittee.title}
+        </SectionHeader>
+        <List
+          items={committee.map((member) => ({
+            key: member.id,
+            label: member.position,
+            subtitle: member.name,
+          }))}
+        />
+      </Section>
+    </div>
+  </Container>
+
+  <figure class="h-96 bg-[url(/27171_032.jpg)] bg-cover bg-center relative">
+    <figcaption
+      class="absolute bottom-0 right-0 bg-black text-white px-2 py-1 text-xs opacity-60"
+    >
+      © Historic England
+    </figcaption>
+  </figure>
+</MainLayout>

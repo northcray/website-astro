@@ -1,17 +1,17 @@
 ---
-import MainLayout from "../components/layouts/MainLayout.astro";
+import MainLayout from "@layouts/MainLayout.astro";
 import {
   getPosts,
   getArticles,
   getGroups,
   getEvents,
-} from "../lib/directus/queries";
-import Container from "../components/ui/Container.astro";
-import SectionHeader from "../components/ui/SectionHeader.astro";
-import PostList from "../components/ui/PostList.astro";
-import ArticleList from "../components/ui/ArticleList.astro";
-import List from "../components/ui/List.astro";
-import EventList from "../components/ui/EventList.astro";
+} from "@lib/directus/queries";
+import Container from "@ui/Container.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
+import PostList from "@ui/PostList.astro";
+import ArticleList from "@ui/ArticleList.astro";
+import List from "@ui/List.astro";
+import EventList from "@ui/EventList.astro";
 
 const posts = await getPosts("newsmail");
 const articles = await getArticles();
@@ -61,7 +61,7 @@ const mainCards = [
 ---
 
 <MainLayout>
-  <main class="mb-10 mt-0">
+  <div class="mb-10 mt-0">
     {/* cards */}
     <figure class="h-96 bg-[url(/27171_032.jpg)] bg-cover bg-center relative">
       <figcaption
@@ -88,19 +88,19 @@ const mainCards = [
           ))
         }
       </div>
-      <div>
+      <section>
         <SectionHeader id="news">Latest News</SectionHeader>
         <PostList grid={4} posts={posts} />
-      </div>
-      <div>
+      </section>
+      <section>
         <SectionHeader id="news">Recent Articles</SectionHeader>
         <ArticleList grid={2} vertical={false} articles={articles} />
-      </div>
-      <div>
+      </section>
+      <section>
         <SectionHeader id="events">Upcoming Events</SectionHeader>
         <EventList items={eventList} />
-      </div>
-      <div>
+      </section>
+      <section>
         <SectionHeader id="groups">Local Groups</SectionHeader>
         <List
           vertical
@@ -108,7 +108,7 @@ const mainCards = [
           items={groupList}
           imageKey="medium-thumbnail-inside"
         />
-      </div>
+      </section>
     </Container>
-  </main>
+  </div>
 </MainLayout>
