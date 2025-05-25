@@ -1,4 +1,6 @@
 ---
+import { DIRECTUS_API_URL } from "astro:env/client";
+
 export interface ItemProps {
   key: string;
   href?: string;
@@ -40,7 +42,7 @@ const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
 
 function getImageSrc(image: string, imageKey?: string): string {
   const search = imageKey ? `?key=${imageKey}` : "";
-  return `https://content.northcray.org/assets/${image}${search}`;
+  return `${DIRECTUS_API_URL}/assets/${image}${search}`;
 }
 ---
 

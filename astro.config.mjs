@@ -8,22 +8,19 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.northcray.org",
-  output: "static",
 
+  output: "static",
   adapter: node({
     mode: "standalone",
   }),
 
   env: {
+    validateSecrets: true,
     schema: {
       DIRECTUS_API_URL: envField.string({
-        context: "server",
-        access: "secret",
+        context: "client",
+        access: "public",
         url: true,
-      }),
-      BACKEND_ADMIN_TOKEN: envField.string({
-        context: "server",
-        access: "secret",
       }),
     },
   },

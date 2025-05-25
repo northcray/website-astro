@@ -1,2 +1,2 @@
 build:
-    docker build -t website:latest .
+    docker build $(sed 's/^/--build-arg /' .env.production) . -t website:latest

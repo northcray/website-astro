@@ -38,4 +38,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             DIRECTUS_API_URL=https://content.northcray.org
-            BACKEND_ADMIN_TOKEN=1
+            DIRECTUS_CONTENT_URL=https://content.northcray.org

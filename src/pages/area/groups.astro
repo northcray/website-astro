@@ -1,4 +1,6 @@
 ---
+import { DIRECTUS_API_URL } from "astro:env/client";
+
 import PageHeader from "@ui/PageHeader.astro";
 import Container from "@ui/Container.astro";
 import Sidenav from "@ui/Sidenav.astro";
@@ -45,7 +47,7 @@ const nav = groups.map((group) => ({
                     alt={group.short_name}
                     width={180}
                     height={100}
-                    src={`https://content.northcray.org/assets/${group.image}`}
+                    src={`${DIRECTUS_API_URL}/assets/${group.image}`}
                   />
                 </div>
               )}
