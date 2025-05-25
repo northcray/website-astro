@@ -1,5 +1,5 @@
 ---
-import Main from "../components/layouts/Main.astro";
+import MainLayout from "../components/layouts/MainLayout.astro";
 import {
   getPosts,
   getArticles,
@@ -60,7 +60,7 @@ const mainCards = [
 ];
 ---
 
-<Main>
+<MainLayout>
   <main class="mb-10 mt-0">
     {/* cards */}
     <figure class="h-96 bg-[url(/27171_032.jpg)] bg-cover bg-center relative">
@@ -111,4 +111,4 @@ const mainCards = [
       </div>
     </Container>
   </main>
-</Main>
+</MainLayout>

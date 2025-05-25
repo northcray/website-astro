@@ -13,9 +13,11 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@astrojs/node": "^9.2.2",
     "@directus/sdk": "^19.1.0",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.8.0",
+    "marked": "^15.0.12",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^4.1.7"
   },

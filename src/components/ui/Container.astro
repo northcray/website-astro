@@ -1,9 +1,10 @@
 ---
 const { classes } = Astro.props;
+const containerClasses = `px-4 ${classes || ""}`;
 ---
 
 <div class="container mx-auto">
-  <div class={`px-4 ${classes || ""}`}>
+  <div class={containerClasses}>
     <slot />
   </div>
 </div>

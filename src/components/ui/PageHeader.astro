@@ -1,0 +1,57 @@
+---
+import Breadcrumbs from "./Breadcrumbs.astro";
+import Container from "./Container.astro";
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  tabs?: { label: string; href: string }[];
+  meta?: { label: string; value: string }[];
+  breadcrumbs?: { label: string; href: string; active?: boolean }[];
+}
+
+const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
+---
+
+<div class="bg2 py-6">
+  <Container>
+    {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+    <div class="m-0 py-3 md:py-6 my-4 md:my-8 relative">
+      <h1 class="lg:text-7xl">{title}</h1>
+      {
+        subtitle && (
+          <div class="text-2xl lg:text-4xl nc-display opacity-70">
+            {subtitle}
+          </div>
+        )
+      }
+    </div>
+  </Container>
+  {
+    meta && (
+      <Container>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1 gap-4 max-w-(--breakpoint-lg)">
+          {meta.map(({ label, value }) => (
+            <div>
+              <div class="font-medium text-sm uppercase">{label}</div>
+              <div class="font-light text-xl">{value}</div>
+            </div>
+          ))}
+        </div>
+      </Container>
+    )
+  }
+  {
+    tabs && (
+      <Container>
+        <ul class="nc-page-tabs mt-8">
+          {tabs.map((tab) => (
+            <li>
+              <a href={tab.href}>{tab.label}</a>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    )
+  }
+</div>

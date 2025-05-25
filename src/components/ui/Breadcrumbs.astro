@@ -1,0 +1,54 @@
+---
+export interface Props {
+  items: {
+    label: string;
+    href: string;
+    active?: boolean;
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="font-light">
+  <ol class="list-none inline-flex flex-wrap m-0 p-0">
+    {
+      items.map(({ label, href, active }, ind, arr) => (
+        <li class="flex items-center justify-center">
+          {active ? (
+            <a
+              href={href}
+              aria-current="page"
+              class="text-current nc-link nc-focus no-underline! hover:text-sky-800"
+            >
+              {label}
+            </a>
+          ) : (
+            <a
+              href={href}
+              class="text-current nc-link nc-focus hover:text-sky-800"
+            >
+              {label}
+            </a>
+          )}
+          {ind < arr.length - 1 && (
+            <svg
+              class="shrink-0 mx-2 size-4 text-gray-400 dark:text-neutral-600"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

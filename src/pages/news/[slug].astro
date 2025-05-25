@@ -1,0 +1,68 @@
+---
+export const prerender = true;
+
+import Container from "@ui/Container.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import Markdown from "@ui/Markdown.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+
+import directus from "@lib/directus";
+import { readItems } from "@directus/sdk";
+import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+  const posts = await directus.request(
+    readItems("posts", {
+      fields: ["slug", "date", "type", "title", "content", "topics", "image"],
+    }),
+  );
+
+  return posts.map((post: { slug: string }) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { slug } = Astro.params as Params;
+const { post } = Astro.props as Props;
+---
+
+<MainLayout>
+  <PageHeader
+    title={post.title}
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "News", href: "/news" },
+      {
+        label: post.type,
+        href: `/news/?type=${post.type}`,
+        active: true,
+      },
+    ]}
+    meta={[{ label: "Date", value: new Date(post.date).toDateString() }]}
+  />
+
+  <Container classes="my-10">
+    <Markdown children={post.content} />
+  </Container>
+
+  {
+    post.topics && (
+      <Container>
+        <h5>Topics</h5>
+        <ul class="list-none my-10 p-0 m-0 flex gap-2">
+          {post.topics?.map((topic: string) => (
+            <li>
+              <a href={`/news?topic=${topic}`} class="nc-tag nc-link nc-focus">
+                {topic}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    )
+  }
+</MainLayout>

@@ -1,0 +1,35 @@
+---
+import PageHeader from "@ui/PageHeader.astro";
+import Container from "@ui/Container.astro";
+import ArticleList from "@ui/ArticleList.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import { getArticles, getTopics } from "@lib/directus/queries";
+import NoPosts from "@ui/NoPosts.astro";
+
+const articles = await getArticles();
+const topics = await getTopics();
+---
+
+<MainLayout>
+  <PageHeader
+    title="Articles"
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Articles", href: "/articles", active: true },
+    ]}
+    tabs={topics.map(({ title, slug }) => ({
+      label: title,
+      href: `/articles/${slug}`,
+    }))}
+  />
+
+  <Container classes="flex flex-col gap-2 my-6">
+    {
+      articles.length > 0 ? (
+        <ArticleList grid={2} vertical={false} articles={articles} />
+      ) : (
+        <NoPosts />
+      )
+    }
+  </Container>
+</MainLayout>

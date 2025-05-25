@@ -1,18 +1,9 @@
 ---
-import List from "./List.astro";
-
-export interface Post {
-  title: string;
-  slug: string;
-  date: string;
-  type: string;
-  topics: string[];
-  content?: string;
-  image?: string;
-}
+import List, { type ItemProps } from "./List.astro";
+import type { Posts } from "../../lib/directus/queries";
 
 export interface Props {
-  posts: Post[];
+  posts: Posts;
   grid?: number;
   vertical?: boolean;
   class?: string;
@@ -20,13 +11,16 @@ export interface Props {
 
 const { posts, grid, vertical = true, class: className = "" } = Astro.props;
 
-const items = posts.map((post) => ({
-  key: post.slug,
-  href: `/news/${post.slug}`,
-  label: post.title,
-  subtitle: new Date(post.date).toDateString(),
-  image: post.image,
-}));
+const items = posts.map(
+  (post) =>
+    ({
+      key: post.slug,
+      href: `/news/${post.slug}`,
+      label: post.title,
+      subtitle: new Date(post.date).toDateString(),
+      image: post.image,
+    }) as ItemProps,
+);
 ---
 
 <List

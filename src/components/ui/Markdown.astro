@@ -1,0 +1,94 @@
+---
+import { marked } from "marked";
+
+export interface Props {
+  children: string;
+}
+
+const { children } = Astro.props;
+
+marked.setOptions({
+  gfm: true, // GitHub Flavored Markdown
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartypants: false,
+});
+
+// Simple HTML processing to add classes
+function processMarkdownHtml(html: string): string {
+  return (
+    html
+      // Headings
+      .replace(/<h([1-6])>/g, '<h$1 class="leading-loose">')
+
+      // Code blocks and inline code
+      .replace(
+        /<pre><code>/g,
+        '<pre class="bg-gray-100 dark:bg-gray-900 p-4 leading-normal rounded-sm my-4"><code>',
+      )
+      .replace(
+        /<code>(?![^<]*<\/pre>)/g,
+        '<code class="inline bg-gray-100 dark:bg-gray-900 px-1 py-1 leading-normal text-[length:inherit] rounded-sm">',
+      )
+
+      // Horizontal rules
+      .replace(
+        /<hr>/g,
+        '<hr class="border-t border-b-0 border-gray-300 dark:border-gray-600 border-solid my-10" />',
+      )
+
+      // Strong/bold
+      .replace(/<strong>/g, '<strong class="font-bold">')
+
+      // Paragraphs
+      .replace(/<p>/g, '<p class="block mb-4">')
+
+      // Lists
+      .replace(/<ol>/g, '<ol class="pl-6 mb-4">')
+      .replace(/<ul>/g, '<ul class="pl-6 mb-4 list-disc">')
+
+      // Links - handle external vs internal
+      .replace(
+        /<a href="(https?:\/\/[^"]*)"([^>]*)>/g,
+        '<a href="$1" target="_blank" class="nc-link nc-focus"$2>',
+      )
+      .replace(
+        /<a href="([^"]*)"([^>]*(?!target="_blank")[^>]*)>/g,
+        '<a href="$1" class="nc-link nc-focus"$2>',
+      )
+
+      // Blockquotes
+      .replace(
+        /<blockquote>/g,
+        '<blockquote class="pl-4 my-10 border-solid border-l-4 border-l-gray-200">',
+      )
+
+      // Images
+      .replace(
+        /<img ([^>]*?)>/g,
+        '<img $1 class="max-w-xl p-4 border border-solid border-gray-200" width="1000" height="500" />',
+      )
+
+      // Tables
+      .replace(/<table>/g, '<table class="w-full border-spacing-0 my-6">')
+      .replace(
+        /<tr>/g,
+        '<tr class="odd:bg-white dark:odd:bg-gray-900 even:bg-gray-50 dark:even:bg-gray-900">',
+      )
+      .replace(
+        /<th>/g,
+        '<th class="border-r border-b border-gray-300 dark:border-gray-700 border-solid bg-gray-100 dark:bg-gray-950 text-left p-2 last:border-r-0">',
+      )
+      .replace(
+        /<td>/g,
+        '<td class="border-b dark:border-gray-700 border-gray-200 border-solid text-left p-2">',
+      )
+  );
+}
+
+const rawHtml = marked(children || "");
+const processedHtml = processMarkdownHtml(rawHtml);
+---
+
+<div class="leading-7 max-w-3xl" set:html={processedHtml} />

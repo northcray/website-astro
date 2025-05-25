@@ -33,6 +33,8 @@ export const getPosts = async (type?: string) =>
     }),
   );
 
+export type Posts = Awaited<ReturnType<typeof getPosts>>;
+
 export const getGroups = async () =>
   await directus.request(
     readItems("groups", {

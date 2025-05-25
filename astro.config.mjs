@@ -3,9 +3,17 @@ import { defineConfig, fontProviders, envField } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import node from "@astrojs/node";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.northcray.org",
+
+  output: "static",
+  adapter: node({
+    mode: "standalone",
+  }),
+
   env: {
     schema: {
       DIRECTUS_API_URL: envField.string({
@@ -19,9 +27,11 @@ export default defineConfig({
       }),
     },
   },
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   experimental: {
     fonts: [
       {
