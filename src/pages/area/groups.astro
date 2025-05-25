@@ -5,9 +5,9 @@ import Sidenav from "@ui/Sidenav.astro";
 import Section from "@ui/Section.astro";
 import SectionHeader from "@ui/SectionHeader.astro";
 import { getGroups } from "@lib/directus/queries";
-import Markdown from "../../components/ui/Markdown.astro";
-import MainLayout from "../../components/layouts/MainLayout.astro";
-import ImageBlock from "../../components/ui/ImageBlock.astro";
+import Markdown from "@ui/Markdown.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import ImageBlock from "@ui/ImageBlock.astro";
 
 const groups = await getGroups();
 
