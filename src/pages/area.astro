@@ -1,0 +1,34 @@
+---
+import Container from "../components/ui/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+import MainLayout from "../components/layouts/MainLayout.astro";
+import Section from "../components/ui/Section.astro";
+import ImageBlock from "../components/ui/ImageBlock.astro";
+---
+
+<MainLayout>
+  <PageHeader
+    title="North Cray"
+    subtitle="South East London, England"
+    meta={[
+      {
+        label: "Streets",
+        value: "19",
+      },
+      {
+        label: "Properties",
+        value: "721",
+      },
+    ]}
+  />
+
+  <Container>
+    <Section>
+      <SectionHeader id="groups">Local Groups</SectionHeader>
+      <a href="/area/groups">View all</a>
+    </Section>
+  </Container>
+
+  <ImageBlock src="/27171_032.jpg" caption="© Historic England" />
+</MainLayout>

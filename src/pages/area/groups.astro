@@ -1,0 +1,65 @@
+---
+import PageHeader from "@ui/PageHeader.astro";
+import Container from "@ui/Container.astro";
+import Sidenav from "@ui/Sidenav.astro";
+import Section from "@ui/Section.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
+import { getGroups } from "@lib/directus/queries";
+import Markdown from "../../components/ui/Markdown.astro";
+import MainLayout from "../../components/layouts/MainLayout.astro";
+import ImageBlock from "../../components/ui/ImageBlock.astro";
+
+const groups = await getGroups();
+
+const nav = groups.map((group) => ({
+  href: `#${group.short_name}`,
+  label: group.name,
+}));
+---
+
+<MainLayout>
+  <PageHeader
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Area and Community", href: "/area" },
+    ]}
+    title="Community Groups"
+  />
+
+  <Container classes="mb-20 lg:grid grid-cols-4 gap-20">
+    <div class="relative">
+      <Sidenav items={nav} />
+    </div>
+
+    <div class="col-span-3">
+      {
+        groups.map((group) => (
+          <Section>
+            <SectionHeader id={group.short_name}>
+              {group.name} ({group.short_name})
+            </SectionHeader>
+            <div class="flex gap-8">
+              {group.image && (
+                <div>
+                  <img
+                    alt={group.short_name}
+                    width={180}
+                    height={100}
+                    src={`https://content.northcray.org/assets/${group.image}`}
+                  />
+                </div>
+              )}
+              <div>
+                <Markdown children={group.description} />
+                {group.content && <Markdown children={group.content} />}
+                <a href={group.website}>{group.website}</a>
+              </div>
+            </div>
+          </Section>
+        ))
+      }
+    </div>
+  </Container>
+
+  <ImageBlock src="/27171_032.jpg" caption="© Historic England" />
+</MainLayout>

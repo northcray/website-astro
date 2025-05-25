@@ -12,6 +12,7 @@ import PostList from "@ui/PostList.astro";
 import ArticleList from "@ui/ArticleList.astro";
 import List from "@ui/List.astro";
 import EventList from "@ui/EventList.astro";
+import ImageBlock from "@ui/ImageBlock.astro";
 
 const posts = await getPosts("newsmail");
 const articles = await getArticles();
@@ -63,13 +64,11 @@ const mainCards = [
 <MainLayout>
   <div class="mb-10 mt-0">
     {/* cards */}
-    <figure class="h-96 bg-[url(/27171_032.jpg)] bg-cover bg-center relative">
-      <figcaption
-        class="absolute bottom-0 right-0 bg-black text-white px-2 py-1 text-xs opacity-60"
-      >
-        © Historic England
-      </figcaption>
-    </figure>
+    <ImageBlock
+      margin={false}
+      src="/27171_032.jpg"
+      caption="© Historic England"
+    />
     <Container classes="gap-20 flex flex-col">
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-10 -mt-5 z-10"
