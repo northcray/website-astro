@@ -14,15 +14,23 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.2.2",
+    "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.0",
     "@directus/sdk": "^19.1.0",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.8.0",
+    "maplibre-gl": "^5.5.0",
     "marked": "^15.0.12",
+    "pmtiles": "^4.3.0",
     "prettier-plugin-astro": "^0.14.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-map-gl": "^8.0.4",
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "prettier": "3.5.3"

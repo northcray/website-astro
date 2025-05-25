@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, fontProviders, envField } from "astro/config";
+import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
@@ -41,5 +42,5 @@ export default defineConfig({
     ],
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap(), react()],
 });

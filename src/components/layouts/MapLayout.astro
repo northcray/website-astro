@@ -1,0 +1,19 @@
+---
+import Head from "@ui/Head.astro";
+import Navigation from "@ui/Navigation.astro";
+import "@styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <Head />
+  </head>
+  <body>
+    <div id="vtop" class="flex flex-col min-h-screen">
+      <Navigation />
+      <main class="grow">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
