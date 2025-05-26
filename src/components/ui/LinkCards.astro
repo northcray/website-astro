@@ -1,0 +1,34 @@
+---
+export interface Props {
+  classes?: string[];
+  cards: {
+    heading: string;
+    message: string;
+    href: string;
+  }[];
+}
+const { cards, classes = [] } = Astro.props;
+---
+
+<ul
+  class:list={[
+    "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8",
+    ...classes,
+  ]}
+>
+  {
+    cards.map((card) => (
+      <li class="flex">
+        <a
+          href={card.href}
+          class="border dark:bg-cinder-600 bg-white border-gray-300 dark:border-gray-700 p-4 no-underline hover:underline focus:underline focus:outline-offset-2 focus:outline-amber-300 focus:outline focus:outline-4"
+        >
+          <div class="nc-display text-2xl font-semibold mb-2">
+            {card.heading}
+          </div>
+          <div class="text-base">{card.message}</div>
+        </a>
+      </li>
+    ))
+  }
+</ul>

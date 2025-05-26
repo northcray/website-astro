@@ -1,7 +1,58 @@
 ---
 import Container from "./Container.astro";
+import { ExternalLink } from "@lucide/astro";
 
 const links = [
+  {
+    title: "Local Area",
+    items: [
+      {
+        label: "Community Groups",
+        href: "/area/groups",
+        newWindow: false,
+      },
+      {
+        label: "Local Events",
+        href: "/area/events",
+        newWindow: false,
+      },
+      {
+        label: "Area Map",
+        href: "/map",
+        newWindow: false,
+      },
+      {
+        label: "Fix My Street",
+        href: "https://www.fixmystreet.com/reports/Bexley?zoom=16&lat=51.42392&lon=0.13952&status=open&sort=created-desc",
+        newWindow: true,
+      },
+    ],
+  },
+  {
+    title: "Residents Association",
+    items: [
+      {
+        label: "News for residents",
+        href: "/news",
+        newWindow: false,
+      },
+      {
+        label: "Articles",
+        href: "/articles",
+        newWindow: false,
+      },
+      {
+        label: "About the association",
+        href: "/association",
+        newWindow: false,
+      },
+      {
+        label: "Membership",
+        href: "/membership",
+        newWindow: false,
+      },
+    ],
+  },
   {
     title: "Bexley Council",
     items: [
@@ -27,51 +78,6 @@ const links = [
       },
     ],
   },
-  {
-    title: "North Cray",
-    items: [
-      {
-        label: "News for residents",
-        href: "/news",
-        newWindow: false,
-      },
-      {
-        label: "Articles",
-        href: "/articles",
-        newWindow: false,
-      },
-      {
-        label: "About the association",
-        href: "/association",
-        newWindow: false,
-      },
-      {
-        label: "Membership and Subscriptions",
-        href: "/membership",
-        newWindow: false,
-      },
-      {
-        label: "Area Map",
-        href: "/map",
-        newWindow: false,
-      },
-    ],
-  },
-  {
-    title: "Local Community",
-    items: [
-      {
-        label: "Groups",
-        href: "/groups",
-        newWindow: false,
-      },
-      {
-        label: "Local Events",
-        href: "/events",
-        newWindow: false,
-      },
-    ],
-  },
 ];
 ---
 
@@ -82,7 +88,7 @@ const links = [
     {
       links.map(({ title, items }) => (
         <div>
-          <h5 class="m-0">{title}</h5>
+          <h5 class="m-0 mb-3">{title}</h5>
           <ul class="list-none m-0 p-0 flex flex-col">
             {items.map(({ label, href, newWindow }) => (
               <li>
@@ -90,9 +96,12 @@ const links = [
                   href={href}
                   target={newWindow ? "_blank" : undefined}
                   rel={newWindow ? "noopener noreferrer" : undefined}
-                  class="block py-2 nc-link nc-focus"
+                  class="block py-1.5 nc-link nc-focus"
                 >
                   {label}
+                  {newWindow && (
+                    <ExternalLink class="inline ml-1.5" size={16} />
+                  )}
                 </a>
               </li>
             ))}

@@ -1,0 +1,36 @@
+---
+import Todo from "@ui/Todo.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import EventList from "../../components/ui/EventList.astro";
+import { getEvents } from "../../lib/directus/queries";
+import Container from "../../components/ui/Container.astro";
+import Section from "../../components/ui/Section.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+
+const events = await getEvents();
+
+const eventList = events.map((event) => ({
+  key: event.id,
+  label: event.name,
+  href: `/area/events/${event.id}`,
+  date: event.start,
+  subtitle: event.description,
+}));
+---
+
+<MainLayout>
+  <PageHeader
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Area and Community", href: "/area" },
+      { label: "Events", href: "/area/events", active: true },
+    ]}
+    title="Events"
+    subtitle="Public community events and activities"
+  />
+  <Container>
+    <Section>
+      <EventList items={eventList} />
+    </Section>
+  </Container>
+</MainLayout>

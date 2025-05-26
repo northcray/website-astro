@@ -9,7 +9,7 @@ const { class: className = "", margin = true } = Astro.props;
 
 {
   margin ? (
-    <section class={`pt-10 md:pt-20 ${className}`}>
+    <section class:list={[`pt-10 md:pt-20`, className]}>
       <slot />
     </section>
   ) : (

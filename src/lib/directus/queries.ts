@@ -50,12 +50,27 @@ export const getEvents = async () =>
         "id",
         "name",
         "start",
+        "end",
         "category",
         "association_official",
         "location",
         "description",
       ],
-      filter: { status: { _eq: "published" } },
+      filter: { status: { _eq: "published" }, end: { _gt: "$NOW(+2 hours)" } },
+      sort: ["start"],
+    }),
+  );
+
+export const getAllEvents = async () =>
+  await directus.request(
+    readItems("events", {
+      fields: [
+        "*",
+        "group.name",
+        "group.image",
+        "group.website",
+        "meeting_place.*",
+      ],
       sort: ["start"],
     }),
   );

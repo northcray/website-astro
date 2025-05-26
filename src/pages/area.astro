@@ -5,16 +5,42 @@ import PageHeader from "../components/ui/PageHeader.astro";
 import MainLayout from "../components/layouts/MainLayout.astro";
 import Section from "../components/ui/Section.astro";
 import ImageBlock from "../components/ui/ImageBlock.astro";
+import LinkCards from "../components/ui/LinkCards.astro";
+import { getImageSrc } from "../lib/utils";
+
+const cards = [
+  {
+    heading: "Your Street",
+    message: "Join your street's WhatsApp group and connect with neighbours.",
+    href: "/area/streets",
+  },
+  {
+    heading: "Local Groups",
+    message: "Find and connect with local groups and organisations.",
+    href: "/area/groups",
+  },
+  {
+    heading: "Events",
+    message: "Discover and take part in community events and local activities.",
+    href: "/area/events",
+  },
+  {
+    heading: "Issues",
+    message:
+      "Track planning issues, roadworks, major construction and public transport.",
+    href: "/resources",
+  },
+];
 ---
 
 <MainLayout>
   <PageHeader
-    title="North Cray"
-    subtitle="South East London, England"
+    title="The Area"
+    subtitle="North Cray, Bexley, South East London"
     meta={[
       {
         label: "Streets",
-        value: "19",
+        value: "22",
       },
       {
         label: "Properties",
@@ -22,13 +48,14 @@ import ImageBlock from "../components/ui/ImageBlock.astro";
       },
     ]}
   />
+  <ImageBlock
+    margin={false}
+    src={getImageSrc("3709c04a-3b99-4af2-b4b0-0c43264f0ed6")}
+  />
 
-  <Container>
-    <Section>
-      <SectionHeader id="groups">Local Groups</SectionHeader>
-      <a href="/area/groups">View all</a>
+  <Container classes="flex flex-col">
+    <Section margin={false} class="mb-10 -mt-5 z-10">
+      <LinkCards cards={cards} />
     </Section>
   </Container>
-
-  <ImageBlock src="/27171_032.jpg" caption="© Historic England" />
 </MainLayout>

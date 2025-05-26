@@ -1,5 +1,5 @@
 ---
-import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
+import { getImageSrc } from "@lib/utils";
 
 export interface ItemProps {
   key: string;
@@ -39,11 +39,6 @@ const cols = [
 ];
 
 const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
-
-function getImageSrc(image: string, imageKey?: string): string {
-  const search = imageKey ? `?key=${imageKey}` : "";
-  return `${PUBLIC_DIRECTUS_URL}/assets/${image}${search}`;
-}
 ---
 
 <ul class={`list-none p-0 m-0 ${gridClass} ${className}`}>

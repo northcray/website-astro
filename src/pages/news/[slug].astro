@@ -37,8 +37,8 @@ const { post } = Astro.props as Props;
       { label: "Home", href: "/" },
       { label: "News", href: "/news" },
       {
-        label: post.type,
-        href: `/news/?type=${post.type}`,
+        label: "Post",
+        href: `/news`,
         active: true,
       },
     ]}

@@ -47,6 +47,7 @@ import { X, Menu } from "@lucide/astro";
         </label>
       </button>
     </div>
+
     <nav
       class="font-light h-0 sm:h-full overflow-hidden sm:overflow-visible flex-col transition-height duration-150"
     >
@@ -102,6 +103,13 @@ import { X, Menu } from "@lucide/astro";
 
   function setupNav() {
     const checkbox = document.getElementById("mobile-nav-toggle");
+
+    // close the menu when breakpoint changes
+    window.onresize = function () {
+      if (checkbox.checked) {
+        checkbox.checked = false;
+      }
+    };
 
     document.addEventListener("click", (event) => {
       const target = event.target;

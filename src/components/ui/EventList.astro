@@ -13,7 +13,7 @@ export interface Props {
   class?: string;
 }
 
-const { items, grid = 4, class: className = "" } = Astro.props;
+const { items, grid = 3, class: className = "" } = Astro.props;
 
 const gridClass = grid
   ? `md:grid md:grid-cols-2 lg:grid-cols-${grid} gap-10`
@@ -32,14 +32,14 @@ function formatEventDate(dateString: string) {
 }
 ---
 
-<ul class={`list-none p-0 m-0 ${gridClass} ${className}`}>
+<ul class:list={[`list-none p-0 m-0`, gridClass, className]}>
   {
     items?.map((item) => {
       const { weekday, month, day } = formatEventDate(item.date);
 
       return (
         <li class="py-4 flex gap-2 flex-col border-b-gray-300 dark:border-b-gray-700 border-b border-solid border-0">
-          <div class="flex flex-row bg-gray-100 dark:bg-gray-900 rounded-lg">
+          <article class="flex flex-row bg-gray-100 dark:bg-gray-900 rounded-lg">
             <div class="text-base flex flex-col items-center justify-center bg-gray-200 dark:bg-gray-900 rounded-lg p-4 leading-none">
               <div>{weekday}</div>
               <div class="text-7xl font-bold">{day}</div>
@@ -55,9 +55,9 @@ function formatEventDate(dateString: string) {
                   item.label
                 )}
               </div>
-              <div class="text-xs">{item.subtitle}</div>
+              <div class="text-xs line-clamp-3">{item.subtitle}</div>
             </div>
-          </div>
+          </article>
         </li>
       );
     })

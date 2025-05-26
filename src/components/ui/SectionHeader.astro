@@ -7,7 +7,7 @@ export interface Props {
 const { id, class: className = "" } = Astro.props;
 ---
 
-<div class={`nc-display text-4xl font-semibold mb-4 ${className}`}>
+<div class={`nc-display text-3xl md:text-4xl font-semibold mb-4 ${className}`}>
   {
     id ? (
       <a

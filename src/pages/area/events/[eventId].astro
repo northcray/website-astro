@@ -1,0 +1,131 @@
+---
+export const prerender = true;
+import { ExternalLink } from "@lucide/astro";
+import { getAllEvents } from "../../../lib/directus/queries";
+import { getImageSrc } from "@lib/utils";
+import MainLayout from "@layouts/MainLayout.astro";
+
+import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import PageHeader from "../../../components/ui/PageHeader.astro";
+import Container from "../../../components/ui/Container.astro";
+import Section from "../../../components/ui/Section.astro";
+import Markdown from "../../../components/ui/Markdown.astro";
+import SectionHeader from "../../../components/ui/SectionHeader.astro";
+
+export async function getStaticPaths() {
+  const events = await getAllEvents();
+
+  return events.map((event) => ({
+    params: { eventId: event.id },
+    props: { event },
+  }));
+}
+
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { event } = Astro.props as Props;
+const { eventId } = Astro.params as Params;
+
+function formatDuration(start: string, end: string) {
+  const ms = new Date(end) - new Date(start);
+  const mins = Math.floor(ms / 60000);
+  const hours = Math.floor(mins / 60);
+  const remainingMins = mins % 60;
+  return `${hours}h ${remainingMins}mins`;
+}
+
+const details = [
+  { label: "Start", value: new Date(event.start).toLocaleString("en-GB") },
+  { label: "End", value: new Date(event.end).toLocaleString("en-GB") },
+  { label: "Duration", value: formatDuration(event.start, event.end) },
+  { label: "Category", value: event.category.replaceAll("_", " ") },
+  { label: "Location", value: event.location.replaceAll("_", " ") },
+];
+---
+
+<MainLayout>
+  <PageHeader
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Area and Community", href: "/area" },
+      { label: "Events", href: "/area/events" },
+      { label: event.category, href: `/area/events/${eventId}`, active: true },
+    ]}
+    title={event.name}
+    subtitle="Event"
+  />
+
+  <Container classes="grid md:grid-cols-3 gap-10 mb-20">
+    <aside class="md:col-span-1">
+      {
+        event.meeting_place && (
+          <Section>
+            <SectionHeader>Meeting Place</SectionHeader>
+            <div class="hidden">{JSON.stringify(event.meeting_place)}</div>
+            <a
+              class="nc-link"
+              target="_blank"
+              href={`https://www.google.com/maps/search/?api=1&query=${event.meeting_place.coordinates[1]}%2C${event.meeting_place.coordinates[0]}`}
+            >
+              Open Google Maps
+              <ExternalLink class="inline ml-1.5" size={16} />
+            </a>
+          </Section>
+        )
+      }
+      <Section>
+        <SectionHeader>Details</SectionHeader>
+        <ul>
+          <li
+            class="flex items-center justify-between gap-2 border-gray-200 border-b py-2"
+          >
+            <strong class="font-bold">Group/Host</strong>
+            <div class="text-right">
+              {
+                event.association_official ? (
+                  "NCRA"
+                ) : event.group ? (
+                  <a
+                    href={event.group.website}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    class="nc-link flex items-center"
+                  >
+                    <span>{event.group.name}</span>
+                    {event.group?.image && (
+                      <img
+                        alt={event.group.name}
+                        class="h-12"
+                        src={getImageSrc(
+                          event.group.image,
+                          "medium-thumbnail-inside",
+                        )}
+                      />
+                    )}
+                  </a>
+                ) : (
+                  "-"
+                )
+              }
+            </div>
+          </li>
+          {
+            details.map((d) => (
+              <li class="flex items-center justify-between gap-2 border-gray-200 border-b py-2">
+                <strong class="font-bold">{d.label}</strong>
+                <span>{d.value}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </Section>
+    </aside>
+    <article class="md:col-span-2">
+      <Section>
+        <SectionHeader>Description</SectionHeader>
+        <Markdown children={event.description} />
+      </Section>
+    </article>
+  </Container>
+</MainLayout>
