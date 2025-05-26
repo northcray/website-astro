@@ -19,15 +19,12 @@ const { items } = Astro.props;
             <a
               href={href}
               aria-current="page"
-              class="text-current nc-link nc-focus no-underline! hover:text-sky-800"
+              class="text-current active:text-gray-900 nc-link nc-focus no-underline!"
             >
               {label}
             </a>
           ) : (
-            <a
-              href={href}
-              class="text-current nc-link nc-focus hover:text-sky-800"
-            >
+            <a href={href} class="nc-link nc-focus">
               {label}
             </a>
           )}

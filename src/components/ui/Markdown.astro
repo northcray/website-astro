@@ -20,7 +20,7 @@ function processMarkdownHtml(html: string): string {
   return (
     html
       // Headings
-      .replace(/<h([1-6])>/g, '<h$1 class="leading-loose">')
+      .replace(/<h([1-6])>/g, '<h$1 class="my-10">')
 
       // Code blocks and inline code
       .replace(
@@ -67,7 +67,7 @@ function processMarkdownHtml(html: string): string {
       // Images
       .replace(
         /<img ([^>]*?)>/g,
-        '<img $1 class="max-w-xl p-4 border border-solid border-gray-200" width="1000" height="500" />',
+        '<img $1 class="max-w-full p-2 border border-solid border-gray-200 dark:border-gray-700" width="1000" height="500" />',
       )
 
       // Tables

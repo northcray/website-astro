@@ -13,18 +13,53 @@ const navItems: { href: string; label: string }[] = [
   { label: "Home", href: "/" },
   ...nav_items,
 ];
+
+import { X, Menu } from "@lucide/astro";
 ---
 
-<section class="bg1 md:sticky top-0 z-20">
+<style>
+  section:has(.menu input[type="checkbox"]:checked) nav {
+    height: 100vh;
+  }
+
+  section:has(.menu input[type="checkbox"]:checked) .lucide-menu {
+    display: none;
+  }
+
+  section:has(.menu input[type="checkbox"]:checked) .lucide-x {
+    display: inline-block;
+  }
+</style>
+
+<section class="bg1 sticky top-0 z-20">
   <Container>
-    <nav class="font-light">
-      <ul class="inline-flex flex-wrap list-none m-0 p-0 -mx-4">
+    <div class="mobile-logo sm:hidden flex items-center justify-between">
+      <div class="font-semibold">North Cray</div>
+      <button class="menu flex py-2 items-center justify-center">
+        <label for="mobile-nav-toggle">
+          <Menu size={40} stroke-width={1} />
+          <X size={40} stroke-width={1} class="hidden" />
+          <input
+            type="checkbox"
+            id="mobile-nav-toggle"
+            class="appearance-none h-0 w-0 absolute"
+          />
+        </label>
+      </button>
+    </div>
+    <nav
+      class="font-light h-0 sm:h-full overflow-hidden sm:overflow-visible flex-col transition-height duration-150"
+    >
+      <ul
+        id="main-navigation"
+        class="sm:inline-flex sm:flex-wrap list-none m-0 p-0 -mx-4"
+      >
         {
           navItems.map((nav) => (
             <li>
               <a
                 data-navlink
-                class="nc-focus-outline transition-colors no-underline px-4 py-4 block hover:underline text-sm md:text-base"
+                class="nc-focus-outline transition-colors no-underline px-8 sm:px-4 py-4 block hover:underline text-lg sm:text-base"
                 href={nav.href}
               >
                 {nav.label}
@@ -37,7 +72,7 @@ const navItems: { href: string; label: string }[] = [
   </Container>
 </section>
 
-<script type="module" is:inline>
+<script is:inline>
   function updateActiveLinks() {
     const current = window.location.pathname;
     const navLinks = document.querySelectorAll("[data-navlink]");
@@ -65,6 +100,28 @@ const navItems: { href: string; label: string }[] = [
     });
   }
 
-  document.addEventListener("astro:after-swap", updateActiveLinks); // view-transitions hook
-  document.addEventListener("DOMContentLoaded", updateActiveLinks);
+  function setupNav() {
+    const checkbox = document.getElementById("mobile-nav-toggle");
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (
+        checkbox.checked &&
+        target instanceof HTMLElement &&
+        target.closest("[data-navlink]")
+      ) {
+        checkbox.checked = false;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateActiveLinks();
+    setupNav();
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    updateActiveLinks();
+    setupNav(); // reapply if view transitions replace content
+  });
 </script>
