@@ -1,0 +1,518 @@
+{
+  "resources": [
+    {
+      "section": "Living in North Cray",
+      "emoji": "🏡",
+      "icon": "home",
+      "image_url": "/images/resources/living.jpg",
+      "subsections": [
+        {
+          "title": "For New Residents",
+          "links": [
+            {
+              "ready": false,
+              "title": "Welcome to North Cray - What to Know",
+              "url": "/resources/welcome",
+              "external": false
+            },
+            {
+              "ready": true,
+              "title": "Bin Collection Days and Recycling Info",
+              "url": "https://www.bexley.gov.uk/services/rubbish-and-recycling",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Local Councillors and How to Contact Them",
+              "url": "https://democracy.bexley.gov.uk/mgFindMember.aspx?XXR=0&AC=WARD&WID=13637&sPC=Enter%20postcode",
+              "external": true
+            },
+            {
+              "ready": false,
+              "title": "Neighbourhood Watch & Community Safety",
+              "url": "/resources/neighbourhood-watch",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Utilities Setup",
+              "url": "/resources/utilities",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Local Facebook or WhatsApp Groups",
+              "url": "/resources/community-groups",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "How to Join the Residents Association",
+              "url": "/join",
+              "external": false
+            }
+          ]
+        },
+        {
+          "title": "Maps & Location Info",
+          "links": [
+            {
+              "ready": true,
+              "title": "Street Map & Boundaries",
+              "url": "/map",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Street Index",
+              "url": "/area/streets",
+              "external": false
+            },
+            {
+              "ready": true,
+              "title": "Historic & Notable Features in the Area",
+              "url": "/articles/local-history",
+              "external": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Parks, Walks & Outdoors",
+      "emoji": "🌳",
+      "icon": "tree-pine",
+      "image_url": "/images/resources/parks.jpg",
+      "subsections": [
+        {
+          "title": "Public Parks",
+          "links": [
+            {
+              "ready": true,
+              "title": "Foots Cray Meadows",
+              "url": "https://www.footscraymeadows.org/",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Riverside Walks & Nature Trails",
+              "url": "https://www.thames21.org.uk/",
+              "external": true
+            },
+            {
+              "ready": false,
+              "title": "Dog-Friendly Areas",
+              "url": "/resources/dogs",
+              "external": false
+            },
+            {
+              "ready": true,
+              "title": "Litter Picking and Volunteer Days",
+              "url": "https://www.bexley.gov.uk/services/community-safety-and-environment/community-litter-pickers/help-clean-your-neighbourhood",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Public Right of Way in Bexley",
+              "url": "https://bexleycouncil.maps.arcgis.com/apps/webappviewer/index.html?id=21c7b3240e53496ab9ef46632ba84d26",
+              "external": true
+            }
+          ]
+        },
+        {
+          "title": "Equestrian & Outdoor Activities",
+          "links": [
+            {
+              "ready": false,
+              "title": "Local Horse Riding Schools",
+              "url": "/resources/horse-riding",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Bridle Paths and Riding Routes",
+              "url": "/resources/bridle-paths",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Cycle Routes and Walking Paths",
+              "url": "/resources/cycle-walk",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Fishing or Birdwatching Spots",
+              "url": "/resources/nature",
+              "external": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Local Services",
+      "emoji": "🧰",
+      "icon": "tool",
+      "image_url": "/images/resources/services.jpg",
+      "subsections": [
+        {
+          "title": "Council & Community",
+          "links": [
+            {
+              "ready": true,
+              "title": "London Borough of Bexley – Key Services",
+              "url": "https://www.bexley.gov.uk",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Local Planning Portal",
+              "url": "https://pa.bexley.gov.uk/online-applications/search.do?action=simple&searchType=Application",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Reporting Issues",
+              "url": "https://fix.bexley.gov.uk",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Local Police Safer Neighbourhood Team (SNT)",
+              "url": "https://www.met.police.uk/area/your-area/met/bexley/st-marys-and-st-james/about-us/top-reported-crimes-in-this-area",
+              "external": true
+            }
+          ]
+        },
+        {
+          "title": "Health & Wellbeing",
+          "links": [
+            {
+              "ready": true,
+              "title": "Nearest GP Surgeries",
+              "url": "https://www.nhs.uk/service-search/find-a-gp",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Local Dentists",
+              "url": "https://www.nhs.uk/service-search/find-a-dentist/",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Mental Health Support",
+              "url": "https://www.bexley.gov.uk/services/health-and-social-care/public-health/mental-health-and-wellbeing/mental-health-and-wellbeing-resources-adults#:~:text=Mental%20health%20and%20wellbeing%20resources%20for%20adults",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Children's Public Health Service",
+              "url": "https://bexley0to19.co.uk/",
+              "external": true
+            },
+            {
+              "ready": false,
+              "title": "Pharmacies & Opening Hours",
+              "url": "/resources/health/pharmacies",
+              "external": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Education & Family",
+      "emoji": "🏫",
+      "icon": "book",
+      "image_url": "/images/resources/education.jpg",
+      "subsections": [
+        {
+          "title": "Schools",
+          "links": [
+            {
+              "ready": true,
+              "title": "Preschool & Nurseries",
+              "url": "https://www.bexley.gov.uk/services/schools-and-education/nursery-schools/starting-nursery",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Local Primary Schools",
+              "url": "https://www.bexley.gov.uk/services/schools-and-education/primary-schools/starting-primary-school",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Secondary Schools",
+              "url": "https://www.bexley.gov.uk/services/schools-and-education/secondary-schools/starting-secondary-school",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Ofsted Reports",
+              "url": "https://reports.ofsted.gov.uk",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Special Educational Needs and Disability services (SEND)",
+              "url": "https://www.bexleylocaloffer.uk/AboutUs",
+              "external": true
+            }
+          ]
+        },
+        {
+          "title": "Family Activities",
+          "links": [
+            {
+              "ready": false,
+              "title": "Local Clubs and Youth Groups",
+              "url": "/resources/clubs",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Soft Play / Library / Community Events",
+              "url": "/resources/family-events",
+              "external": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Shops, Deliveries & Essentials",
+      "emoji": "🛒",
+      "icon": "shopping-cart",
+      "image_url": "/images/resources/shops.jpg",
+      "subsections": [
+        {
+          "title": "Shops & Food",
+          "links": [
+            {
+              "ready": false,
+              "title": "Local Shops and Grocers",
+              "url": "/resources/shops",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Supermarkets Nearby",
+              "url": "/resources/supermarkets",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Farm Shops & Local Produce",
+              "url": "/resources/farm-shops",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Pubs and Cafes",
+              "url": "/resources/pubs-cafes",
+              "external": false
+            }
+          ]
+        },
+        {
+          "title": "Local Deliveries",
+          "links": [
+            {
+              "ready": false,
+              "title": "Milk & Veg Box Schemes",
+              "url": "/resources/deliveries",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Takeaways That Deliver",
+              "url": "/resources/takeaways",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Garden Waste Bags / Compost Bin",
+              "url": "https://www.bexley.gov.uk/services/rubbish-and-recycling/garden-waste",
+              "external": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Transport & Getting Around",
+      "emoji": "🚍",
+      "icon": "bus",
+      "image_url": "/images/resources/transport.jpg",
+      "subsections": [
+        {
+          "title": "Getting Around",
+          "links": [
+            {
+              "ready": false,
+              "title": "Nearest Train Stations",
+              "url": "/resources/travel/train",
+              "external": false
+            },
+            {
+              "ready": true,
+              "title": "Bus Routes and Timetables",
+              "url": "https://tfl.gov.uk/modes/buses/",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "Traffic Updates & Road Closures",
+              "url": "https://www.bexley.gov.uk/services/parking-transport-and-streets/major-roadworks/around-borough",
+              "external": true
+            },
+            {
+              "ready": false,
+              "title": "Parking Rules",
+              "url": "/resources/parking",
+              "external": false
+            },
+            {
+              "ready": true,
+              "title": "Taxi Services",
+              "url": "https://sherbetsminicabsnearme.co.uk/",
+              "external": true
+            },
+            {
+              "ready": true,
+              "title": "EV Charging Points",
+              "url": "https://map.zap-map.com/",
+              "external": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Community Notices & Local Info",
+      "emoji": "📢",
+      "icon": "megaphone",
+      "image_url": "/images/resources/community.jpg",
+      "subsections": [
+        {
+          "title": "Local Notices",
+          "links": [
+            {
+              "ready": true,
+              "title": "Events Calendar",
+              "url": "/area/events",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Parish or Council Meetings",
+              "url": "/resources/meetings",
+              "external": false
+            },
+            {
+              "ready": true,
+              "title": "Community Hall Booking Info",
+              "url": "https://stjamesnorthcray.org.uk/about-us/whats-on-in-the-bothy/",
+              "external": true
+            },
+            {
+              "ready": false,
+              "title": "Lost & Found",
+              "url": "/resources/lost-and-found",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Volunteering Opportunities",
+              "url": "/resources/volunteer",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Newsletter Signup",
+              "url": "/join",
+              "external": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "History & Heritage",
+      "emoji": "📚",
+      "icon": "landmark",
+      "image_url": "/images/resources/history.jpg",
+      "subsections": [
+        {
+          "title": "Explore the Past",
+          "links": [
+            {
+              "ready": false,
+              "title": "Brief History of North Cray",
+              "url": "/resources/history",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Local Landmarks and Historic Buildings",
+              "url": "/resources/heritage",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Oral Histories and Resident Photos",
+              "url": "/resources/photos",
+              "external": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Documents & Downloads",
+      "emoji": "📎",
+      "icon": "file-down",
+      "image_url": "/images/resources/documents.jpg",
+      "subsections": [
+        {
+          "title": "Downloadable Files",
+          "links": [
+            {
+              "ready": false,
+              "title": "Welcome Pack PDF",
+              "url": "/files/welcome-pack.pdf",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Residents Association Constitution",
+              "url": "/files/constitution.pdf",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Annual Meeting Minutes",
+              "url": "/files/meeting-minutes.pdf",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Planning Objection Templates",
+              "url": "/files/planning-template.docx",
+              "external": false
+            },
+            {
+              "ready": false,
+              "title": "Printable Street Map",
+              "url": "/files/north-cray-map.pdf",
+              "external": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
