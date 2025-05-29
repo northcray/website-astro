@@ -38,3 +38,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             PUBLIC_DIRECTUS_URL=https://content.northcray.org
+            INTERNAL_DIRECTUS_URL=https://content.northcray.org
