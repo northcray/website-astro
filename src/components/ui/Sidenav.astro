@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  items: { label: string; href: string }[];
+  items: { label: string; href: string; emoji?: string }[];
 }
 const { items } = Astro.props;
 ---
@@ -10,6 +10,8 @@ const { items } = Astro.props;
     {
       items.map((item) => (
         <li class="first:border-t border-b py-2 leading-loose border-gray-300 dark:border-gray-700">
+          {item.emoji && <span class="inline-block mr-2">{item.emoji}</span>}
+          {/* If the item has an image, display it */}
           <a href={item.href} class="nc-link nc-focus">
             {item.label}
           </a>

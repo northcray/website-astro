@@ -1,12 +1,9 @@
 ---
 import Container from "../components/ui/Container.astro";
-import SectionHeader from "../components/ui/SectionHeader.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
 import MainLayout from "../components/layouts/MainLayout.astro";
 import Section from "../components/ui/Section.astro";
-import ImageBlock from "../components/ui/ImageBlock.astro";
 import LinkCards from "../components/ui/LinkCards.astro";
-import { getImageSrc } from "../lib/utils";
 
 const cards = [
   {
@@ -48,13 +45,9 @@ const cards = [
       },
     ]}
   />
-  <ImageBlock
-    margin={false}
-    src={getImageSrc("3709c04a-3b99-4af2-b4b0-0c43264f0ed6")}
-  />
 
-  <Container classes="flex flex-col">
-    <Section margin={false} class="mb-10 -mt-5 z-10">
+  <Container classes="">
+    <Section margin={false} class="my-10">
       <LinkCards cards={cards} />
     </Section>
   </Container>

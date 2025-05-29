@@ -1,11 +1,5 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
-import {
-  getPosts,
-  getArticles,
-  getGroups,
-  getEvents,
-} from "@lib/directus/queries";
 import Container from "@ui/Container.astro";
 import SectionHeader from "@ui/SectionHeader.astro";
 import PostList from "@ui/PostList.astro";
@@ -15,6 +9,12 @@ import EventList from "@ui/EventList.astro";
 import ImageBlock from "@ui/ImageBlock.astro";
 import LinkCards from "@ui/LinkCards.astro";
 import Section from "../components/ui/Section.astro";
+import {
+  getPosts,
+  getArticles,
+  getGroups,
+  getEvents,
+} from "@lib/directus/queries";
 
 const posts = await getPosts("newsmail");
 const articles = await getArticles();

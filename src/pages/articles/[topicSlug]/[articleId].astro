@@ -1,4 +1,5 @@
 ---
+import Section from "../../../components/ui/Section.astro";
 export const prerender = true;
 import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 import MainLayout from "@layouts/MainLayout.astro";
@@ -37,6 +38,7 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { articleId, topicSlug } = Astro.params as Params;
 const { article } = Astro.props as Props;
+console.log(article);
 ---
 
 <MainLayout>
@@ -57,7 +59,7 @@ const { article } = Astro.props as Props;
     ]}
     meta={[
       {
-        label: "Date",
+        label: "Published",
         value: new Date(article.first_published_at).toDateString(),
       },
     ]}
@@ -71,7 +73,7 @@ const { article } = Astro.props as Props;
           alt={article.title}
           width={1000}
           height={500}
-          class="h-auto w-auto"
+          class="h-auto w-auto lg:float-right lg:pl-10"
         />
       </Container>
     )
@@ -81,7 +83,7 @@ const { article } = Astro.props as Props;
     article.blocks.map((block: any) => (
       <Container key={block.item.id} class="my-8">
         {block.collection === "blocks_content" && (
-          <Markdown>{block.item.content}</Markdown>
+          <Markdown children={block.item.content} />
         )}
       </Container>
     ))
@@ -110,4 +112,5 @@ const { article } = Astro.props as Props;
       </Container>
     )
   }
+  <Section />
 </MainLayout>

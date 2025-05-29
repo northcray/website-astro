@@ -42,7 +42,7 @@ const { post } = Astro.props as Props;
         active: true,
       },
     ]}
-    meta={[{ label: "Date", value: new Date(post.date).toDateString() }]}
+    meta={[{ label: "Published", value: new Date(post.date).toDateString() }]}
   />
 
   <Container classes="my-10">

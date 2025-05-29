@@ -1,8 +1,71 @@
 ---
-import Todo from "@ui/Todo.astro";
 import MainLayout from "@layouts/MainLayout.astro";
+import Container from "@ui/Container.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import Section from "@ui/Section.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
+import data from "../data/resources.json";
+import { ExternalLink } from "@lucide/astro";
+import Sidenav from "@ui/Sidenav.astro";
+const sidenavItems = data.resources.map((r) => ({
+  label: r.section,
+  emoji: r.emoji,
+  href: `#${r.section.toLowerCase().replaceAll(" ", "-")}`,
+}));
 ---
 
 <MainLayout>
-  <Todo />
+  <PageHeader title="Resources" />
+  <Container classes="mb-20 lg:grid grid-cols-5 gap-20">
+    <aside class="col-span-2 relative">
+      <Sidenav items={sidenavItems} />
+    </aside>
+    <div class="col-span-3">
+      {
+        data.resources.map((r) => (
+          <Section>
+            <SectionHeader id={r.section.toLowerCase().replaceAll(" ", "-")}>
+              {r.emoji} <span class="ml-3">{r.section}</span>
+            </SectionHeader>
+            {r.subsections.map((s) => (
+              <article class="my-8">
+                <h4 class="mb-4">{s.title}</h4>
+                <ul>
+                  {s.links.map((l) => (
+                    <li class="leading-loose">
+                      {l.ready ? (
+                        l.external ? (
+                          <a
+                            href={l.url}
+                            class="nc-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {l.title}
+                            <ExternalLink class="inline ml-1.5" size={16} />
+                          </a>
+                        ) : (
+                          <a href={l.url} class="nc-link">
+                            {l.title}
+                          </a>
+                        )
+                      ) : (
+                        <>
+                          <span class="pr-1 opacity-50">{l.title}</span>
+                          <span class="text-black bg-yellow-100 p-1 rounded text-xs">
+                            Not ready yet
+                          </span>
+                        </>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </Section>
+        ))
+      }
+    </div>
+    <Section />
+  </Container>
 </MainLayout>

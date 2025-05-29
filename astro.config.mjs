@@ -22,6 +22,11 @@ export default defineConfig({
         access: "public",
         url: true,
       }),
+      INTERNAL_DIRECTUS_URL: envField.string({
+        context: "server",
+        access: "secret",
+        url: true,
+      }),
     },
   },
 
