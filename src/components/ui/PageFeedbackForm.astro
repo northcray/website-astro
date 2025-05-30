@@ -1,0 +1,44 @@
+---
+
+---
+
+<details>
+  <summary class="nc-link nc-focus"
+    >Is there a problem with this page?
+  </summary>
+  <form
+    class="my-4 flex flex-col gap-4"
+    id="page-feedback"
+    onsubmit="submitPageFeedback(event)"
+  >
+    <label for="comment" class="nc-label">Comment</label>
+    <textarea
+      id="comment"
+      name="comment"
+      class="input h-auto w-full resize-none md:resize"
+      rows="8"
+      placeholder="Tell us what how we could improve this page..."></textarea>
+    <button class="button w-min" type="submit">Submit</button>
+  </form>
+</details>
+
+<script is:inline>
+  async function submitPageFeedback(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const response = await fetch("/api/page-feedback", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await response.json();
+    const status = response.status;
+
+    if (data.message) {
+      alert(data.message);
+    }
+
+    if (status === 200) {
+      event.target.reset();
+    }
+  }
+</script>

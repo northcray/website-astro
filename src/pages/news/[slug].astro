@@ -1,4 +1,5 @@
 ---
+import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 export const prerender = true;
 
 import Container from "@ui/Container.astro";
@@ -38,12 +39,26 @@ const { post } = Astro.props as Props;
       { label: "News", href: "/news" },
       {
         label: "Post",
-        href: `/news`,
+        href: `/news/${slug}`,
         active: true,
       },
     ]}
     meta={[{ label: "Published", value: new Date(post.date).toDateString() }]}
   />
+
+  {
+    post.image && (
+      <Container>
+        <img
+          src={`${PUBLIC_DIRECTUS_URL}/assets/${post.image}`}
+          alt={post.title}
+          width={650}
+          height={500}
+          class="lg:float-right lg:p-10 lg:-mt-20 mx-auto"
+        />
+      </Container>
+    )
+  }
 
   <Container classes="my-10">
     <Markdown children={post.content} />

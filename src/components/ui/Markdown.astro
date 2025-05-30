@@ -42,7 +42,7 @@ function processMarkdownHtml(html: string): string {
       .replace(/<strong>/g, '<strong class="font-bold">')
 
       // Paragraphs
-      .replace(/<p>/g, '<p class="block mb-4">')
+      .replace(/<p>/g, '<p class="block mb-4 text-justify">')
 
       // Lists
       .replace(/<ol>/g, '<ol class="pl-6 mb-4">')
@@ -91,4 +91,4 @@ const rawHtml = marked(children || "");
 const processedHtml = processMarkdownHtml(rawHtml);
 ---
 
-<div class="leading-7 max-w-3xl" set:html={processedHtml} />
+<div class="text-lg leading-7 max-w-prose" set:html={processedHtml} />

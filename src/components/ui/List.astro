@@ -86,8 +86,8 @@ const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
 
       const content = imageEl ? (
         <>
-          <div class="basis-1/3">{imageEl}</div>
-          <div class="basis-2/3 gap-2 flex flex-col">
+          <div class="sm:basis-1/3">{imageEl}</div>
+          <div class="sm:basis-2/3 gap-2 flex flex-col">
             {labelEl}
             {subtitleEl}
             {tagEl}
@@ -106,7 +106,7 @@ const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
           {item.href ? (
             <a
               href={item.href}
-              class="flex flex-row gap-4 nc-link nc-focus py-4 h-full"
+              class="flex flex-col sm:flex-row gap-4 nc-link nc-focus py-4 h-full"
             >
               {content}
             </a>

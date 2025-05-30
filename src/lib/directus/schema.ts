@@ -1,4 +1,4 @@
-/** * Generated TypeScript types for Directus Schema * Generated on: 2025-05-24T16:46:52.845Z */
+/** * Generated TypeScript types for Directus Schema * Generated on: 2025-05-30T08:30:11.411Z */
 export interface Address {
   id: string;
   uprn: string;
@@ -34,6 +34,7 @@ export interface Article {
   first_published_at: "datetime";
   tags: Record<string, unknown>;
   topic: string | Topic;
+  related_businesses: number[] | ArticlesBusiness[];
 }
 
 export interface ArticlesBlock {
@@ -41,6 +42,12 @@ export interface ArticlesBlock {
   articles_id: number | Article;
   item: string;
   collection: string;
+}
+
+export interface ArticlesBusiness {
+  id: number;
+  articles_id: number | Article;
+  businesses_id: string | Business;
 }
 
 export interface ArticlesTopic {
@@ -94,6 +101,17 @@ export interface BlocksGalleryFile {
   sort: number;
 }
 
+export interface Business {
+  id: string;
+  status: string;
+  sort: number;
+  date_updated: "datetime";
+  title: string;
+  address: string | Address;
+  category: string;
+  content: string;
+}
+
 export interface Committee {
   id: string;
   status: string;
@@ -118,12 +136,12 @@ export interface Event {
   start: "datetime";
   end: "datetime";
   association_official: boolean;
-  related_group: Record<string, unknown>;
   location: string;
   description: string;
   category: string;
   links: Record<string, unknown>;
   meeting_place: string;
+  group: string | Group;
 }
 
 export interface Group {
@@ -147,6 +165,8 @@ export interface PageFeedback {
   date_created: "datetime";
   comment: string;
   page_url: string;
+  user_agent: string;
+  ip_address: string;
 }
 
 export interface Page {
@@ -336,6 +356,7 @@ export interface ApiCollections {
   area: Area;
   articles: Article[];
   articles_blocks: ArticlesBlock[];
+  articles_businesses: ArticlesBusiness[];
   articles_topics: ArticlesTopic[];
   association: Association;
   block_hero: BlockHero[];
@@ -343,6 +364,7 @@ export interface ApiCollections {
   blocks_content: BlocksContent[];
   blocks_gallery: BlocksGallery[];
   blocks_gallery_files: BlocksGalleryFile[];
+  businesses: Business[];
   committee: Committee[];
   events: Event[];
   groups: Group[];
