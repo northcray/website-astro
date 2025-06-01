@@ -1,5 +1,7 @@
 ---
 export const prerender = false;
+import Alert from "../../components/ui/Alert.astro";
+import { loggedInPath } from "../../constants";
 import AccountLayout from "@layouts/AccountLayout.astro";
 
 import { getCurrentUser } from "@lib/auth";
@@ -7,8 +9,10 @@ import { getCurrentUser } from "@lib/auth";
 const user = await getCurrentUser(Astro.cookies);
 
 if (user) {
-  return Astro.redirect("/dashboard");
+  return Astro.redirect(loggedInPath);
 }
+
+const errors = [];
 
 // get email from query parameters
 const url = new URL(Astro.request.url);
@@ -16,46 +20,50 @@ const emailParam = url.searchParams.get("email");
 
 // Handle form submission
 if (Astro.request.method === "POST") {
-  try {
-    const formData = await Astro.request.formData();
-    const email = formData.get("email")?.toString();
-    const password = formData.get("password")?.toString();
+  const formData = await Astro.request.formData();
+  const email = formData.get("email")?.toString();
+  const password = formData.get("password")?.toString();
 
-    if (email && password) {
-      const { login } = await import("../../lib/auth.ts");
-      const user = await login(Astro.cookies, email, password);
+  if (email && password) {
+    const { login } = await import("../../lib/auth.ts");
+    const user = await login(Astro.cookies, email, password);
 
-      if (user) {
-        return Astro.redirect("/dashboard");
-      }
+    if (user) {
+      return Astro.redirect(loggedInPath);
+    } else {
+      errors.push("Invalid email or password. Please try again.");
     }
-  } catch (error) {
-    console.error("Login error:", error);
   }
 }
 ---
 
-<AccountLayout header="Sign In">
-  <form class="flex flex-col gap-2" method="POST">
-    <label class="label" for="email">Email</label>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      required
-      class="input"
-      placeholder="someone@example.com"
-      autocomplete="email"
-    />
-    <label class="label" for="password">Password</label>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      required
-      class="input"
-      autocomplete="current-password"
-    />
+<AccountLayout header="Sign in">
+  {errors.length > 0 && <Alert errors={errors} />}
+  <form class="form" method="POST">
+    <div class="field">
+      <label class="label" for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        class="input"
+        value={emailParam || ""}
+        placeholder="someone@example.com"
+        autocomplete="email"
+      />
+    </div>
+    <div class="field">
+      <label class="label" for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        required
+        class="input"
+        autocomplete="current-password"
+      />
+    </div>
     <button class="mt-4 button sm:max-w-fit" type="submit">Next</button>
   </form>
 </AccountLayout>

@@ -1,0 +1,27 @@
+---
+export const prerender = false;
+import AccountLayout from "@layouts/AccountLayout.astro";
+import { createDirectusClient } from "@lib/directus";
+import { registerUserVerify } from "@directus/sdk";
+
+const searchParams = new URL(Astro.request.url).searchParams;
+const token = searchParams.get("token");
+
+let message = "";
+
+if (token) {
+  const directus = createDirectusClient();
+
+  try {
+    await directus.request(registerUserVerify(token));
+    message = "Email verification successful!";
+  } catch (error) {
+    console.error(error);
+    message = "An unknown error occurred during email verification.";
+  }
+} else {
+  message = "No token provided for email verification.";
+}
+---
+
+<AccountLayout header="Email Verification">{message}</AccountLayout>

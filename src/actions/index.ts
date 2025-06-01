@@ -1,21 +1,25 @@
 import { defineAction } from "astro:actions";
-// import { DIRECTUS_ADMIN_TOKEN } from "astro:env/server";
 import { z } from "astro:schema";
 import { createDirectusClient } from "@lib/directus";
 import { registerUser } from "@directus/sdk";
+import { getUserByEmail, logout } from "@lib/auth.ts";
 const directus = createDirectusClient();
 
 export const server = {
+  logout: defineAction({
+    accept: "form",
+    handler: async (_, context) => {
+      logout(context.cookies);
+      return {};
+    },
+  }),
   identifyUser: defineAction({
     accept: "form",
     input: z.object({
       email: z.string().email(),
     }),
     handler: async ({ email }) => {
-      // const user = await getUserByEmail(email); // We'll need to implement this
-      // For now, let's assume a placeholder logic
-      const userExists = false;
-
+      const userExists = await getUserByEmail(email);
       return { userExists, email };
     },
   }),

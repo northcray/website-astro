@@ -20,7 +20,7 @@ if (result && !result.error) {
 
 const registerResult = Astro.getActionResult(actions.registerUser);
 if (registerResult && registerResult.data?.success) {
-  return Astro.redirect("/account/check-email");
+  return Astro.redirect("/account/email-check");
 }
 ---
 

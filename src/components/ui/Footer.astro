@@ -2,6 +2,7 @@
 import Container from "./Container.astro";
 import { ExternalLink } from "@lucide/astro";
 import PageFeedbackSection from "./PageFeedbackSection.astro";
+import { loggedInPath } from "../../constants";
 
 export interface Props {
   showLinks?: boolean;
@@ -56,7 +57,7 @@ const links = [
       },
       {
         label: "Membership",
-        href: "/association/membership",
+        href: loggedInPath,
         newWindow: false,
       },
     ],

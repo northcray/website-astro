@@ -1,4 +1,5 @@
 import type { AstroCookies } from "astro";
+import { DIRECTUS_ADMIN_TOKEN } from "astro:env/server";
 import type { AuthTokens } from "./directus/types";
 import type { DirectusUser } from "./directus/schema";
 import {
@@ -7,6 +8,7 @@ import {
   getCurrentDirectusUser,
   createAuthenticatedDirectusClient,
 } from "./directus";
+import { readUsers } from "@directus/sdk";
 
 const TOKEN_COOKIE = "directus_token";
 const REFRESH_TOKEN_COOKIE = "directus_refresh_token";
@@ -149,3 +151,15 @@ export async function makeAuthenticatedRequest<T>(
   clearAuthCookies(cookies);
   throw new Error("Authentication failed");
 }
+
+export const getUserByEmail = async (email: string) => {
+  const client = createAuthenticatedDirectusClient(DIRECTUS_ADMIN_TOKEN);
+  const res = await client.request(
+    readUsers({
+      fields: ["id"],
+      filter: { email: { _eq: email } },
+      limit: 1,
+    }),
+  );
+  return res.length > 0;
+};

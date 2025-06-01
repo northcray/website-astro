@@ -15,6 +15,7 @@ import {
   getGroups,
   getEvents,
 } from "@lib/directus/queries";
+import { loggedInPath } from "../constants";
 
 const posts = await getPosts("newsmail");
 const articles = await getArticles();
@@ -58,7 +59,7 @@ const mainCards = [
   {
     heading: "Membership",
     message: "Find our about our meetings, how to join and get involved.",
-    href: "/association/membership",
+    href: loggedInPath,
   },
 ];
 ---

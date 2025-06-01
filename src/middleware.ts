@@ -1,12 +1,13 @@
 import type { MiddlewareHandler } from "astro";
 import { getCurrentUser } from "./lib/auth";
+import { loggedInPath } from "./constants.ts";
 
 export const onRequest: MiddlewareHandler = async (
   { cookies, url, redirect },
   next,
 ) => {
   // Define protected routes
-  const protectedRoutes = ["/account/dashboard"];
+  const protectedRoutes = [loggedInPath];
   const isProtectedRoute = protectedRoutes.some((route) =>
     url.pathname.startsWith(route),
   );
@@ -15,7 +16,7 @@ export const onRequest: MiddlewareHandler = async (
     const user = await getCurrentUser(cookies);
 
     if (!user) {
-      return redirect("/login");
+      return redirect("/account/identify");
     }
   }
 
