@@ -1,8 +1,22 @@
 ---
-import Todo from "@ui/Todo.astro";
 import MainLayout from "@layouts/MainLayout.astro";
+import Section from "../../components/ui/Section.astro";
+import Container from "../../components/ui/Container.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
 ---
 
 <MainLayout>
-  <Todo />
+  <PageHeader
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Area", href: "/area" },
+      { label: "Streets", href: "/area/streets", active: true },
+    ]}
+  />
+  <Container>
+    <Section>
+      <ul></ul>
+    </Section>
+    <Section />
+  </Container>
 </MainLayout>

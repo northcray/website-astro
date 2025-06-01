@@ -6,12 +6,13 @@ import MainLayout from "@layouts/MainLayout.astro";
 import PageHeader from "@ui/PageHeader.astro";
 import Container from "@ui/Container.astro";
 import Markdown from "@ui/Markdown.astro";
-import directus from "@lib/directus";
+import { createDirectusClient } from "@lib/directus";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 import { readItems } from "@directus/sdk";
 
 export async function getStaticPaths() {
+  const directus = createDirectusClient();
   const articles = await directus.request(
     readItems("articles", {
       fields: [

@@ -1,4 +1,8 @@
-/** * Generated TypeScript types for Directus Schema * Generated on: 2025-05-30T08:30:11.411Z */
+import type { DirectusUser as DU } from "@directus/sdk";
+
+export type DirectusUser = DU;
+
+/** * Generated TypeScript types for Directus Schema * Generated on: 2025-06-01T12:15:37.563Z */
 export interface Address {
   id: string;
   uprn: string;
@@ -273,36 +277,6 @@ export interface UserProfilesAddress {
   addresses_uprn: string;
 }
 
-export interface DirectusUser {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  location: string;
-  title: string;
-  description: string;
-  tags: string;
-  avatar: string;
-  language: string;
-  tfa_secret: boolean;
-  status: string;
-  role: string;
-  token: string;
-  last_access: string;
-  last_page: string;
-  provider: string;
-  external_identifier: string;
-  auth_data: string;
-  email_notifications: boolean;
-  appearance: string;
-  theme_dark: string;
-  theme_light: string;
-  theme_light_overrides: string;
-  theme_dark_overrides: string;
-  policies: string;
-}
-
 export interface DirectusFile {
   id: string;
   storage: string;
@@ -351,7 +325,41 @@ export interface DirectusRole {
   policies: string;
 }
 
-export interface ApiCollections {
+export interface DirectusSchema {
+  addresses: Address[];
+  area: Area;
+  articles: Article[];
+  articles_blocks: ArticlesBlock[];
+  articles_businesses: ArticlesBusiness[];
+  articles_topics: ArticlesTopic[];
+  association: Association;
+  block_hero: BlockHero[];
+  blocks: Block[];
+  blocks_content: BlocksContent[];
+  blocks_gallery: BlocksGallery[];
+  blocks_gallery_files: BlocksGalleryFile[];
+  businesses: Business[];
+  committee: Committee[];
+  events: Event[];
+  groups: Group[];
+  page_feedback: PageFeedback[];
+  pages: Page[];
+  pages_blocks: PagesBlock[];
+  payments: Payment[];
+  posts: Post[];
+  posts_files: PostsFile[];
+  site_settings: SiteSettings;
+  site_updates: SiteUpdate[];
+  topics: Topic[];
+  user_profiles: UserProfile[];
+  user_profiles_addresses: UserProfilesAddress[];
+  directus_users: DirectusUser[];
+  directus_files: DirectusFile[];
+  directus_folders: DirectusFolder[];
+  directus_roles: DirectusRole[];
+}
+
+export interface DirectusSchema {
   addresses: Address[];
   area: Area;
   articles: Article[];

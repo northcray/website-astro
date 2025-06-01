@@ -1,7 +1,9 @@
 export const prerender = false; // Not needed in 'server' mode
 import type { APIRoute } from "astro";
-import directus from "@lib/directus";
+import { createDirectusClient } from "@lib/directus";
 import { createItem } from "@directus/sdk";
+
+const directus = createDirectusClient();
 
 export const POST: APIRoute = async ({ request }) => {
   const data = await request.formData();

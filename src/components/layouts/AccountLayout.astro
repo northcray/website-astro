@@ -1,0 +1,34 @@
+---
+import "@styles/global.css";
+
+import Head from "@ui/Head.astro";
+import SiteHeader from "@ui/SiteHeader.astro";
+import SectionHeader from "../ui/SectionHeader.astro";
+import Container from "../ui/Container.astro";
+import Section from "../ui/Section.astro";
+
+export interface Props {
+  header: string;
+}
+
+const { header } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <Head />
+  </head>
+  <body>
+    <div id="vtop" class="flex flex-col min-h-screen">
+      <SiteHeader isOpen />
+      <main class="bg2 grow">
+        <Container>
+          <Section>
+            <SectionHeader>{header}</SectionHeader>
+            <slot />
+          </Section>
+        </Container>
+      </main>
+    </div>
+  </body>
+</html>
