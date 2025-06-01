@@ -8,24 +8,25 @@ interface Props {
 const { isOpen } = Astro.props;
 ---
 
-<header class="bg1">
+<header class:list={[isOpen ? "bg2" : "bg1"]}>
   <div class="bg-sky-900 dark:bg-cinder-800 relative">
     <Container classes="text-white">
       <div class="justify-between items-center flex gap-4">
         <a
-          class="text-sm font-medium opacity-80 uppercase nc-focus"
+          class:list={[
+            "text-sm font-medium opacity-80 uppercase",
+            isOpen ? "text-white" : "",
+          ]}
           href="/"
           title="North Cray Residents Association">NCRA</a
         >
 
-        <div class="gap-2 hidden md:flex">
+        <div class="gap-2 flex">
           <a
             href="/account/identify"
             class:list={[
               "py-1 px-3",
-              isOpen
-                ? "bg-blue-50 text-black"
-                : "hover:bg-blue-50 hover:text-black nc-focus",
+              isOpen ? "bg2" : "hover:bg-blue-50 hover:text-black",
             ]}
           >
             Account</a
@@ -33,25 +34,29 @@ const { isOpen } = Astro.props;
         </div>
       </div>
     </Container>
-    <div class="bg-blue-50 text-black">
-      <slot />
-    </div>
-  </div>
-  <Container
-    classes="justify-between items-center sm:flex gap-4 my-2 md:my-8 hidden"
-  >
-    <a
-      href="/"
-      class="no-underline px-4 -mx-4 gap-3 focus:bg-yellow-300 focus:text-black"
-    >
-      <div
-        class="text-lg md:text-2xl flex gap-2 justify-center items-center uppercase"
-      >
-        <div class="leading-none">
-          <div class="font-semibold">North Cray</div>
-          <div class="font-normal">Residents Association</div>
+    {
+      isOpen && (
+        <div class="bg2 flex-grow">
+          <slot />
         </div>
-      </div>
-    </a>
-  </Container>
+      )
+    }
+  </div>
+  {
+    !isOpen && (
+      <Container classes="justify-between items-center sm:flex gap-4 my-2 md:my-8 hidden">
+        <a
+          href="/"
+          class="no-underline px-4 -mx-4 gap-3 focus:bg-yellow-300 focus:text-black"
+        >
+          <div class="text-lg md:text-2xl flex gap-2 justify-center items-center uppercase">
+            <div class="leading-none">
+              <div class="font-semibold">North Cray</div>
+              <div class="font-normal">Residents Association</div>
+            </div>
+          </div>
+        </a>
+      </Container>
+    )
+  }
 </header>

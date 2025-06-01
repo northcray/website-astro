@@ -1,8 +1,14 @@
 ---
-import Footer from "@ui/Footer.astro";
 import Head from "@ui/Head.astro";
 import SiteHeader from "@ui/SiteHeader.astro";
 import "@styles/global.css";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+export interface Props {
+  header: string;
+}
+
+const { header } = Astro.props;
 ---
 
 <html lang="en" data-mode="light">
@@ -11,10 +17,13 @@ import "@styles/global.css";
   </head>
   <body>
     <div id="vtop" class="flex flex-col min-h-screen">
-      <SiteHeader isOpen>
-        <slot />
-      </SiteHeader>
-      <Footer />
+      <SiteHeader isOpen />
+      <main class="bg2 grow">
+        <div class="max-w-lg mx-auto px-2 py-16">
+          <SectionHeader>{header}</SectionHeader>
+          <slot />
+        </div>
+      </main>
     </div>
   </body>
 </html>

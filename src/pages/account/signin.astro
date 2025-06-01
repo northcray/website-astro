@@ -1,10 +1,6 @@
 ---
-import { createDirectusClient } from "@lib/directus";
 export const prerender = false;
 import AccountLayout from "@layouts/AccountLayout.astro";
-import Container from "@ui/Container.astro";
-import Section from "@ui/Section.astro";
-import SectionHeader from "@ui/SectionHeader.astro";
 
 import { getCurrentUser } from "@lib/auth";
 
@@ -39,33 +35,27 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<AccountLayout>
-  <Container>
-    <Section>
-      <SectionHeader>Sign In</SectionHeader>
-      <form class="flex flex-col gap-2" method="post">
-        <label class="label" for="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          class="input"
-          placeholder="someone@example.com"
-          autocomplete="email"
-        />
-        <label class="label" for="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          class="input"
-          autocomplete="current-password"
-        />
-        <button class="mt-4 button sm:max-w-fit" type="submit">Next</button>
-      </form>
-    </Section>
-    <Section />
-  </Container>
+<AccountLayout header="Sign In">
+  <form class="flex flex-col gap-2" method="POST">
+    <label class="label" for="email">Email</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      required
+      class="input"
+      placeholder="someone@example.com"
+      autocomplete="email"
+    />
+    <label class="label" for="password">Password</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      required
+      class="input"
+      autocomplete="current-password"
+    />
+    <button class="mt-4 button sm:max-w-fit" type="submit">Next</button>
+  </form>
 </AccountLayout>

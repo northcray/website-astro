@@ -2,14 +2,15 @@
 import { readItems } from "@directus/sdk";
 import Container from "./Container.astro";
 import { createDirectusClient } from "@lib/directus";
+import type { SiteSettings } from "@lib/directus/schema";
 
 const directus = createDirectusClient();
 
-const { nav_items } = await directus.request(
-  readItems("site_settings", {
+const { nav_items } = (await directus.request(
+  readItems("site_settings" as any, {
     fields: ["nav_items"],
   }),
-);
+)) as unknown as SiteSettings;
 
 const navItems: { href: string; label: string }[] = [
   { label: "Home", href: "/" },

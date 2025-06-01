@@ -1,7 +1,14 @@
 ---
 import Container from "./Container.astro";
 import { ExternalLink } from "@lucide/astro";
-import PageFeedbackForm from "./PageFeedbackForm.astro";
+import PageFeedbackSection from "./PageFeedbackSection.astro";
+
+export interface Props {
+  showLinks?: boolean;
+  showFeedback?: boolean;
+}
+
+const { showLinks = true, showFeedback = true } = Astro.props;
 
 const links = [
   {
@@ -83,41 +90,35 @@ const links = [
 ---
 
 <footer>
-  <div
-    class="py-3 bg-gray-50 dark:bg-cinder-700 border-solid border-0 border-t border-gray-200 dark:border-gray-800"
-  >
-    <Container>
-      <PageFeedbackForm />
-    </Container>
-  </div>
-  <div
-    class="py-6 bg-gray-100 dark:bg-cinder-600 border-solid border-0 border-t border-gray-200 dark:border-gray-800"
-  >
-    <Container classes="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-      {
-        links.map(({ title, items }) => (
-          <div>
-            <h5 class="m-0 mb-3">{title}</h5>
-            <ul class="list-none m-0 p-0 flex flex-col">
-              {items.map(({ label, href, newWindow }) => (
-                <li>
-                  <a
-                    href={href}
-                    target={newWindow ? "_blank" : undefined}
-                    rel={newWindow ? "noopener noreferrer" : undefined}
-                    class="block py-1.5 nc-link nc-focus"
-                  >
-                    {label}
-                    {newWindow && (
-                      <ExternalLink class="inline ml-1.5" size={16} />
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
-    </Container>
-  </div>
+  {showFeedback && <PageFeedbackSection />}
+  {
+    showLinks && (
+      <div class="py-6 bg-gray-100 dark:bg-cinder-600 border-solid border-0 border-t border-gray-200 dark:border-gray-800">
+        <Container classes="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+          {links.map(({ title, items }) => (
+            <div>
+              <h5 class="m-0 mb-3">{title}</h5>
+              <ul class="list-none m-0 p-0 flex flex-col">
+                {items.map(({ label, href, newWindow }) => (
+                  <li>
+                    <a
+                      href={href}
+                      target={newWindow ? "_blank" : undefined}
+                      rel={newWindow ? "noopener noreferrer" : undefined}
+                      class="block py-1.5 nc-link nc-focus"
+                    >
+                      {label}
+                      {newWindow && (
+                        <ExternalLink class="inline ml-1.5" size={16} />
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </Container>
+      </div>
+    )
+  }
 </footer>

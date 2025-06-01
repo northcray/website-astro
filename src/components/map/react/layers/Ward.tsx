@@ -1,8 +1,12 @@
-import { type LineLayer, Layer, Source } from "react-map-gl/maplibre";
+import {
+  Layer,
+  Source,
+  type LineLayerSpecification,
+} from "react-map-gl/maplibre";
 
 import data from "./ward.json";
 
-const layerStyle: LineLayer = {
+const layerStyle: LineLayerSpecification = {
   id: "ward",
   source: "ward-layer",
   type: "line",

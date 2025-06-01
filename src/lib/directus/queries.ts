@@ -1,5 +1,6 @@
 import { readItem, readItems } from "@directus/sdk";
 import { createDirectusClient } from ".";
+import type { Association } from "@lib/directus/schema.ts";
 
 const directus = createDirectusClient();
 
@@ -17,7 +18,7 @@ export const getArticles = async (topicSlug?: string) => {
   const status = { _eq: "published" };
   return await directus.request(
     readItems("articles", {
-      fields: ["id", "title", "image", "topic.*", "first_published_at"],
+      fields: ["id", "title", "image", "topic.*" as any, "first_published_at"],
       sort: ["-first_published_at"],
       filter: topicSlug ? { topic: { slug: { _eq: topicSlug } } } : { status },
       limit: 10,
@@ -68,21 +69,21 @@ export const getAllEvents = async () =>
     readItems("events", {
       fields: [
         "*",
-        "group.name",
-        "group.image",
-        "group.website",
-        "meeting_place.*",
+        "group.name" as any,
+        "group.image" as any,
+        "group.website" as any,
+        "meeting_place.*" as any,
       ],
       sort: ["start"],
     }),
   );
 
 export const getAssociation = async () =>
-  await directus.request(
-    readItem("association", "ncra", {
+  (await directus.request(
+    readItem("association" as any, "ncra", {
       fields: ["*"],
     }),
-  );
+  )) as Association;
 
 export const getCommittee = async () =>
   await directus.request(

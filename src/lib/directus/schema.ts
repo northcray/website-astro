@@ -1,3 +1,7 @@
+import type { DirectusUser as DU } from "@directus/sdk";
+
+export type DirectusUser = DU;
+
 /** * Generated TypeScript types for Directus Schema * Generated on: 2025-06-01T12:15:37.563Z */
 export interface Address {
   id: string;
@@ -271,36 +275,6 @@ export interface UserProfilesAddress {
   id: number;
   user_profiles_id: number;
   addresses_uprn: string;
-}
-
-export interface DirectusUser {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  location: string;
-  title: string;
-  description: string;
-  tags: string;
-  avatar: string;
-  language: string;
-  tfa_secret: boolean;
-  status: string;
-  role: string;
-  token: string;
-  last_access: string;
-  last_page: string;
-  provider: string;
-  external_identifier: string;
-  auth_data: string;
-  email_notifications: boolean;
-  appearance: string;
-  theme_dark: string;
-  theme_light: string;
-  theme_light_overrides: string;
-  theme_dark_overrides: string;
-  policies: string;
 }
 
 export interface DirectusFile {

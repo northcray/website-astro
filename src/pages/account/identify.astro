@@ -1,45 +1,36 @@
 ---
 export const prerender = false;
 
+import { actions } from "astro:actions";
 import AccountLayout from "@layouts/AccountLayout.astro";
-import Container from "@ui/Container.astro";
-import Section from "@ui/Section.astro";
-import SectionHeader from "../../components/ui/SectionHeader.astro";
 
-if (Astro.request.method === "POST") {
-  try {
-    const data = await Astro.request.formData();
-    const email = data.get("email");
+const result = Astro.getActionResult(actions.identifyUser);
 
-    // find user by email
-    // if an account exists with this email, redirect to login with email prefilled
-    // if no account found, redirect to registration
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
+if (result && !result.error) {
+  const { userExists, email } = result.data;
+  const search = `email=${encodeURIComponent(email)}`;
+  if (userExists) {
+    return Astro.redirect(`/account/signin?${search}`); // url encode
+  } else {
+    return Astro.redirect(`/account/register?${search}`);
   }
 }
 ---
 
-<AccountLayout>
-  <Container>
-    <Section>
-      <SectionHeader>Please enter your email address</SectionHeader>
-      <form class="flex flex-col gap-2" method="POST">
-        <label class="label" for="email">Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          class="input"
-          placeholder="someone@example.com"
-          autocomplete="email"
-        />
-        <button class="mt-4 button sm:max-w-fit" type="submit">Next</button>
-      </form>
-    </Section>
-    <Section />
-  </Container>
+<AccountLayout header="Get Started">
+  <form class="form" method="POST" action={actions.identifyUser}>
+    <div class="field">
+      <label class="label" for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        class="input"
+        placeholder="someone@example.com"
+        autocomplete="email"
+      />
+    </div>
+    <button class="mt-4 button sm:max-w-fit" type="submit">Next</button>
+  </form>
 </AccountLayout>

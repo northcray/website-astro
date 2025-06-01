@@ -1,4 +1,4 @@
-import type { DirectusSchema, DirectusUser } from "./schema.ts";
+import type { DirectusSchema } from "./schema.ts";
 import {
   createDirectus,
   rest,

@@ -1,5 +1,5 @@
 import {
-  type FillLayer,
+  type FillLayerSpecification,
   Layer,
   Source,
   type SourceProps,
@@ -15,7 +15,7 @@ const sourceProps: SourceProps = {
   tiles: [`pmtiles://${base}/cadastral_parcels.pmtiles/{z}/{x}/{y}/`],
 };
 
-const layerStyle: FillLayer = {
+const layerStyle: FillLayerSpecification = {
   id: "land-registry",
   source: "land-registry-layer",
   "source-layer": "cadastral_parcels",

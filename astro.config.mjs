@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://www.northcray.org",
 
-  output: "static",
+  output: "server", // Changed from "static" to "server"
   adapter: node({
     mode: "standalone",
   }),
@@ -27,6 +27,10 @@ export default defineConfig({
         access: "secret",
         url: true,
       }),
+      DIRECTUS_ADMIN_TOKEN: envField.string({
+        context: "server",
+        access: "secret",
+      }),
     },
   },
 
@@ -35,6 +39,7 @@ export default defineConfig({
   },
 
   experimental: {
+    // actions: true, // Removed as it's causing a config error
     fonts: [
       {
         provider: fontProviders.bunny(),
