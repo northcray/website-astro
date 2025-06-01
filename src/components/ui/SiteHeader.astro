@@ -1,16 +1,41 @@
 ---
 import Container from "./Container.astro";
+
+interface Props {
+  isOpen?: boolean;
+}
+
+const { isOpen } = Astro.props;
 ---
 
 <header class="bg1">
-  <div class="bg-sky-900 dark:bg-cinder-800 text-white relative">
-    <Container classes="py-1">
+  <div class="bg-sky-900 dark:bg-cinder-800 relative">
+    <Container classes="text-white">
       <div class="justify-between items-center flex gap-4">
-        <div class="text-sm font-medium opacity-80 uppercase">NCRA</div>
+        <a
+          class="text-sm font-medium opacity-80 uppercase nc-focus"
+          href="/"
+          title="North Cray Residents Association">NCRA</a
+        >
 
-        <div class="gap-2 hidden md:flex">This website is in development</div>
+        <div class="gap-2 hidden md:flex">
+          <a
+            href="/account/identify"
+            class:list={[
+              "py-1 px-3",
+              isOpen
+                ? "bg-blue-50 text-black"
+                : "hover:bg-blue-50 hover:text-black nc-focus",
+            ]}
+          >
+            Account</a
+          >
+        </div>
       </div>
     </Container>
+    <div class="bg-blue-50 text-black">
+      <slot />
+    </div>
   </div>
   <Container
     classes="justify-between items-center sm:flex gap-4 my-2 md:my-8 hidden"

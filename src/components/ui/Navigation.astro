@@ -1,7 +1,9 @@
 ---
 import { readItems } from "@directus/sdk";
 import Container from "./Container.astro";
-import directus from "@lib/directus";
+import { createDirectusClient } from "@lib/directus";
+
+const directus = createDirectusClient();
 
 const { nav_items } = await directus.request(
   readItems("site_settings", {

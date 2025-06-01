@@ -1,8 +1,52 @@
 ---
 import Todo from "@ui/Todo.astro";
 import MainLayout from "@layouts/MainLayout.astro";
+import Section from "../../components/ui/Section.astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import Container from "../../components/ui/Container.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
 ---
 
 <MainLayout>
-  <Todo />
+  <PageHeader
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Area", href: "/area" },
+      { label: "Streets", href: "/area/streets", active: true },
+    ]}
+  />
+  <Container>
+    <Section>
+      <ul>
+        <li>North Cray Road</li>
+        <li>
+          <ul>
+            <li>Maidstone Road</li>
+            <li>Whitney Walk</li>
+          </ul>
+        </li>
+        <li>Leafield Lane</li>
+        <li>Jaquets Court</li>
+        <li>St James Way</li>
+        <li>Ellenborough Road</li>
+        <li>Holt Close</li>
+        <li>High Beeches</li>
+        <li>The Grove</li>
+        <li>The Spinney</li>
+        <li>Vicarage Road</li>
+        <li>Stable Lane</li>
+        <li>Ruxley Close</li>
+        <li>Water Lane</li>
+        <li>Bunkers Hill</li>
+        <li>Cocksure Lane</li>
+        <li>Parsonage Lane</li>
+        <li>Gattons Way</li>
+        <li>Field View Close</li>
+        <li>Barton Road</li>
+        <li>Honeyden Road</li>
+        <li>Cornell Close</li>
+      </ul>
+    </Section>
+    <Section />
+  </Container>
 </MainLayout>

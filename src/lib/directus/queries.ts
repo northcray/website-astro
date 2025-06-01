@@ -1,5 +1,7 @@
 import { readItem, readItems } from "@directus/sdk";
-import directus from "./index";
+import { createDirectusClient } from ".";
+
+const directus = createDirectusClient();
 
 export const getTopic = async (topicSlug: string) => {
   return await directus.request(

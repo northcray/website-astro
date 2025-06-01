@@ -1,7 +1,6 @@
 ---
 import Footer from "@ui/Footer.astro";
 import Head from "@ui/Head.astro";
-import Navigation from "@ui/Navigation.astro";
 import SiteHeader from "@ui/SiteHeader.astro";
 import "@styles/global.css";
 ---
@@ -12,11 +11,9 @@ import "@styles/global.css";
   </head>
   <body>
     <div id="vtop" class="flex flex-col min-h-screen">
-      <SiteHeader />
-      <Navigation />
-      <main class="grow">
+      <SiteHeader isOpen>
         <slot />
-      </main>
+      </SiteHeader>
       <Footer />
     </div>
   </body>
