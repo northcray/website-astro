@@ -1,4 +1,5 @@
 export const prerender = false; // Not needed in 'server' mode
+
 import type { APIRoute } from "astro";
 import { createDirectusClient } from "@lib/directus";
 import { createItem } from "@directus/sdk";

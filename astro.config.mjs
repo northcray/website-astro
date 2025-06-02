@@ -9,6 +9,10 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: "https://www.northcray.org",
 
+  security: {
+    checkOrigin: false,
+  },
+
   output: "server", // Changed from "static" to "server"
   adapter: node({
     mode: "standalone",
