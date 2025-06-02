@@ -48,7 +48,7 @@ export const server = {
             first_name,
             last_name,
             verification_url: new URL(
-              "/accounts/email-verify",
+              "/account/email-verify",
               ctx.site,
             ).toString(),
           }),
