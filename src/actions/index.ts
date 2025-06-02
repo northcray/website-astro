@@ -47,7 +47,10 @@ export const server = {
           registerUser(email, password, {
             first_name,
             last_name,
-            verification_url: `${ctx.url.origin}/accounts/email-verify`,
+            verification_url: new URL(
+              "/accounts/email-verify",
+              ctx.site,
+            ).toString(),
           }),
         );
         return { success: true };
