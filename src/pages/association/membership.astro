@@ -1,7 +1,30 @@
 ---
+import Todo from "../../components/ui/Todo.astro";
+export const prerender = false;
 
+import MainLayout from "@layouts/MainLayout.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import Container from "@ui/Container.astro";
+import Section from "@ui/Section.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
 ---
 
-<form action="/api/auth/logout" method="POST">
-  <button type="submit">logout</button>
-</form>
+<MainLayout>
+  <PageHeader
+    title="Manage your membership"
+    subtitle="mail@eknowles.com"
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Association", href: "/association" },
+      { label: "Membership", href: "/association/membership", active: true },
+    ]}
+    tabs={[
+      { label: "Profile", href: "/association/membership/profile" },
+      { label: "Subscription", href: "/association/membership/subscription" },
+      { label: "Preferences", href: "/association/membership/preferences" },
+    ]}
+  />
+
+  <Todo />
+  <Section />
+</MainLayout>

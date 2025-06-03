@@ -6,6 +6,7 @@ import SiteHeader from "@ui/SiteHeader.astro";
 import SectionHeader from "../ui/SectionHeader.astro";
 import Container from "../ui/Container.astro";
 import Section from "../ui/Section.astro";
+import Footer from "../ui/Footer.astro";
 
 export interface Props {
   header: string;
@@ -19,6 +20,7 @@ const { header } = Astro.props;
     <Head />
   </head>
   <body>
+    <div class="fold-sentinel"></div>
     <div id="vtop" class="flex flex-col min-h-screen">
       <SiteHeader isOpen />
       <main class="bg2 grow">
@@ -27,8 +29,10 @@ const { header } = Astro.props;
             <SectionHeader>{header}</SectionHeader>
             <slot />
           </Section>
+          <Section />
         </Container>
       </main>
+      <Footer showFeedback={false} showLinks={false} />
     </div>
   </body>
 </html>

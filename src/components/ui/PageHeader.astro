@@ -24,10 +24,10 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
   {
     (title || subtitle) && (
       <Container>
-        <div class="m-0 py-3 md:py-6 my-4 md:my-8 relative">
-          {title && <h1 class="lg:text-7xl">{title}</h1>}
+        <div class="m-0 py-3 md:py-6 my-4 md:my-5 relative">
+          {title && <h1 class="lg:text-6xl">{title}</h1>}
           {subtitle && (
-            <div class="text-2xl lg:text-4xl nc-display opacity-70">
+            <div class="text-2xl lg:text-3xl nc-display opacity-70">
               {subtitle}
             </div>
           )}

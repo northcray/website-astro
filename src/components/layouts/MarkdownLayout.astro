@@ -1,0 +1,34 @@
+---
+import MainLayout from "./MainLayout.astro";
+
+import type { MarkdownLayoutProps } from "astro";
+import PageHeader from "../ui/PageHeader.astro";
+import Container from "../ui/Container.astro";
+import Section from "../ui/Section.astro";
+import Markdown from "../ui/Markdown.astro";
+
+type Props = MarkdownLayoutProps<{
+  // Define frontmatter props here
+  title: string;
+}>;
+
+// Now, `frontmatter`, `url`, and other Markdown layout properties
+// are accessible with type safety
+const { frontmatter, url, rawContent } = Astro.props;
+---
+
+<MainLayout>
+  <PageHeader
+    title={frontmatter.title}
+    tabs={[
+      { label: "Cookie Policy", href: "/cookie-policy" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+    ]}
+  />
+  <Container>
+    <Section>
+      <Markdown children={rawContent()} />
+    </Section>
+    <Section />
+  </Container>
+</MainLayout>

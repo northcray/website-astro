@@ -1,5 +1,6 @@
 ---
 import Container from "./Container.astro";
+import { loggedInPath } from "../../constants";
 
 interface Props {
   isOpen?: boolean;
@@ -8,7 +9,7 @@ interface Props {
 const { isOpen } = Astro.props;
 ---
 
-<header class:list={[isOpen ? "bg2" : "bg1"]}>
+<header id="top" class:list={[isOpen ? "bg2" : "bg1"]}>
   <div class="bg-sky-900 dark:bg-cinder-800 relative">
     <Container classes="text-white">
       <div class="justify-between items-center flex gap-4">
@@ -23,13 +24,13 @@ const { isOpen } = Astro.props;
 
         <div class="gap-2 flex">
           <a
-            href="/account/identify"
+            href={loggedInPath}
             class:list={[
-              "py-1 px-3",
+              "py-1 px-2",
               isOpen ? "bg2" : "hover:bg-blue-50 hover:text-black",
             ]}
           >
-            Account</a
+            My Account</a
           >
         </div>
       </div>
@@ -44,10 +45,10 @@ const { isOpen } = Astro.props;
   </div>
   {
     !isOpen && (
-      <Container classes="justify-between items-center sm:flex gap-4 my-2 md:my-8 hidden">
+      <Container classes="justify-between items-center sm:flex gap-4 hidden">
         <a
           href="/"
-          class="no-underline px-4 -mx-4 gap-3 focus:bg-yellow-300 focus:text-black"
+          class="no-underline px-4 -mx-4 gap-3 py-2 md:py-8 bg1 focus:bg-yellow-300 focus:text-black"
         >
           <div class="text-lg md:text-2xl flex gap-2 justify-center items-center uppercase">
             <div class="leading-none">
