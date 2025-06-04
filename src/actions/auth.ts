@@ -3,7 +3,7 @@ import { TURNSTILE_SECRET_KEY } from "astro:env/server";
 import { z } from "astro:schema";
 import { createDirectusClient } from "@lib/directus";
 import { passwordRequest, registerUser } from "@directus/sdk";
-import { getUserByEmail, logout, login } from "@lib/auth.ts";
+import { logout, login } from "@lib/auth.ts";
 import { loggedInPath } from "../constants.ts";
 const directus = createDirectusClient();
 

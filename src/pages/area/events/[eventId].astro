@@ -1,16 +1,16 @@
 ---
 export const prerender = true;
 import { ExternalLink } from "@lucide/astro";
-import { getAllEvents } from "../../../lib/directus/queries";
+import { getAllEvents } from "@lib/directus/queries";
 import { getImageSrc } from "@lib/utils";
 import MainLayout from "@layouts/MainLayout.astro";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
-import PageHeader from "../../../components/ui/PageHeader.astro";
-import Container from "../../../components/ui/Container.astro";
-import Section from "../../../components/ui/Section.astro";
-import Markdown from "../../../components/ui/Markdown.astro";
-import SectionHeader from "../../../components/ui/SectionHeader.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import Container from "@ui/Container.astro";
+import Section from "@ui/Section.astro";
+import Markdown from "@ui/Markdown.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
 
 export async function getStaticPaths() {
   const events = await getAllEvents();
