@@ -39,10 +39,6 @@ export default defineConfig({
         access: "secret",
         url: true,
       }),
-      DIRECTUS_ADMIN_TOKEN: envField.string({
-        context: "server",
-        access: "secret",
-      }),
     },
   },
 

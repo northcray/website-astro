@@ -49,16 +49,6 @@ export const auth = {
       return {};
     },
   }),
-  identifyUser: defineAction({
-    accept: "form",
-    input: z.object({
-      email: z.string().email(),
-    }),
-    handler: async ({ email }) => {
-      const userExists = await getUserByEmail(email);
-      return { userExists, email };
-    },
-  }),
   registerUser: defineAction({
     accept: "form",
     input: z
