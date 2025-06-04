@@ -41,3 +41,4 @@ jobs:
           build-args: |
             PUBLIC_DIRECTUS_URL=https://content.northcray.org
             INTERNAL_DIRECTUS_URL=https://content.northcray.org
+            PUBLIC_TURNSTILE_SITE_KEY=not-used
