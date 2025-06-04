@@ -1,5 +1,6 @@
 ---
 export const prerender = true;
+import { ExternalLink } from "@lucide/astro";
 
 import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 
@@ -38,25 +39,34 @@ const nav = groups.map((group) => ({
     <div class="col-span-3">
       {
         groups.map((group) => (
-          <Section>
-            <SectionHeader id={group.short_name}>
-              {group.name} ({group.short_name})
-            </SectionHeader>
-            <article class="flex gap-8 flex-col md:flex-row">
-              {group.image && (
-                <img
-                  alt={group.short_name}
-                  width={180}
-                  height="auto"
-                  src={`${PUBLIC_DIRECTUS_URL}/assets/${group.image}`}
-                />
-              )}
+          <Section class="flex gap-8 flex-col md:flex-row items-start">
+            <article>
+              <SectionHeader id={group.short_name}>
+                {group.name} ({group.short_name})
+              </SectionHeader>
               <div>
                 <Markdown children={group.description} />
                 {group.content && <Markdown children={group.content} />}
-                <a href={group.website}>{group.website}</a>
+                <a
+                  class="nc-link nc-focus"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  href={group.website}
+                >
+                  {new URL(group.website).hostname}
+                  <ExternalLink class="inline ml-1.5" size={16} />
+                </a>
               </div>
             </article>
+            {group.image && (
+              <img
+                alt={group.short_name}
+                width={180}
+                height="auto"
+                class="h-auto"
+                src={`${PUBLIC_DIRECTUS_URL}/assets/${group.image}`}
+              />
+            )}
           </Section>
         ))
       }

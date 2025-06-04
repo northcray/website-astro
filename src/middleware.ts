@@ -16,7 +16,7 @@ export const onRequest: MiddlewareHandler = async (
     const user = await getCurrentUser(cookies);
 
     if (!user) {
-      return redirect("/account/identify");
+      return redirect("/account/signin");
     }
   }
 

@@ -9,19 +9,27 @@ const token = searchParams.get("token");
 
 let message = "";
 
-if (token) {
-  const directus = createDirectusClient();
+let userNotice;
+const notices = {
+  sent: { text: "Email verification successful!", type: "success" },
+  unknown: { text: "An unknown error occurred.", type: "error" },
+  missing: { text: "No token provided for email verification.", type: "error" },
+};
 
+if (!token) {
+  userNotice = notices.missing;
+} else {
   try {
+    const directus = createDirectusClient();
     await directus.request(registerUserVerify(token));
-    message = "Email verification successful!";
+    userNotice = notices.sent;
   } catch (error) {
     console.error(error);
-    message = "An unknown error occurred during email verification.";
+    userNotice = notices.unknown;
   }
-} else {
-  message = "No token provided for email verification.";
 }
 ---
 
-<AccountLayout header="Email Verification">{message}</AccountLayout>
+<AccountLayout header="Email Verification"
+  >{userNotice && userNotice.text}</AccountLayout
+>

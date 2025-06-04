@@ -30,7 +30,7 @@ const headings: { [key: string]: { title: string; id: string } } = {
   },
 };
 
-const sidenameItems: { href: string; label: string }[] = Object.keys(
+const sideNavItems: { href: string; label: string }[] = Object.keys(
   headings,
 ).map((k) => ({
   href: `#${headings[k].id}`,
@@ -55,7 +55,7 @@ const committee = await getCommittee();
 
   <Container classes="mb-20 lg:grid grid-cols-4 gap-20">
     <aside class="relative">
-      <Sidenav items={sidenameItems} />
+      <Sidenav items={sideNavItems} />
     </aside>
 
     <div class="col-span-3">

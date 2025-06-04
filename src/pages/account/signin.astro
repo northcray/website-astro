@@ -1,11 +1,11 @@
 ---
-import SectionHeader from "../../components/ui/SectionHeader.astro";
 export const prerender = false;
-import Alert from "../../components/ui/Alert.astro";
-import { loggedInPath } from "../../constants";
-import AccountLayout from "@layouts/AccountLayout.astro";
+import { actions } from "astro:actions";
 
+import Alert from "@ui/Alert.astro";
+import AccountLayout from "@layouts/AccountLayout.astro";
 import { getCurrentUser } from "@lib/auth";
+import { loggedInPath } from "../../constants";
 
 const user = await getCurrentUser(Astro.cookies);
 
@@ -13,34 +13,26 @@ if (user) {
   return Astro.redirect(loggedInPath);
 }
 
-const errors = [];
-
 // get email from query parameters
 const url = new URL(Astro.request.url);
-const emailParam = url.searchParams.get("email");
+const emailParam = url.searchParams.get("email") || "";
 
 // Handle form submission
-if (Astro.request.method === "POST") {
-  const formData = await Astro.request.formData();
-  const email = formData.get("email")?.toString();
-  const password = formData.get("password")?.toString();
+const result = Astro.getActionResult(actions.auth.signin);
 
-  if (email && password) {
-    const { login } = await import("../../lib/auth.ts");
-    const user = await login(Astro.cookies, email, password);
+let errors: string[] = [];
+if (result && result.error) {
+  errors = [result.error.message];
+}
 
-    if (user) {
-      return Astro.redirect(loggedInPath);
-    } else {
-      errors.push("Invalid email or password. Please try again.");
-    }
-  }
+if (result?.data?.redirect && !result.error) {
+  return Astro.redirect(result.data.redirect);
 }
 ---
 
 <AccountLayout header="Sign in">
-  {errors.length > 0 && <Alert errors={errors} />}
-  <form class="form" method="POST">
+  {result?.error && <Alert errors={[result.error.message]} />}
+  <form class="form" method="POST" action={actions.auth.signin}>
     <div class="field">
       <label class="label" for="email">Email</label>
       <input
@@ -50,6 +42,7 @@ if (Astro.request.method === "POST") {
         required
         class="input"
         value={emailParam || ""}
+        autofocus={!emailParam ? "true" : undefined}
         placeholder="someone@example.com"
         autocomplete="email"
       />

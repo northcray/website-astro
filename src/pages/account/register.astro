@@ -8,7 +8,7 @@ import AccountLayout from "@layouts/AccountLayout.astro";
 const url = new URL(Astro.request.url);
 const emailParam = url.searchParams.get("email");
 
-const result = Astro.getActionResult(actions.identifyUser);
+const result = Astro.getActionResult(actions.auth.identifyUser);
 if (result && !result.error) {
   const { userExists, email } = result.data;
   if (userExists) {
@@ -18,7 +18,8 @@ if (result && !result.error) {
   }
 }
 
-const registerResult = Astro.getActionResult(actions.registerUser);
+const registerResult = Astro.getActionResult(actions.auth.registerUser);
+
 if (registerResult && registerResult.data?.success) {
   return Astro.redirect("/account/check-email");
 }
@@ -26,7 +27,7 @@ if (registerResult && registerResult.data?.success) {
 
 <AccountLayout header="Membership Form">
   {JSON.stringify(registerResult?.error, null, 2)}
-  <form class="form" method="POST" action={actions.registerUser}>
+  <form class="form" method="POST" action={actions.auth.registerUser}>
     <div class="flex flex-col md:flex-row gap-4">
       <div class="field">
         <label class="label" for="first_name">First Name</label>
@@ -104,6 +105,15 @@ if (registerResult && registerResult.data?.success) {
     <!--  <label class="label" for="address">Address</label>-->
     <!--  <select id="address" name="address" required class="input"></select>-->
     <!--</div>-->
+
+    <!--go away spammers-->
+
+    <div
+      class="cf-turnstile"
+      data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+    >
+    </div>
+
     <button class="mt-4 button sm:max-w-fit" type="submit">Continue</button>
   </form>
 

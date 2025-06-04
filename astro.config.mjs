@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://northcray.org",
+  site: import.meta.env.DEV ? "http://localhost:4321" : "https://northcray.org",
 
   security: {
     checkOrigin: false,
