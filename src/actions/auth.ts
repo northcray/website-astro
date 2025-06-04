@@ -1,6 +1,6 @@
 import { defineAction } from "astro:actions";
-import { TURNSTILE_SECRET_KEY } from "astro:env/server";
 import { z } from "astro:schema";
+import { verifyTurnstileToken } from "@lib/turnstile.ts";
 import { createDirectusClient } from "@lib/directus";
 import { passwordRequest, registerUser } from "@directus/sdk";
 import { logout, login } from "@lib/auth.ts";
@@ -75,29 +75,17 @@ export const auth = {
         "cf-turnstile-response": turnstileToken,
       } = input;
 
-      // Verify Turnstile
-      const turnstileResponse = await fetch(
-        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            secret: TURNSTILE_SECRET_KEY,
-            response: turnstileToken,
-          }),
-        },
+      console.log(`IP: ${ctx.clientAddress}`);
+
+      // Verify Turnstile token
+      const isValidToken = await verifyTurnstileToken(
+        turnstileToken,
+        ctx.clientAddress,
       );
 
-      const result = await turnstileResponse.json();
-
-      if (!result.success) {
-        throw new Error("Captcha verification failed");
+      if (!isValidToken) {
+        throw new Error("Verification failed. Please try again.");
       }
-
-      console.log(`IP: ${ctx.clientAddress}`);
-      throw new Error(`IP: ${ctx.clientAddress}`);
 
       try {
         await directus.request(
