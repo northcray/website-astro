@@ -1,4 +1,5 @@
 import { defineAction } from "astro:actions";
+import { TURNSTILE_SECRET_KEY } from "astro:env/server";
 import { z } from "astro:schema";
 import { createDirectusClient } from "@lib/directus";
 import { passwordRequest, registerUser } from "@directus/sdk";
@@ -93,7 +94,7 @@ export const auth = {
             "Content-Type": "application/x-www-form-urlencoded",
           },
           body: new URLSearchParams({
-            secret: import.meta.env.TURNSTILE_SECRET_KEY,
+            secret: TURNSTILE_SECRET_KEY,
             response: turnstileToken,
           }),
         },

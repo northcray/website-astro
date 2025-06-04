@@ -26,6 +26,14 @@ export default defineConfig({
         access: "public",
         url: true,
       }),
+      PUBLIC_TURNSTILE_SITE_KEY: envField.string({
+        context: "client",
+        access: "public",
+      }),
+      TURNSTILE_SECRET_KEY: envField.string({
+        context: "server",
+        access: "secret",
+      }),
       INTERNAL_DIRECTUS_URL: envField.string({
         context: "server",
         access: "secret",

@@ -3,6 +3,7 @@ export const prerender = false;
 
 import { actions } from "astro:actions";
 import AccountLayout from "@layouts/AccountLayout.astro";
+import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
 
 // get email from query parameters
 const url = new URL(Astro.request.url);
@@ -108,11 +109,7 @@ if (registerResult && registerResult.data?.success) {
 
     <!--go away spammers-->
 
-    <div
-      class="cf-turnstile"
-      data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
-    >
-    </div>
+    <div class="cf-turnstile" data-sitekey={PUBLIC_TURNSTILE_SITE_KEY}></div>
 
     <button class="mt-4 button sm:max-w-fit" type="submit">Continue</button>
   </form>
