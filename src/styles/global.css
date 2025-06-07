@@ -169,6 +169,10 @@ html {
     @apply flex flex-col gap-2 w-full;
   }
 
+  .field-error {
+    @apply text-base text-red-500 dark:text-red-400;
+  }
+
   .label {
     @apply text-lg;
   }
@@ -176,6 +180,10 @@ html {
   .input {
     @apply bg-white dark:bg-cinder-600 appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 rounded-none border-2 border-solid border-cinder-600 dark:border-sky-200;
     @apply max-w-full;
+  }
+
+  .input-error {
+    @apply border-red-400 dark:border-red-400;
   }
 
   .input[disabled] {

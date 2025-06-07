@@ -1,0 +1,55 @@
+---
+export interface Props {
+  label: string;
+  name: string;
+  autocomplete?: string | undefined;
+  placeholder?: string | undefined;
+  required?: boolean;
+  autofocus?: boolean;
+  type: "text" | "password" | "email" | "tel" | "number";
+  errors?: Record<string, string[]>;
+}
+
+const {
+  label,
+  name,
+  errors,
+  type,
+  required = false,
+  autofocus = false,
+  placeholder,
+  autocomplete,
+} = Astro.props;
+
+const errorId = `${name}-error`;
+import { TriangleAlert } from "@lucide/astro";
+const hasError = errors && errors[name];
+---
+
+<div class="field">
+  <label class="label" for={name}>{label}</label>
+  <input
+    id={name}
+    name={name}
+    type={type}
+    required={required}
+    autofocus={autofocus}
+    transition:persist
+    class:list={["input", hasError ? "input-error" : ""]}
+    placeholder={placeholder}
+    autocomplete={autocomplete}
+    aria-describedby={errorId}
+  />
+  {
+    hasError && (
+      <ul id={errorId} class="field-error">
+        {errors[name].map((error) => (
+          <li class="flex gap-1.5 items-center">
+            <TriangleAlert size={18} />
+            <span>{error}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>

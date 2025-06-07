@@ -61,7 +61,7 @@ export async function loginWithDirectus(
 
     return { user: null, tokens: null };
   } catch (error) {
-    console.error("Login failed:", error);
+    // console.error("Login failed:", error);
     return { user: null, tokens: null };
   }
 }
@@ -91,7 +91,7 @@ export async function refreshDirectusToken(
 
     return null;
   } catch (error) {
-    console.error("Token refresh failed:", error);
+    // console.error("Token refresh failed:", error);
     return null;
   }
 }
@@ -102,15 +102,13 @@ export async function getCurrentDirectusUser(token: string) {
     const directus = createAuthenticatedDirectusClient(token);
 
     // Use proper SDK method for getting current user
-    const user = await directus.request(
+    return await directus.request(
       readMe({
         fields: ["id", "first_name", "last_name", "email", "role", "avatar"],
       }),
     );
-
-    return user;
   } catch (error) {
-    console.error("Failed to get current user:", error);
+    // console.error("Failed to get current user:", error);
     return null;
   }
 }

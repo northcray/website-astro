@@ -9,48 +9,10 @@ export interface Props {
 const { siteKey, theme = "auto", size = "normal" } = Astro.props;
 ---
 
-<div id="turnstile-widget"></div>
+<div class="cf-turnstile" data-sitekey={siteKey}></div>
 
-<script is:inline define:vars={{ siteKey, theme, size }}>
-  let widgetId;
-
-  // Function to render Turnstile
-  function renderTurnstile() {
-    if (window.turnstile && !widgetId) {
-      widgetId = window.turnstile.render("#turnstile-widget", {
-        sitekey: siteKey,
-        theme: theme,
-        size: size,
-        callback: function (token) {
-          console.log("Turnstile verification completed");
-        },
-        "error-callback": function () {
-          console.error("Turnstile verification failed");
-        },
-        "expired-callback": function () {
-          console.warn("Turnstile token expired");
-        },
-      });
-    }
-  }
-
-  // Load Turnstile script if not already loaded
-  if (!document.querySelector('script[src*="turnstile"]')) {
-    const script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-    script.onload = renderTurnstile;
-  } else {
-    // Script already loaded, render immediately
-    renderTurnstile();
-  }
-
-  // Reset widget on page navigation for SPA-like behavior
-  document.addEventListener("astro:page-load", () => {
-    if (window.turnstile && widgetId) {
-      window.turnstile.reset(widgetId);
-    }
-  });
-</script>
+<script
+  is:inline
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  defer
+  async></script>

@@ -3,9 +3,11 @@ import { getCurrentUser } from "./lib/auth";
 import { loggedInPath } from "./constants.ts";
 
 export const onRequest: MiddlewareHandler = async (
-  { cookies, url, redirect },
+  { cookies, url, redirect, isPrerendered },
   next,
 ) => {
+  if (isPrerendered) return next();
+
   // Define protected routes
   const protectedRoutes = [loggedInPath];
   const isProtectedRoute = protectedRoutes.some((route) =>

@@ -22,7 +22,7 @@ export async function verifyTurnstileToken(
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: formData,
+        body: formData.toString(),
       },
     );
 
