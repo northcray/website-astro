@@ -12,7 +12,7 @@ import { ExternalLink } from "@lucide/astro";
 import Sidenav from "../../components/ui/Sidenav.astro";
 
 const nav: { href: string; label: string }[] = [
-  { href: `#details`, label: "Details" },
+  { href: `#details`, label: "Personal Details" },
   { href: `#subscription`, label: "Subscription" },
   { href: `#contact`, label: "Contact Preferences" },
 ];
@@ -36,7 +36,18 @@ const nav: { href: string; label: string }[] = [
 
     <div class="col-span-3">
       <Section>
-        <SectionHeader id="details">Details</SectionHeader>
+        <SectionHeader id="details">Personal Details</SectionHeader>
+        <div class="my-10">
+          <div class="grid grid-cols-6 text-lg border-t border-gray-100 py-1">
+            <div class="flex col-span-1 font-bold opacity-70">Name</div>
+            <div class="flex col-span-4">Edward Knowles</div>
+            <div class="flex col-span-1 justify-end">
+              <span class="nc-link nc-focus underline text-blue-500 font-bold"
+                >Edit</span
+              >
+            </div>
+          </div>
+        </div>
         <p>
           Your personal information is private. We use this information to
           validate billing details, send you annual newsletters and special
@@ -48,13 +59,6 @@ const nav: { href: string; label: string }[] = [
       </Section>
       <Section>
         <SectionHeader id="subscription">Subscription</SectionHeader>
-        <script is:inline async src="https://js.stripe.com/v3/pricing-table.js"
-        ></script>
-        <stripe-pricing-table
-          pricing-table-id="prctbl_1R3mLvAU1zXBKkuzPteg86fT"
-          publishable-key="pk_test_51QOb5oAU1zXBKkuzbyoxNfzhVLUu50qx2KlS3Iz2ogKoMBZ2p18zhMzXD0ugJgiL6ZRrZOC5g0UhM9JJ1zizLrcu00VXf53MfO"
-        >
-        </stripe-pricing-table>
       </Section>
       <Section>
         <SectionHeader id="contact">Contact Preferences</SectionHeader>

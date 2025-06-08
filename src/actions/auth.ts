@@ -75,7 +75,10 @@ export const auth = {
         "cf-turnstile-response": turnstileToken,
       } = input;
 
-      console.log(`IP: ${ctx.clientAddress}`);
+      console.log({
+        ip: ctx.clientAddress,
+        headers: Object.fromEntries(ctx.request.headers.entries()),
+      });
 
       // Verify Turnstile token
       const isValidToken = await verifyTurnstileToken(

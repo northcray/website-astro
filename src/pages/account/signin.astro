@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 import { actions } from "astro:actions";
-
+import { loggedInPath } from "../../constants";
 import Alert from "@ui/Alert.astro";
 import AccountLayout from "@layouts/AccountLayout.astro";
 import { getCurrentUser } from "@lib/auth";
