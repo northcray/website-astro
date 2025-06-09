@@ -10,13 +10,33 @@ import {
   type DirectusClient,
   type RestClient,
 } from "@directus/sdk";
-import { INTERNAL_DIRECTUS_URL } from "astro:env/server";
+import {
+  INTERNAL_DIRECTUS_URL,
+  CLOUDFLARE_SERVICE_TOKEN_ID,
+  CLOUDFLARE_SERVICE_TOKEN_SECRET,
+} from "astro:env/server";
 import type { AuthResult, AuthTokens } from "@lib/directus/types.ts";
 
 // Create base Directus client
 export function createDirectusClient(): DirectusClient<DirectusSchema> &
   RestClient<DirectusSchema> {
-  return createDirectus<DirectusSchema>(INTERNAL_DIRECTUS_URL).with(rest());
+  return createDirectus<DirectusSchema>(INTERNAL_DIRECTUS_URL).with(
+    rest({
+      onRequest: (options) => {
+        // cloudflare has strong bot protection, this sdk client is used on build
+        // via CI where it looks like a bot, so we need to bypass it.
+        // one option would be to whitelist github actions IPs, but that will
+        // allow other bots to access the API via github.
+        // instead we use a service token that is used by the directus client
+        options.headers = {
+          ...options.headers,
+          "CF-Access-Client-Id": CLOUDFLARE_SERVICE_TOKEN_ID,
+          "CF-Access-Client-Secret": CLOUDFLARE_SERVICE_TOKEN_SECRET,
+        };
+        return options;
+      },
+    }),
+  );
 }
 
 // Create authenticated Directus client

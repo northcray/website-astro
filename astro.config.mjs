@@ -39,6 +39,14 @@ export default defineConfig({
         access: "secret",
         url: true,
       }),
+      CLOUDFLARE_SERVICE_TOKEN_ID: envField.string({
+        context: "server",
+        access: "secret",
+      }),
+      CLOUDFLARE_SERVICE_TOKEN_SECRET: envField.string({
+        context: "server",
+        access: "secret",
+      }),
     },
   },
 

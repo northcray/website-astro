@@ -1,0 +1,35 @@
+---
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import AccountLayout from "../components/layouts/AccountLayout.astro";
+
+const details = [
+  { label: "Name", value: "First Last", hasEdit: true },
+  { label: "Telephone", value: "07937 837 162", hasEdit: true },
+  { label: "Email", value: "first@last.com", hasEdit: true },
+  {
+    label: "Address",
+    value: "8 The Street, Town or City, POST CODE",
+    hasEdit: true,
+  },
+];
+---
+
+<AccountLayout header="Personal Details">
+  <div class="my-10 max-w-prose border-b border-gray-300">
+    {
+      details.map((d) => (
+        <div class="grid grid-cols-6 md:text-lg border-t border-gray-300 py-1">
+          <div class="flex col-span-1 font-bold opacity-70">{d.label}</div>
+          <div class="flex col-span-4">{d.value}</div>
+          {d.hasEdit && (
+            <div class="flex col-span-1 justify-end">
+              <span class="nc-link nc-focus underline text-blue-500 font-bold">
+                Edit
+              </span>
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </div>
+</AccountLayout>

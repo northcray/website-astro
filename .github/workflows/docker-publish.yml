@@ -37,8 +37,10 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
-            "TURNSTILE_SECRET_KEY=my_secret_turnstile_key"
+            "TURNSTILE_SECRET_KEY=overridden_in_production_needed_in_build"
+            "CLOUDFLARE_SERVICE_TOKEN_ID=${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}"
+            "CLOUDFLARE_SERVICE_TOKEN_SECRET=${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}"
           build-args: |
-            PUBLIC_DIRECTUS_URL=https://content.northcray.org
-            INTERNAL_DIRECTUS_URL=https://content.northcray.org
-            PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAA6RcNOrXww8ZlQJ
+            PUBLIC_DIRECTUS_URL=https://content.${{ secrets.NCRA_DOMAIN_NAME }}
+            INTERNAL_DIRECTUS_URL=https://content.${{ secrets.NCRA_DOMAIN_NAME }}
+            PUBLIC_TURNSTILE_SITE_KEY=${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
