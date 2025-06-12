@@ -100,12 +100,7 @@ const { article } = Astro.props as Props;
         <ul class="list-none my-10 p-0 m-0 flex gap-2">
           {article.tags?.map((tag: string) => (
             <li>
-              <a
-                href={`/articles/tags?tag=${tag}`}
-                class="nc-tag nc-link nc-focus"
-              >
-                {tag}
-              </a>
+              <a class="nc-tag nc-link nc-focus">{tag}</a>
             </li>
           ))}
         </ul>

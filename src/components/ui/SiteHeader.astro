@@ -1,12 +1,14 @@
 ---
 import Container from "./Container.astro";
 import { loggedInPath } from "../../constants";
+import { User, LogOut } from "@lucide/astro";
 
-interface Props {
+export interface Props {
   isOpen?: boolean;
+  isAuthed?: boolean;
 }
 
-const { isOpen } = Astro.props;
+const { isOpen, isAuthed } = Astro.props;
 ---
 
 <header id="top" class:list={[isOpen ? "bg2" : "bg1"]}>
@@ -26,12 +28,27 @@ const { isOpen } = Astro.props;
           <a
             href={loggedInPath}
             class:list={[
-              "py-1 px-2",
+              "py-1 px-2 flex items-center gap-2",
               isOpen ? "bg2" : "hover:bg-blue-50 hover:text-black",
             ]}
           >
-            My Account</a
+            <User />
+            <span>My Account</span></a
           >
+          {
+            isAuthed && (
+              <a
+                href={loggedInPath}
+                class:list={[
+                  "py-1 px-2 flex items-center gap-2",
+                  isOpen ? "bg2" : "hover:bg-blue-50 hover:text-black",
+                ]}
+              >
+                <LogOut />
+                <span>Sign out</span>
+              </a>
+            )
+          }
         </div>
       </div>
     </Container>

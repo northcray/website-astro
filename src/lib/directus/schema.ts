@@ -1,7 +1,3 @@
-import type { DirectusUser as DU } from "@directus/sdk";
-
-export type DirectusUser = DU;
-
 /** * Generated TypeScript types for Directus Schema * Generated on: 2025-06-01T12:15:37.563Z */
 export interface Address {
   id: string;
@@ -15,7 +11,6 @@ export interface Address {
   town: string;
   postcode: string;
   ward: string;
-  user_profiles: number[] | UserProfile[];
   location: string;
   processed_at: "datetime";
 }
@@ -200,7 +195,6 @@ export interface PagesBlock {
 export interface Payment {
   id: string;
   received: "datetime";
-  related_user: number | UserProfile;
   amount: number;
 }
 
@@ -258,23 +252,54 @@ export interface Topic {
   title: string;
 }
 
-export interface UserProfile {
-  id: number;
-  date_updated: "datetime";
-  user: string | DirectusUser;
-  address: string | Address;
+export interface UserDeletion {
+  id: string;
+  date_created: "datetime";
+  user_id: string;
   stripe_customer_id: string;
-  stripe_subscription_id: string;
-  phone: string;
-  contact_preferences: Record<string, unknown>;
   mailerlite_subscriber_id: string;
-  is_member: boolean;
+  mailerlite_deleted_at: "datetime";
+  stripe_deleted_at: "datetime";
+  directus_deleted_at: "datetime";
+  status: string;
+  address: string | Address;
 }
 
-export interface UserProfilesAddress {
-  id: number;
-  user_profiles_id: number;
-  addresses_uprn: string;
+export interface DirectusUser {
+  id: string;
+  telephone: string;
+  address: string | Address;
+  stripe_customer_id: string;
+  subscription_active: boolean;
+  mailerlite_subscriber_id: string;
+  removal_requested: boolean;
+  removal_reason: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  location: string;
+  title: string;
+  description: string;
+  tags: string;
+  avatar: string;
+  language: string;
+  tfa_secret: boolean;
+  status: string;
+  role: string;
+  token: string;
+  last_access: string;
+  last_page: string;
+  provider: string;
+  external_identifier: string;
+  auth_data: string;
+  email_notifications: boolean;
+  appearance: string;
+  theme_dark: string;
+  theme_light: string;
+  theme_light_overrides: string;
+  theme_dark_overrides: string;
+  policies: string;
 }
 
 export interface DirectusFile {
@@ -351,8 +376,7 @@ export interface DirectusSchema {
   site_settings: SiteSettings;
   site_updates: SiteUpdate[];
   topics: Topic[];
-  user_profiles: UserProfile[];
-  user_profiles_addresses: UserProfilesAddress[];
+  user_deletions: UserDeletion[];
   directus_users: DirectusUser[];
   directus_files: DirectusFile[];
   directus_folders: DirectusFolder[];
@@ -385,8 +409,7 @@ export interface DirectusSchema {
   site_settings: SiteSettings;
   site_updates: SiteUpdate[];
   topics: Topic[];
-  user_profiles: UserProfile[];
-  user_profiles_addresses: UserProfilesAddress[];
+  user_deletions: UserDeletion[];
   directus_users: DirectusUser[];
   directus_files: DirectusFile[];
   directus_folders: DirectusFolder[];

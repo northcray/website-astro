@@ -3,12 +3,12 @@ import { getCurrentUser } from "./lib/auth";
 import { loggedInPath } from "./constants.ts";
 
 export const onRequest: MiddlewareHandler = async (
-  { cookies, url, redirect, isPrerendered },
+  { cookies, url, redirect, isPrerendered, locals },
   next,
 ) => {
   if (isPrerendered) return next();
 
-  // Define protected routes
+  // Define protected route
   const protectedRoutes = [loggedInPath];
   const isProtectedRoute = protectedRoutes.some((route) =>
     url.pathname.startsWith(route),
@@ -18,7 +18,13 @@ export const onRequest: MiddlewareHandler = async (
     const user = await getCurrentUser(cookies);
 
     if (!user) {
-      return redirect("/account/signin");
+      return redirect("/account/signin", 302);
+    }
+
+    locals.user = user;
+
+    if (!user.address) {
+      return redirect("/account/update-address", 302);
     }
   }
 

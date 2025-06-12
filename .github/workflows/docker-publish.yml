@@ -37,6 +37,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
+            "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}"
             "TURNSTILE_SECRET_KEY=overridden_in_production_needed_in_build"
             "CLOUDFLARE_SERVICE_TOKEN_ID=${{ secrets.CLOUDFLARE_SERVICE_TOKEN_ID }}"
             "CLOUDFLARE_SERVICE_TOKEN_SECRET=${{ secrets.CLOUDFLARE_SERVICE_TOKEN_SECRET }}"

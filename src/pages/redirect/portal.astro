@@ -1,0 +1,21 @@
+---
+import { actions, isActionError } from "astro:actions";
+import LoadingLayout from "@layouts/LoadingLayout.astro";
+
+const { data, error } = await Astro.callAction(
+  actions.stripe.createPortalSession,
+  {},
+);
+
+if (!error && data?.url) {
+  return Astro.redirect(data.url);
+}
+
+const actionError = isActionError(error) ? error.message : false;
+
+if (actionError) {
+  return Astro.redirect("/");
+}
+---
+
+<LoadingLayout />

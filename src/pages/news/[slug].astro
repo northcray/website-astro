@@ -72,9 +72,7 @@ const { post } = Astro.props as Props;
         <ul class="list-none my-10 p-0 m-0 flex gap-2">
           {post.topics?.map((topic: string) => (
             <li>
-              <a href={`/news?topic=${topic}`} class="nc-tag nc-link nc-focus">
-                {topic}
-              </a>
+              <a class="nc-tag nc-link nc-focus">{topic}</a>
             </li>
           ))}
         </ul>

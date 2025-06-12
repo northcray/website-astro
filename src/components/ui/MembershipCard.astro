@@ -1,0 +1,39 @@
+---
+export interface Props {
+  user: User;
+  animated?: boolean;
+}
+const { user, animated } = Astro.props;
+const isMember = true;
+---
+
+<div class="perspective-origin-center perspective-dramatic">
+  <div
+    class:list={[
+      { "from-sky-300 to-sky-800": isMember },
+      {
+        "shadow-2xl transition-transform hover:rotate-x-0 hover:rotate-y-0 md:rotate-x-1 md:-rotate-y-1":
+          animated,
+      },
+      "bg-linear-to-br/oklab overflow-clip shadow ease-in-out duration-500 mx-auto text-white text-shadow-sky-600 text-shadow-xs grid grid-rows-10 grid-cols-12 gap-0 m-4 rounded-2xl max-w-96 aspect-[3.3/2] flex border-sky-500 border-1 outline-dotted outline-white outline-1 -outline-offset-6",
+    ]}
+  >
+    <div class="col-span-8 col-start-2 row-start-2 text-xl">
+      <span>NCRA</span>
+      <br /> Membership Card
+    </div>
+    <div
+      class="opacity-40 font-thin col-span-10 col-start-2 row-start-2 text-xl text-right"
+    >
+      Est.1944
+    </div>
+    <div class="col-span-10 col-start-2 row-start-7 text-2xl">
+      {user.address.street || ""}
+    </div>
+    <div
+      class="font-mono tracking-widest opacity-50 col-span-10 col-start-2 row-start-9 text-base"
+    >
+      <span class="text-xs uppercase">{user.id}</span>
+    </div>
+  </div>
+</div>

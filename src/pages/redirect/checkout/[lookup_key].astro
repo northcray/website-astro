@@ -1,0 +1,14 @@
+---
+import { actions } from "astro:actions";
+
+const { data, error } = await Astro.callAction(
+  actions.stripe.createCheckoutSession,
+  { lookup_key: Astro.params.lookup_key },
+);
+
+if (!error && data?.url) {
+  return Astro.redirect(data.url);
+} else {
+  return Astro.redirect("/");
+}
+---

@@ -1,0 +1,11 @@
+---
+import LoadingLayout from "@layouts/LoadingLayout.astro";
+---
+
+<LoadingLayout />
+
+<script is:inline>
+  setTimeout(() => {
+    window.location.href = "/association/membership";
+  }, 1000);
+</script>

@@ -9,6 +9,7 @@ import {
   type AuthenticationData,
   type DirectusClient,
   type RestClient,
+  type DirectusError,
 } from "@directus/sdk";
 import {
   INTERNAL_DIRECTUS_URL,
@@ -52,11 +53,16 @@ export function createAuthenticatedDirectusClient(
 export async function loginWithDirectus(
   email: string,
   password: string,
+  otp?: string,
 ): Promise<AuthResult> {
   try {
     const directus = createDirectusClient().with(authentication("json"));
 
-    const authData: AuthenticationData = await directus.login(email, password);
+    const authData: AuthenticationData = await directus.login(
+      email,
+      password,
+      otp ? { otp } : undefined,
+    );
 
     if (authData.access_token && authData.refresh_token) {
       // Get user data using proper SDK method
@@ -79,10 +85,11 @@ export async function loginWithDirectus(
       };
     }
 
-    return { user: null, tokens: null };
+    return { user: null, tokens: null, otpError: false };
   } catch (error) {
-    // console.error("Login failed:", error);
-    return { user: null, tokens: null };
+    const directusError = error as DirectusError;
+    const otpError = directusError.errors[0].extensions.code === "INVALID_OTP";
+    return { user: null, tokens: null, otpError };
   }
 }
 
@@ -122,11 +129,29 @@ export async function getCurrentDirectusUser(token: string) {
     const directus = createAuthenticatedDirectusClient(token);
 
     // Use proper SDK method for getting current user
-    return await directus.request(
+    const res = await directus.request(
       readMe({
-        fields: ["id", "first_name", "last_name", "email", "role", "avatar"],
+        fields: [
+          "id",
+          "first_name",
+          "last_name",
+          "email",
+          "telephone",
+          "address.full_address",
+          "address.street",
+          "stripe_customer_id",
+          "mailerlite_subscriber_id",
+          "subscription_active",
+        ],
       }),
     );
+
+    if (!res.email) {
+      // console.warn("No email found for current user, returning null.");
+      return null;
+    }
+
+    return res;
   } catch (error) {
     // console.error("Failed to get current user:", error);
     return null;

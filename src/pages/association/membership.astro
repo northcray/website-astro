@@ -1,33 +1,67 @@
 ---
-import Todo from "../../components/ui/Todo.astro";
+import OpenBillingPortalButton from "@ui/OpenBillingPortalButton.astro";
 export const prerender = false;
 
 import MainLayout from "@layouts/MainLayout.astro";
 import PageHeader from "@ui/PageHeader.astro";
+import DataList from "@ui/DataList.astro";
 import Container from "@ui/Container.astro";
 import Section from "@ui/Section.astro";
 import SectionHeader from "@ui/SectionHeader.astro";
-import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
-import { ExternalLink } from "@lucide/astro";
-import Sidenav from "../../components/ui/Sidenav.astro";
+import Sidenav from "@ui/Sidenav.astro";
+import { getCurrentUser } from "@lib/auth";
+import MembershipCard from "@ui/MembershipCard.astro";
+import Price from "@ui/Price.astro";
+import { actions } from "astro:actions";
+
+const user = await getCurrentUser(Astro.cookies);
+
+if (!user) {
+  return Astro.redirect("/account/signin");
+}
+
+const checkout = Astro.getActionResult(actions.stripe.createCheckoutSession);
+
+if (checkout?.data?.redirect) {
+  return Astro.redirect(checkout.data.redirect);
+}
+
+const planHeading = user.subscription_active
+  ? `Manage Subscription`
+  : `Subscription`;
 
 const nav: { href: string; label: string }[] = [
+  { href: `#subscription`, label: planHeading },
   { href: `#details`, label: "Personal Details" },
-  { href: `#subscription`, label: "Subscription" },
   { href: `#contact`, label: "Contact Preferences" },
+  { href: `#delete`, label: "Delete Account" },
 ];
 ---
 
 <MainLayout>
   <PageHeader
-    title="Manage your membership"
-    subtitle="mail@eknowles.com"
+    title={`Hi ${user.first_name}`}
+    subtitle="Let's manage your membership"
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Association", href: "/association" },
       { label: "Membership", href: "/association/membership", active: true },
     ]}
   />
+
+  <Container classes="relative">
+    <div class="lg:absolute -bottom-15 right-10">
+      <MembershipCard
+        animated
+        user={user.subscription_active
+          ? user
+          : {
+              id: "6d74a89f-9a8f-46ad-9c78-4a4315094ba8",
+              address: { street: user.address.street },
+            }}
+      />
+    </div>
+  </Container>
 
   <Container classes="mb-20 lg:grid grid-cols-4 gap-20">
     <div class="relative">
@@ -36,32 +70,66 @@ const nav: { href: string; label: string }[] = [
 
     <div class="col-span-3">
       <Section>
-        <SectionHeader id="details">Personal Details</SectionHeader>
-        <div class="my-10">
-          <div class="grid grid-cols-6 text-lg border-t border-gray-100 py-1">
-            <div class="flex col-span-1 font-bold opacity-70">Name</div>
-            <div class="flex col-span-4">Edward Knowles</div>
-            <div class="flex col-span-1 justify-end">
-              <span class="nc-link nc-focus underline text-blue-500 font-bold"
-                >Edit</span
-              >
+        <SectionHeader id="subscription">{planHeading}</SectionHeader>
+        {
+          user.subscription_active ? (
+            <OpenBillingPortalButton />
+          ) : (
+            <div class="flex gap-4 mt-10 md:max-w-xs">
+              <Price
+                key="standard_annual_2025"
+                name="Standard"
+                amount="£2.50"
+                description="Membership to North Cray Residents Association (NCRA) includes access to historic archives, newsletters, mailing list and events."
+              />
             </div>
-          </div>
-        </div>
-        <p>
-          Your personal information is private. We use this information to
-          validate billing details, send you annual newsletters and special
-          correspondence. To learn more about this, please read our <a
-            href="/privacy-policy"
-            class="nc-link nc-focus">privacy policy</a
-          >.
-        </p>
+          )
+        }
       </Section>
       <Section>
-        <SectionHeader id="subscription">Subscription</SectionHeader>
+        <SectionHeader id="details">Personal Details</SectionHeader>
+        <DataList
+          details={[
+            { label: "Name", value: `${user.first_name} ${user.last_name}` },
+            { label: "Email", value: user.email || "" },
+            { label: "Telephone", value: user.telephone || "" },
+            {
+              label: "Address",
+              value: user.address.full_address || "",
+              action: {
+                label: "Edit",
+                href: "/account/update-address",
+              },
+            },
+          ]}
+        />
       </Section>
       <Section>
         <SectionHeader id="contact">Contact Preferences</SectionHeader>
+        <p>Coming soon...</p>
+      </Section>
+      <Section>
+        <SectionHeader id="delete">Delete Account</SectionHeader>
+
+        <p class="max-w-prose mb-4">
+          Under EU law you have the <a
+            href="https://gdpr.eu/right-to-be-forgotten"
+            class="nc-link nc-focus"
+            target="_blank"
+            rel="nofollow">right to be forgotten</a
+          >. We understand how important <a
+            href="/privacy-policy"
+            class="nc-link nc-focus">privacy</a
+          > is to our members and we take this responsibility very seriously.
+        </p>
+        <p class="max-w-prose mb-4">
+          We have made removing your data a simple process. When you are ready,
+          click the button below and follow the instructions. This can not be
+          undone, please ensure this is what you want.
+        </p>
+        <a href="/account/delete" class="button danger w-fit"
+          >I want to delete my account</a
+        >
       </Section>
     </div>
   </Container>

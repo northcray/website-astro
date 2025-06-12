@@ -47,6 +47,10 @@ export default defineConfig({
         context: "server",
         access: "secret",
       }),
+      STRIPE_SECRET_KEY: envField.string({
+        context: "server",
+        access: "secret",
+      }),
     },
   },
 

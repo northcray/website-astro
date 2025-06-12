@@ -1,0 +1,34 @@
+---
+export interface Props {
+  details: Array<{
+    label: string;
+    value: string;
+    action?: {
+      label: string;
+      href: string;
+    };
+  }>;
+}
+const { details = [] } = Astro.props;
+---
+
+<div class="my-10 w-fit border-b border-gray-200 dark:border-gray-800">
+  {
+    details.map((d) => (
+      <div class="grid gap-4 grid-cols-6 md:text-lg border-t border-gray-200 dark:border-gray-800 py-1">
+        <div class="flex col-span-1 font-bold opacity-70">{d.label}</div>
+        <div class="flex col-span-4">{d.value}</div>
+        {d.action && (
+          <div class="flex col-span-1 justify-end">
+            <a
+              href={d.action.href}
+              class="nc-link nc-focus underline text-blue-500 font-bold"
+            >
+              {d.action.label}
+            </a>
+          </div>
+        )}
+      </div>
+    ))
+  }
+</div>

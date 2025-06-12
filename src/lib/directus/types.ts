@@ -9,4 +9,5 @@ export interface AuthTokens {
 export interface AuthResult {
   user: DirectusUser | null;
   tokens: AuthTokens | null;
+  otpError: boolean;
 }

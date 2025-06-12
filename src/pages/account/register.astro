@@ -1,12 +1,12 @@
 ---
-import Field from "../../components/ui/form/Field.astro";
+import Field from "@ui/form/Field.astro";
 export const prerender = false;
 
 import { actions, isInputError } from "astro:actions";
 import AccountLayout from "@layouts/AccountLayout.astro";
 import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
 import TurnstileWidget from "@ui/TurnstileWidget.astro";
-import Alert from "../../components/ui/Alert.astro";
+import Alert from "@ui/Alert.astro";
 
 const result = Astro.getActionResult(actions.auth.registerUser);
 
@@ -90,7 +90,9 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
       >.
     </p>
 
-    <button class="mt-4 button sm:max-w-fit" type="submit">Continue</button>
+    <button class="button primary mt-4 sm:max-w-fit" type="submit"
+      >Continue</button
+    >
 
     {
       result?.error && (

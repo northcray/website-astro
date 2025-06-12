@@ -42,7 +42,7 @@ function processMarkdownHtml(html: string): string {
       .replace(/<strong>/g, '<strong class="font-bold">')
 
       // Paragraphs
-      .replace(/<p>/g, '<p class="block mb-4 text-justify">')
+      .replace(/<p>/g, '<p class="block mb-4">')
 
       // Lists
       .replace(/<ol>/g, '<ol class="pl-6 mb-4">')

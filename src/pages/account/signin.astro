@@ -19,18 +19,28 @@ const emailParam = url.searchParams.get("email") || "";
 // Handle form submission
 const result = Astro.getActionResult(actions.auth.signin);
 
-let errors: string[] = [];
-if (result && result.error) {
-  errors = [result.error.message];
+// success
+if (result?.data?.success && !result.error) {
+  return Astro.redirect(loggedInPath);
 }
 
-if (result?.data?.redirect && !result.error) {
-  return Astro.redirect(result.data.redirect);
+let errors: string[] = [];
+let otp = false;
+if (result && result?.error) {
+  switch (result.error.message) {
+    case "BAD_OTP":
+      errors.push("Invalid or missing one-time password (OTP).");
+      otp = true;
+      break;
+    case "BAD_CREDS":
+      errors.push("Invalid email or password. Please try again.");
+      break;
+  }
 }
 ---
 
 <AccountLayout header="Sign in">
-  {result?.error && <Alert errors={[result.error.message]} />}
+  {errors.length > 0 && <Alert errors={errors} />}
   <form class="form" method="POST" action={actions.auth.signin}>
     <div class="field">
       <label class="label" for="email">Email</label>
@@ -44,6 +54,7 @@ if (result?.data?.redirect && !result.error) {
         autofocus={!emailParam ? "true" : undefined}
         placeholder="someone@example.com"
         autocomplete="email"
+        transition:persist
       />
     </div>
     <div class="field">
@@ -56,10 +67,24 @@ if (result?.data?.redirect && !result.error) {
         class="input"
         autofocus={emailParam ? "true" : undefined}
         autocomplete="current-password"
+        transition:persist
       />
     </div>
 
-    <button class="mt-4 button sm:max-w-fit" type="submit">Sign in</button>
+    {
+      otp && (
+        <div class="field">
+          <label class="label" for="otp">
+            One-time password (OTP)
+          </label>
+          <input id="otp" name="otp" type="text" required class="input" />
+        </div>
+      )
+    }
+
+    <button class="button primary mt-4 sm:max-w-fit" type="submit"
+      >Sign in</button
+    >
   </form>
   <h4 class="mt-10">New residents</h4>
   <ul class="my-2">

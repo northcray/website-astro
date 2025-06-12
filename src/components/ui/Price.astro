@@ -1,0 +1,34 @@
+---
+import MembershipCard from "./MembershipCard.astro";
+export interface Props {
+  key: string;
+  name: string;
+  amount: string;
+  description: string;
+}
+const { name, amount, description, key } = Astro.props;
+const href = `/redirect/checkout/${key}`;
+---
+
+<article
+  class="border-gray-300 border p-4 flex flex-col gap-4 w-full shadow-sm relative"
+>
+  <input type="hidden" name="lookup_key" value={key} />
+  <div class="text-xl">{name}</div>
+  <div class="scale-50 absolute top-0 -right-17 h-0">
+    <MembershipCard
+      user={{
+        id: "annual-ncra-membership",
+        address: { street: "Sample" },
+      }}
+    />
+  </div>
+  <div class="flex gap-2 items-center">
+    <div class="text-5xl">{amount}</div>
+    <div class="opacity-50 text-sm leading-4">per <br /> year</div>
+  </div>
+  <div class="text-sm opacity-50">
+    {description}
+  </div>
+  <a href={href} class="button primary w-full">Join</a>
+</article>

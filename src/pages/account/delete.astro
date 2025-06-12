@@ -1,0 +1,59 @@
+---
+export const prerender = false;
+
+import { actions, isInputError, isActionError } from "astro:actions";
+import Field from "@ui/form/Field.astro";
+
+import AccountLayout from "@layouts/AccountLayout.astro";
+import Alert from "@ui/Alert.astro";
+import { logout } from "@/lib/auth";
+
+const result = Astro.getActionResult(actions.auth.requestRemoval);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+const actionError = isActionError(result?.error) ? result.error.message : false;
+const actionSuccess = result?.data?.success;
+
+if (actionSuccess) {
+  logout(Astro.cookies);
+  return Astro.redirect("/account/deleting");
+}
+---
+
+<AccountLayout header="Delete your account">
+  <p class="max-w-prose leading-relaxed mb-8">
+    Thank you for being a member of our community. <br /> You are welcome back at
+    any time.
+  </p>
+
+  {actionError && <Alert errors={[actionError]} />}
+
+  <form class="form" method="POST" action={actions.auth.requestRemoval}>
+    <Field
+      name="last_name"
+      type="text"
+      label="Confirm your last name"
+      errors={inputErrors}
+      required
+      placeholder="Smith"
+    />
+    <Field
+      name="reason"
+      type="text"
+      label="Why are you deleting your account"
+      errors={inputErrors}
+      required
+      placeholder="I am moving from the area etc."
+    />
+    <div class="flex flex-col md:flex-row gap-4 mt-4 justify-start">
+      <a class="button search md:max-w-fit" href="/">Cancel</a>
+      <button class="button danger md:max-w-fit">Delete Account</button>
+    </div>
+  </form>
+  <h4 class="mt-10">I wish to keep my account</h4>
+  <ul class="my-2">
+    <li>
+      <a href="/" class="nc-link nc-focus text-lg">Return to safety</a>
+    </li>
+  </ul>
+</AccountLayout>

@@ -24,12 +24,20 @@ if (!token) {
     await directus.request(registerUserVerify(token));
     userNotice = notices.sent;
   } catch (error) {
-    console.error(error);
     userNotice = notices.unknown;
   }
 }
 ---
 
-<AccountLayout header="Email Verification"
-  >{userNotice && userNotice.text}</AccountLayout
->
+<AccountLayout header="Email Verification">
+  <p>{userNotice && userNotice.text}</p>
+
+  <h4 class="mt-10">I know my login</h4>
+  <ul class="my-2">
+    <li>
+      <a href="/account/signin" class="nc-link nc-focus text-lg"
+        >Sign in with email and password</a
+      >
+    </li>
+  </ul>
+</AccountLayout>

@@ -1,12 +1,12 @@
 import type { AstroCookies } from "astro";
 import type { AuthTokens } from "./directus/types";
-import type { DirectusUser } from "./directus/schema";
 import {
   loginWithDirectus,
   refreshDirectusToken,
   getCurrentDirectusUser,
   createAuthenticatedDirectusClient,
 } from "./directus";
+import { updateMe } from "@directus/sdk";
 
 const TOKEN_COOKIE = "directus_token";
 const REFRESH_TOKEN_COOKIE = "directus_refresh_token";
@@ -26,7 +26,7 @@ export function setAuthCookies(
 ): void {
   cookies.set(TOKEN_COOKIE, tokens.access_token, {
     ...cookieOptions,
-    maxAge: 60 * 60, // 1 hour
+    maxAge: 60 * 60 * 24, // 1 day
   });
 
   cookies.set(REFRESH_TOKEN_COOKIE, tokens.refresh_token, {
@@ -57,15 +57,20 @@ export async function login(
   cookies: AstroCookies,
   email: string,
   password: string,
-): Promise<DirectusUser | null> {
-  const result = await loginWithDirectus(email, password);
+  otp?: string,
+) {
+  const result = await loginWithDirectus(email, password, otp);
 
   if (result.tokens && result.user) {
     setAuthCookies(cookies, result.tokens);
     return result.user;
   }
 
-  return null;
+  if (result.otpError) {
+    throw new Error("BAD_OTP");
+  }
+
+  throw new Error("BAD_CREDS");
 }
 
 // Logout user
@@ -149,3 +154,13 @@ export async function makeAuthenticatedRequest<T>(
   clearAuthCookies(cookies);
   throw new Error("Authentication failed");
 }
+
+export const requestRemoval = async (cookies: AstroCookies, reason: string) =>
+  makeAuthenticatedRequest(cookies, async (client) =>
+    client.request(
+      updateMe({
+        removal_requested: true,
+        removal_reason: reason,
+      }),
+    ),
+  );

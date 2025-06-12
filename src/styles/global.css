@@ -108,22 +108,16 @@ html {
 
   ul.nc-page-tabs {
     @apply flex flex-col md:flex-row items-center md:items-start list-none p-0 m-0 -mx-4 -mb-6;
-    padding-bottom: 4px;
 
     li {
       @apply p-0;
 
-      &.active {
-        @apply border-b-2 border-yellow-300;
-        box-shadow: 0 4px currentColor;
-
-        a {
-          @apply text-current;
-        }
-      }
-
       a {
         @apply text-lg font-medium px-4 py-2 block no-underline!;
+      }
+
+      a.active {
+        @apply bg-white;
       }
     }
   }
@@ -178,8 +172,9 @@ html {
   }
 
   .input {
-    @apply bg-white dark:bg-cinder-600 appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 rounded-none border-2 border-solid border-cinder-600 dark:border-sky-200;
-    @apply max-w-full;
+    @apply bg-white  appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 border-2 border-solid border-cinder-600;
+    @apply dark:bg-cinder-500 dark:border-cinder-100;
+    @apply max-w-full rounded-xs;
   }
 
   .input-error {
@@ -191,18 +186,41 @@ html {
   }
 
   .input:focus {
-    @apply shadow-[inset_0_0_0_2px] shadow-cinder-600 outline-offset-2 outline-amber-300 outline outline-4;
-    @apply dark:shadow-sky-200;
+    @apply shadow-[inset_0_0_0_2px] outline-offset-2 outline-amber-300 outline outline-4;
+    @apply shadow-cinder-600 dark:shadow-sky-200;
   }
 
   .button {
-    @apply bg-blue-600 hover:bg-blue-700 whitespace-nowrap box-border text-white cursor-pointer inline-block text-base font-normal leading-tight relative text-center align-top w-full px-3 py-2 rounded-none border-2 border-solid border-transparent;
-    @apply dark:bg-blue-900 text-lg;
+    @apply shadow rounded outline-amber-300/0;
+    @apply outline-offset-2 outline outline-0 transition-all duration-100;
+    @apply text-lg justify-center items-center whitespace-nowrap box-border cursor-pointer inline-flex font-normal leading-tight relative text-center align-top w-full px-3 py-2;
+  }
+
+  .button.primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-900;
+    &:focus {
+      @apply shadow-blue-900 dark:shadow-sky-200;
+    }
+  }
+
+  .button.danger {
+    @apply bg-red-600 hover:bg-red-700 text-white dark:bg-red-900;
+    &:focus {
+      @apply shadow-red-900 dark:shadow-red-900;
+    }
+  }
+
+  .button.search {
+    @apply bg-gray-100 shadow-2xs text-gray-900 border-2 border-gray-400  hover:bg-gray-300;
+    @apply dark:text-gray-100 dark:bg-cinder-200 dark:hover:bg-cinder-100;
+  }
+
+  .button[disabled] {
+    @apply bg-gray-300 dark:bg-cinder-100 text-gray-600 dark:text-gray-400 cursor-not-allowed;
   }
 
   .button:focus {
-    @apply shadow-[inset_0_0_0_2px] shadow-cinder-600 outline-offset-2 outline-amber-300 outline outline-4;
-    @apply dark:shadow-sky-200;
+    @apply shadow-[inset_0_0_0_2px] outline-4 outline-amber-300;
   }
 
   .top-button {

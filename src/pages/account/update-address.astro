@@ -1,0 +1,102 @@
+---
+import Alert from "@ui/Alert.astro";
+export const prerender = false;
+
+import AccountLayout from "@layouts/AccountLayout.astro";
+import { actions, isActionError, isInputError } from "astro:actions";
+import { loggedInPath } from "../../constants";
+
+// lookup
+const lookupResult = Astro.getActionResult(actions.profile.lookupPostcode);
+const lookupActionError = isActionError(lookupResult?.error)
+  ? lookupResult.error.message
+  : false;
+const lookupSuccessful =
+  lookupResult && Array.isArray(lookupResult.data?.addresses);
+
+// address
+const addressResult = Astro.getActionResult(actions.profile.updateAddress);
+const addressInputErrors = isInputError(addressResult?.error)
+  ? addressResult.error.fields
+  : {};
+const addressActionError = isActionError(addressResult?.error)
+  ? addressResult.error.message
+  : false;
+const addressSuccessful = addressResult?.data?.success;
+
+if (addressSuccessful) {
+  return Astro.redirect(loggedInPath);
+}
+---
+
+<AccountLayout header="Update your address">
+  {lookupActionError && <Alert errors={[lookupActionError]} />}
+  {addressActionError && <Alert errors={[addressActionError]} />}
+  <form
+    transition:persist
+    class="form"
+    method="POST"
+    action={actions.profile.lookupPostcode}
+  >
+    <div class="field">
+      <label class="label" for="postcode">Postcode</label>
+      <div class="flex gap-2">
+        <input
+          id="postcode"
+          name="postcode"
+          type="search"
+          required
+          class="input"
+          placeholder="DA14 0XX"
+          autocomplete="postal-code"
+        />
+        <button class="button search max-w-fit max-h-10" type="submit"
+          >Lookup</button
+        >
+      </div>
+    </div>
+  </form>
+  <form
+    id="address_form"
+    class:list={["form mt-4", lookupSuccessful ? "" : "hidden"]}
+    method="POST"
+    action={actions.profile.updateAddress}
+  >
+    <div class="field">
+      <label class="label" for="address">Address</label>
+      <select
+        disabled={!lookupSuccessful}
+        id="address"
+        name="address"
+        required
+        class="input"
+      >
+        <option value="" disabled={!lookupSuccessful} selected
+          >Select your address</option
+        >
+        {
+          lookupSuccessful &&
+            lookupResult.data?.addresses.map((address) => (
+              <option value={address.uprn}>{address.full_address}</option>
+            ))
+        }
+      </select>
+    </div>
+    <button disabled class="button primary mt-4 sm:max-w-fit" type="submit"
+      >Continue
+    </button>
+    <script is:inline>
+      function setAddressFormDisableState() {
+        document.getElementById("address").addEventListener("change", (e) => {
+          const button = document.querySelector(
+            "form#address_form button[type='submit']",
+          );
+          button.disabled = !e.target.value;
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", setAddressFormDisableState);
+      document.addEventListener("astro:after-swap", setAddressFormDisableState);
+    </script>
+  </form>
+</AccountLayout>

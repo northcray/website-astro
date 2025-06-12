@@ -107,6 +107,8 @@ import { X, Menu } from "@lucide/astro";
   function setupNav() {
     const checkbox = document.getElementById("mobile-nav-toggle");
 
+    if (!checkbox) return;
+
     // close the menu when breakpoint changes
     window.onresize = function () {
       if (checkbox.checked) {
