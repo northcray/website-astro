@@ -1,3 +1,5 @@
+import { robotsDisallowPaths } from "@/const.ts";
+
 export const prerender = true;
 
 import type { APIRoute } from "astro";
@@ -5,6 +7,7 @@ import type { APIRoute } from "astro";
 const getRobotsTxt = (sitemapURL: URL) => `
 User-agent: *
 Disallow: /
+${robotsDisallowPaths.map((path) => `Disallow: ${path}`).join("\n")}
 
 Sitemap: ${sitemapURL.href}
 `;

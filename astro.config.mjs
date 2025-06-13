@@ -4,6 +4,7 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
+import { robotsDisallowPaths } from "./src/const.js"; // do not shorten
 
 // https://astro.build/config
 export default defineConfig({
@@ -69,5 +70,15 @@ export default defineConfig({
     ],
   },
 
-  integrations: [sitemap(), react()],
+  integrations: [
+    sitemap({
+      filter: (page) => {
+        const url = new URL(page);
+        return !robotsDisallowPaths.some((path) =>
+          url.pathname.startsWith(path),
+        );
+      },
+    }),
+    react(),
+  ],
 });
