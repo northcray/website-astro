@@ -30,7 +30,7 @@ RUN --mount=type=secret,id=TURNSTILE_SECRET_KEY \
   export STRIPE_SECRET_KEY=$(cat /run/secrets/STRIPE_SECRET_KEY) && \
   bun run build
 
-FROM base AS runtime
+FROM node:24-alpine AS runtime
 
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
@@ -38,4 +38,4 @@ COPY --from=build /app/dist ./dist
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
-CMD ["bun", "run", "./dist/server/entry.mjs"]
+CMD ["node", "./dist/server/entry.mjs"]

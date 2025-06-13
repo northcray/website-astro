@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import { actions, isActionError } from "astro:actions";
 import LoadingLayout from "@layouts/LoadingLayout.astro";
 
@@ -14,6 +16,7 @@ if (!error && data?.url) {
 const actionError = isActionError(error) ? error.message : false;
 
 if (actionError) {
+  console.error("Error creating Stripe portal session:", actionError);
   return Astro.redirect("/");
 }
 ---

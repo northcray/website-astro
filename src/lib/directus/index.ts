@@ -24,11 +24,6 @@ export function createDirectusClient(): DirectusClient<DirectusSchema> &
   return createDirectus<DirectusSchema>(INTERNAL_DIRECTUS_URL).with(
     rest({
       onRequest: (options) => {
-        // cloudflare has strong bot protection, this sdk client is used on build
-        // via CI where it looks like a bot, so we need to bypass it.
-        // one option would be to whitelist github actions IPs, but that will
-        // allow other bots to access the API via github.
-        // instead we use a service token that is used by the directus client
         options.headers = {
           ...options.headers,
           "CF-Access-Client-Id": CLOUDFLARE_SERVICE_TOKEN_ID,
@@ -45,7 +40,18 @@ export function createAuthenticatedDirectusClient(
   token: string,
 ): DirectusClient<DirectusSchema> & RestClient<DirectusSchema> {
   return createDirectus<DirectusSchema>(INTERNAL_DIRECTUS_URL)
-    .with(rest())
+    .with(
+      rest({
+        onRequest: (options) => {
+          options.headers = {
+            ...options.headers,
+            "CF-Access-Client-Id": CLOUDFLARE_SERVICE_TOKEN_ID,
+            "CF-Access-Client-Secret": CLOUDFLARE_SERVICE_TOKEN_SECRET,
+          };
+          return options;
+        },
+      }),
+    )
     .with(staticToken(token));
 }
 
@@ -145,6 +151,8 @@ export async function getCurrentDirectusUser(token: string) {
         ],
       }),
     );
+
+    console.log(JSON.stringify(Object.keys(res)));
 
     if (!res.email) {
       // console.warn("No email found for current user, returning null.");
