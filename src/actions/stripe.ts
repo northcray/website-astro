@@ -49,6 +49,7 @@ export const stripeActions = {
       });
 
       if (session) {
+        console.info({ session });
         return { url: session.url.toString() };
       } else {
         return { url: null };

@@ -1,5 +1,7 @@
 ---
-import { actions } from "astro:actions";
+export const prerender = false;
+
+import { actions, isActionError } from "astro:actions";
 
 const { data, error } = await Astro.callAction(
   actions.stripe.createCheckoutSession,
@@ -8,7 +10,12 @@ const { data, error } = await Astro.callAction(
 
 if (!error && data?.url) {
   return Astro.redirect(data.url);
-} else {
+}
+
+const actionError = isActionError(error) ? error.message : false;
+
+if (actionError) {
+  console.error("Error creating Stripe checkout session:", actionError);
   return Astro.redirect("/");
 }
 ---
