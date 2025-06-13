@@ -172,7 +172,7 @@ html {
   }
 
   .input {
-    @apply bg-white  appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 border-2 border-solid border-cinder-600;
+    @apply bg-white  appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 border-2 border-solid border-cinder-700;
     @apply dark:bg-cinder-500 dark:border-cinder-100;
     @apply max-w-full rounded-xs;
   }
@@ -200,6 +200,9 @@ html {
     @apply bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-900;
     &:focus {
       @apply shadow-blue-900 dark:shadow-sky-200;
+    }
+    &[disabled] {
+      @apply bg-gray-300 dark:bg-cinder-100 text-gray-600 dark:text-gray-400 cursor-not-allowed shadow-none;
     }
   }
 

@@ -8,11 +8,11 @@
     "jsxImportSource": "react",
     "resolveJsonModule": true,
     "paths": {
-      "@/*": ["./src/*"],
       "@ui/*": ["./src/components/ui/*"],
       "@layouts/*": ["./src/components/layouts/*"],
       "@lib/*": ["./src/lib/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@/*": ["./src/*"]
     }
   }
 }

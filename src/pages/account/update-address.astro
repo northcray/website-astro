@@ -5,6 +5,7 @@ export const prerender = false;
 import AccountLayout from "@layouts/AccountLayout.astro";
 import { actions, isActionError, isInputError } from "astro:actions";
 import { loggedInPath } from "@/const";
+import { Search } from "@lucide/astro";
 
 // lookup
 const lookupResult = Astro.getActionResult(actions.profile.lookupPostcode);
@@ -50,8 +51,8 @@ if (addressSuccessful) {
           placeholder="DA14 0XX"
           autocomplete="postal-code"
         />
-        <button class="button search max-w-fit max-h-10" type="submit"
-          >Lookup</button
+        <button class="button search max-w-fit max-h-10" type="submit">
+          <Search size="18" class="mr-2" /> Lookup</button
         >
       </div>
     </div>
@@ -96,7 +97,6 @@ if (addressSuccessful) {
       }
 
       document.addEventListener("DOMContentLoaded", setAddressFormDisableState);
-      document.addEventListener("astro:after-swap", setAddressFormDisableState);
     </script>
   </form>
 </AccountLayout>

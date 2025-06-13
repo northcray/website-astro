@@ -12,18 +12,11 @@ import Sidenav from "@ui/Sidenav.astro";
 import { getCurrentUser } from "@lib/auth";
 import MembershipCard from "@ui/MembershipCard.astro";
 import Price from "@ui/Price.astro";
-import { actions } from "astro:actions";
 
 const user = await getCurrentUser(Astro.cookies);
 
 if (!user) {
   return Astro.redirect("/account/signin");
-}
-
-const checkout = Astro.getActionResult(actions.stripe.createCheckoutSession);
-
-if (checkout?.data?.redirect) {
-  return Astro.redirect(checkout.data.redirect);
 }
 
 const planHeading = user.subscription_active
@@ -112,7 +105,7 @@ const nav: { href: string; label: string }[] = [
         <SectionHeader id="delete">Delete Account</SectionHeader>
 
         <p class="max-w-prose mb-4">
-          Under EU law you have the <a
+          Under GDPR law you have the <a
             href="https://gdpr.eu/right-to-be-forgotten"
             class="nc-link nc-focus"
             target="_blank"

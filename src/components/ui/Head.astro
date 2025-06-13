@@ -1,10 +1,10 @@
 ---
 import { Font } from "astro:assets";
-
-import { ClientRouter } from "astro:transitions";
+import "@/styles/view-transition.css";
 ---
 
 <meta charset="utf-8" />
+<link rel="expect" href="#the_unexpected" blocking="render" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="viewport" content="width=device-width" />
@@ -19,5 +19,3 @@ import { ClientRouter } from "astro:transitions";
     font-family: var(--font-lato), sans-serif;
   }
 </style>
-
-<ClientRouter />

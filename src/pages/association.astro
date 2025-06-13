@@ -39,19 +39,32 @@ const sideNavItems: { href: string; label: string }[] = Object.keys(
 
 const association = await getAssociation();
 const committee = await getCommittee();
+// meta={[
+// {
+//   label: "Founded",
+//     value: new Date(association.founded).toDateString(),
+// },
+// ]}
 ---
 
 <MainLayout>
   <PageHeader
     title="Association"
-    subtitle={association.mission_statement}
-    meta={[
-      {
-        label: "Founded",
-        value: new Date(association.founded).toDateString(),
-      },
+    tabs={[
+      { href: "/association", label: "About" },
+      { href: "/association/history", label: "History" },
+      { href: "/association/emails", label: "Archive" },
+      { href: "/association/meetings", label: "AGM Minutes" },
     ]}
   />
+
+  <Container>
+    <Section class="text-4xl w-lg">
+      <div class="border-l-4 border-gray-200 pl-4 lg:ml-10">
+        &ldquo;{association.mission_statement}&rdquo;
+      </div>
+    </Section>
+  </Container>
 
   <Container classes="mb-20 lg:grid grid-cols-4 gap-20">
     <aside class="relative">

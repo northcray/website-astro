@@ -8,8 +8,8 @@ import {
 } from "./directus";
 import { updateMe } from "@directus/sdk";
 
-const TOKEN_COOKIE = "directus_token";
-const REFRESH_TOKEN_COOKIE = "directus_refresh_token";
+export const TOKEN_COOKIE = "directus_token";
+export const REFRESH_TOKEN_COOKIE = "directus_refresh_token";
 
 // Cookie options
 const cookieOptions = {

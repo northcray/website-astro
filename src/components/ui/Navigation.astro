@@ -132,9 +132,4 @@ import { X, Menu } from "@lucide/astro";
     updateActiveLinks();
     setupNav();
   });
-
-  document.addEventListener("astro:after-swap", () => {
-    updateActiveLinks();
-    setupNav(); // reapply if view transitions replace content
-  });
 </script>
