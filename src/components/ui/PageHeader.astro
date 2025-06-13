@@ -55,7 +55,7 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
         <ul class="nc-page-tabs mt-8">
           {tabs.map((tab) => (
             <li>
-              <a data-tablink href={tab.href}>
+              <a data-tablink href={tab.href} class="nc-focus-outline">
                 {tab.label}
               </a>
             </li>

@@ -38,7 +38,9 @@ const cols = [
   `lg:grid-cols-6`,
 ];
 
-const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
+const gridClass = grid
+  ? `md:grid md:grid-cols-2 ${cols[grid]} gap-0 -mx-4`
+  : "";
 ---
 
 <ul class={`list-none p-0 m-0 ${gridClass} ${className}`}>
@@ -48,10 +50,21 @@ const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
         <img src={getImageSrc(item.image, imageKey)} alt="Image" />
       ) : null;
 
-      const labelEl = <div class="text-lg font-semibold">{item.label}</div>;
+      const labelEl = (
+        <div
+          class:list={[
+            "text-lg font-semibold flex-grow flex",
+            { "nc-focus-outline": item.href },
+          ]}
+        >
+          {item.label}
+        </div>
+      );
 
       const subtitleEl = item.subtitle ? (
-        <div class="line-clamp-2">{item.subtitle}</div>
+        <div class="text-xs line-clamp-2 opacity-90 text-black dark:text-white">
+          {item.subtitle}
+        </div>
       ) : null;
 
       const tagEl = item.tag ? (
@@ -60,25 +73,23 @@ const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
 
       if (vertical) {
         return (
-          <li class="py-4 flex gap-3 flex-col border-b-gray-300 dark:border-b-gray-700 border-b border-solid border-0">
+          <li class="flex flex-col border-b-gray-100 dark:border-b-gray-700 border-b border-solid border-0">
             {item.href ? (
-              <>
-                <a
-                  href={item.href}
-                  class="nc-link nc-focus flex flex-col gap-3"
-                >
-                  {imageEl}
-                  {labelEl}
-                </a>
+              <a
+                href={item.href}
+                class="p-4 flex flex-col gap-2 h-full nc-focus-outline hover:bg-gray-100"
+              >
+                {imageEl}
+                {labelEl}
                 {subtitleEl}
                 {tagEl}
-              </>
+              </a>
             ) : (
-              <>
+              <div class="p-4 flex flex-col gap-2 h-full">
                 {imageEl}
                 {labelEl}
                 {tagEl}
-              </>
+              </div>
             )}
           </li>
         );
@@ -102,16 +113,16 @@ const gridClass = grid ? `md:grid md:grid-cols-2 ${cols[grid]} gap-10` : "";
       );
 
       return (
-        <li class="border-b-gray-300 dark:border-b-gray-700 border-b border-solid border-0">
+        <li class="border-b-gray-100 dark:border-b-gray-700 border-b border-solid border-0">
           {item.href ? (
             <a
               href={item.href}
-              class="flex flex-col sm:flex-row gap-4 nc-link nc-focus py-4 h-full"
+              class="flex flex-col sm:flex-row gap-4 p-4 h-full nc-focus-outline hover:bg-gray-100"
             >
               {content}
             </a>
           ) : (
-            <div class="py-4 h-full">{content}</div>
+            <div class="p-4 h-full">{content}</div>
           )}
         </li>
       );

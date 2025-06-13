@@ -8,14 +8,14 @@ const { id, class: className = "" } = Astro.props;
 ---
 
 <div
-  class={`nc-display text-2xl md:text-3xl md:text-3xl max-w-xl w-fit font-semibold mb-4 ${className}`}
+  class={`nc-display text-xl md:text-2xl lg:text-3xl max-w-xl w-fit font-semibold mb-4 ${className}`}
 >
   {
     id ? (
       <a
         id={id}
         href={`#${id}`}
-        class="pt-1 border-t-2 border-t-gray-200 dark:border-t-gray-700 text-inherit nc-focus-outline"
+        class="pt-1 border-t-2 border-t-gray-100 dark:border-t-gray-700 text-inherit nc-focus-outline outline-offset-4"
       >
         <slot />
       </a>

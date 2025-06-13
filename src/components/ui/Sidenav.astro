@@ -9,10 +9,12 @@ const { items } = Astro.props;
   <ul class="text-xl flex flex-col">
     {
       items.map((item) => (
-        <li class="first:border-t border-b py-2 leading-loose border-gray-200 dark:border-gray-800">
-          {item.emoji && <span class="inline-block mr-2">{item.emoji}</span>}
-          {/* If the item has an image, display it */}
-          <a href={item.href} class="nc-link nc-focus">
+        <li class="first:border-t border-b leading-loose border-gray-200 dark:border-gray-800">
+          <a
+            href={item.href}
+            class="nc-focus-outline outline-offset-4 py-1 w-full flex"
+          >
+            {item.emoji && <span class="inline-block mr-2">{item.emoji}</span>}
             {item.label}
           </a>
         </li>

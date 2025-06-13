@@ -64,7 +64,7 @@ const details = [
             <SectionHeader>Meeting Place</SectionHeader>
             <div class="hidden">{JSON.stringify(event.meeting_place)}</div>
             <a
-              class="nc-link"
+              class="nc-link nc-focus"
               target="_blank"
               href={`https://www.google.com/maps/search/?api=1&query=${event.meeting_place.coordinates[1]}%2C${event.meeting_place.coordinates[0]}`}
             >
@@ -90,7 +90,7 @@ const details = [
                     href={event.group.website}
                     rel="noopener noreferrer"
                     target="_blank"
-                    class="nc-link flex items-center"
+                    class="nc-link nc-focus flex items-center"
                   >
                     <span>{event.group.name}</span>
                     {event.group?.image && (

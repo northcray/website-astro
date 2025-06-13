@@ -102,8 +102,20 @@ html {
     @apply font-sans text-slate-800 dark:text-slate-300 dark:bg-cinder-800;
   }
 
-  a {
+  a:not(.nc-link-within),
+  .nc-link-within-target,
+  .nc-link-color {
     @apply text-sky-700 hover:text-sky-800 dark:text-sky-500 dark:hover:text-sky-300;
+  }
+
+  .nc-link-within {
+    @apply text-inherit;
+
+    &:focus {
+      box-shadow:
+        0 -2px #fd0,
+        0 4px #0b0c0c;
+    }
   }
 
   ul.nc-page-tabs {
@@ -126,12 +138,13 @@ html {
     @apply text-base font-medium no-underline bg-gray-200 text-gray-900 py-2 px-3 capitalize hover:bg-gray-300;
   }
 
-  .nc-focus {
-    @apply hover:decoration-2 focus-within:bg-yellow-300 focus-within:text-black focus-within:no-underline underline underline-offset-4;
+  .nc-focus,
+  .nc-link-within:focus {
+    @apply hover:decoration-2 focus-within:bg-amber-300 focus-within:text-black focus-within:no-underline underline underline-offset-4;
   }
 
   .nc-focus-outline {
-    @apply focus:underline focus:outline-offset-2 focus:outline-amber-300 focus:outline focus:outline-4;
+    @apply underline-offset-4 hover:underline focus:underline active:text-black transition-discrete duration-100 outline-amber-300/0 outline-0 focus:outline-4 focus:outline-amber-300 focus:outline-offset-0;
   }
 
   .nc-link {
@@ -145,8 +158,9 @@ html {
   }
 
   .bg1 {
-    a {
-      @apply text-white;
+    a,
+    a:hover {
+      @apply text-inherit;
     }
     @apply text-white bg-sky-800 dark:bg-cinder-700;
   }

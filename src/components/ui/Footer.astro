@@ -91,7 +91,7 @@ const imprintLinks = [
                       href={href}
                       target={newWindow ? "_blank" : undefined}
                       rel={newWindow ? "noopener noreferrer" : undefined}
-                      class="block py-1.5 nc-link nc-focus"
+                      class="block py-1.5 nc-link nc-focus-outline"
                     >
                       {label}
                       {newWindow && (
@@ -117,7 +117,7 @@ const imprintLinks = [
           {
             imprintLinks.map(({ label, href, newWindow }) => (
               <li>
-                <a href={href} class="nc-link nc-focus">
+                <a href={href} class="nc-focus-outline outline-offset-4">
                   {label}
                 </a>
               </li>

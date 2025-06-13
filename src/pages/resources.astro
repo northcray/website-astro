@@ -39,7 +39,7 @@ const sidenavItems = data.resources.map((r) => ({
                         l.external ? (
                           <a
                             href={l.url}
-                            class="nc-link"
+                            class="nc-link nc-focus"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -47,7 +47,7 @@ const sidenavItems = data.resources.map((r) => ({
                             <ExternalLink class="inline ml-1.5" size={16} />
                           </a>
                         ) : (
-                          <a href={l.url} class="nc-link">
+                          <a href={l.url} class="nc-link nc-focus">
                             {l.title}
                           </a>
                         )
