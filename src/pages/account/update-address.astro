@@ -4,7 +4,7 @@ export const prerender = false;
 
 import AccountLayout from "@layouts/AccountLayout.astro";
 import { actions, isActionError, isInputError } from "astro:actions";
-import { loggedInPath } from "../../constants";
+import { loggedInPath } from "@/const";
 
 // lookup
 const lookupResult = Astro.getActionResult(actions.profile.lookupPostcode);

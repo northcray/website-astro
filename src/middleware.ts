@@ -1,6 +1,6 @@
 import type { MiddlewareHandler } from "astro";
 import { getCurrentUser } from "./lib/auth";
-import { loggedInPath } from "./constants.ts";
+import { loggedInPath } from "@/const";
 
 export const onRequest: MiddlewareHandler = async (
   { cookies, url, redirect, isPrerendered, locals },
