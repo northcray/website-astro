@@ -55,7 +55,9 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
         <ul class="nc-page-tabs mt-8">
           {tabs.map((tab) => (
             <li>
-              <a href={tab.href}>{tab.label}</a>
+              <a data-tablink href={tab.href}>
+                {tab.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -63,3 +65,25 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
     )
   }
 </div>
+
+<script is:inline>
+  function updateActiveTabLinks() {
+    const current = window.location.pathname;
+    const tabLinks = document.querySelectorAll("[data-tablink]");
+
+    const classes = ["active"];
+
+    tabLinks.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (current.startsWith(href)) {
+        link.classList.add(...classes);
+      } else {
+        link.classList.remove(...classes);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateActiveTabLinks();
+  });
+</script>

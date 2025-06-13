@@ -110,14 +110,14 @@ html {
     @apply flex flex-col md:flex-row items-center md:items-start list-none p-0 m-0 -mx-4 -mb-6;
 
     li {
-      @apply p-0;
+      @apply p-0 w-full md:w-fit;
 
       a {
-        @apply text-lg font-medium px-4 py-2 block no-underline!;
+        @apply text-lg font-medium px-4 py-2 block hover:bg-gray-50 hover:underline border-b-1 md:border-0 border-gray-200 dark:border-gray-800;
       }
 
       a.active {
-        @apply bg-white;
+        @apply bg-white text-inherit hover:no-underline;
       }
     }
   }

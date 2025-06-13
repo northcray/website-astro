@@ -1,6 +1,8 @@
 ---
 export const prerender = true;
 
+import { tabsAssociation } from "../../const";
+
 import PageHeader from "@ui/PageHeader.astro";
 import MainLayout from "@layouts/MainLayout.astro";
 import Container from "@ui/Container.astro";
@@ -45,21 +47,14 @@ const committee = await getCommittee();
 //     value: new Date(association.founded).toDateString(),
 // },
 // ]}
+const founded = `Founded ${new Date(association.founded).toDateString()}`;
 ---
 
 <MainLayout>
-  <PageHeader
-    title="Association"
-    tabs={[
-      { href: "/association", label: "About" },
-      { href: "/association/history", label: "History" },
-      { href: "/association/emails", label: "Archive" },
-      { href: "/association/meetings", label: "AGM Minutes" },
-    ]}
-  />
+  <PageHeader title="Association" subtitle={founded} tabs={tabsAssociation} />
 
   <Container>
-    <Section class="text-4xl w-lg">
+    <Section class="text-3xl md:text-4xl md:w-lg">
       <div class="border-l-4 border-gray-200 pl-4 lg:ml-10">
         &ldquo;{association.mission_statement}&rdquo;
       </div>

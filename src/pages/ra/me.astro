@@ -12,6 +12,7 @@ import Sidenav from "@ui/Sidenav.astro";
 import { getCurrentUser } from "@lib/auth";
 import MembershipCard from "@ui/MembershipCard.astro";
 import Price from "@ui/Price.astro";
+import { loggedInPath, tabsAssociation } from "../../const";
 
 const user = await getCurrentUser(Astro.cookies);
 
@@ -19,12 +20,8 @@ if (!user) {
   return Astro.redirect("/account/signin");
 }
 
-const planHeading = user.subscription_active
-  ? `Manage Subscription`
-  : `Subscription`;
-
 const nav: { href: string; label: string }[] = [
-  { href: `#subscription`, label: planHeading },
+  { href: `#subscription`, label: "Manage Subscription" },
   { href: `#details`, label: "Personal Details" },
   { href: `#contact`, label: "Contact Preferences" },
   { href: `#delete`, label: "Delete Account" },
@@ -38,23 +35,30 @@ const nav: { href: string; label: string }[] = [
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Association", href: "/association" },
-      { label: "Account", href: "/account", active: true },
+      { label: "My Account", href: loggedInPath, active: true },
     ]}
+    tabs={tabsAssociation}
   />
 
-  <Container classes="relative">
-    <div class="lg:absolute -bottom-15 right-10">
-      <MembershipCard
-        animated
-        user={user.subscription_active
-          ? user
-          : {
-              id: "6d74a89f-9a8f-46ad-9c78-4a4315094ba8",
-              address: { street: user.address.street },
-            }}
-      />
-    </div>
-  </Container>
+  {
+    user.subscription_active && (
+      <Container classes="relative">
+        <div class="lg:absolute -bottom-15 right-10">
+          <MembershipCard
+            animated
+            user={
+              user.subscription_active
+                ? user
+                : {
+                    id: "6d74a89f-9a8f-46ad-9c78-4a4315094ba8",
+                    address: { street: user.address.street },
+                  }
+            }
+          />
+        </div>
+      </Container>
+    )
+  }
 
   <Container classes="mb-20 lg:grid grid-cols-4 gap-20">
     <div class="relative">
@@ -63,7 +67,7 @@ const nav: { href: string; label: string }[] = [
 
     <div class="col-span-3">
       <Section>
-        <SectionHeader id="subscription">{planHeading}</SectionHeader>
+        <SectionHeader id="subscription">Manage Subscription</SectionHeader>
         {
           user.subscription_active ? (
             <OpenBillingPortalButton />

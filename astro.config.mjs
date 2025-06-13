@@ -19,6 +19,10 @@ export default defineConfig({
     mode: "standalone",
   }),
 
+  redirects: {
+    "/association": "/ra/about",
+  },
+
   env: {
     validateSecrets: true,
     schema: {

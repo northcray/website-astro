@@ -12,13 +12,15 @@ const { isOpen } = Astro.props;
 <header id="top" class:list={[isOpen ? "bg2" : "bg1"]}>
   <div class="bg-sky-900 dark:bg-cinder-800 relative">
     <Container classes="text-white">
-      <div class="justify-between items-center flex gap-4">
+      <div
+        class:list={[
+          "justify-between items-center flex gap-4",
+          isOpen ? "text-white" : "",
+        ]}
+      >
         <a
-          class:list={[
-            "text-sm font-medium opacity-80 uppercase",
-            isOpen ? "text-white" : "",
-          ]}
-          href="/"
+          class="text-sm font-medium uppercase text-inherit"
+          href="/src/pages/ra/about"
           title="North Cray Residents Association">NCRA</a
         >
 
@@ -43,7 +45,7 @@ const { isOpen } = Astro.props;
           <div class="text-lg md:text-2xl flex gap-2 justify-center items-center uppercase">
             <div class="leading-none">
               <div class="font-semibold">North Cray</div>
-              <div class="font-normal">Residents Association</div>
+              <div class="font-normal" />
             </div>
           </div>
         </a>
