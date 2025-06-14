@@ -45,9 +45,13 @@ const gridClass = grid
 
 <ul class={`list-none p-0 m-0 ${gridClass} ${className}`}>
   {
-    items?.map((item) => {
+    items?.map(async (item) => {
       const imageEl = item.image ? (
-        <img src={getImageSrc(item.image, imageKey)} alt="Image" />
+        <img
+          transition:name={item.image}
+          src={getImageSrc(item.image, imageKey)}
+          alt="Image"
+        />
       ) : null;
 
       const labelEl = (

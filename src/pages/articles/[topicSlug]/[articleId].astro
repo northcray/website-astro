@@ -69,6 +69,7 @@ const { article } = Astro.props as Props;
     article.image && (
       <Container classes="my-8">
         <img
+          transition:name={article.image}
           src={`${PUBLIC_DIRECTUS_URL}/assets/${article.image}`}
           alt={article.title}
           width={1000}

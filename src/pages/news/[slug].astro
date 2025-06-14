@@ -51,6 +51,7 @@ const { post } = Astro.props as Props;
     post.image && (
       <Container>
         <img
+          transition:name={post.image}
           src={`${PUBLIC_DIRECTUS_URL}/assets/${post.image}`}
           alt={post.title}
           width={650}

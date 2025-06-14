@@ -25,9 +25,16 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
     (title || subtitle) && (
       <Container>
         <div class="m-0 py-3 md:py-6 my-4 md:my-5 relative">
-          {title && <h1 class="lg:text-6xl">{title}</h1>}
+          {title && (
+            <h1 class="lg:text-6xl" transition:name="pageHeaderTitle">
+              {title}
+            </h1>
+          )}
           {subtitle && (
-            <div class="text-2xl lg:text-3xl nc-display opacity-70">
+            <div
+              class="text-2xl lg:text-3xl nc-display opacity-70"
+              transition:name="pageHeaderSubtitle"
+            >
               {subtitle}
             </div>
           )}
