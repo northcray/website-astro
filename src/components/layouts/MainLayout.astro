@@ -12,8 +12,8 @@ import "@styles/global.css";
   </head>
   <body>
     <div id="vtop" class="flex flex-col min-h-screen">
-      <SiteHeader />
-      <Navigation />
+      <SiteHeader transition:persist />
+      <Navigation transition:persist />
       <main class="grow">
         <slot />
       </main>

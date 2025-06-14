@@ -66,7 +66,7 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
   }
 </div>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   function updateActiveTabLinks() {
     const current = window.location.pathname;
     const tabLinks = document.querySelectorAll("[data-tablink]");
@@ -83,7 +83,7 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("astro:page-load", () => {
     updateActiveTabLinks();
   });
 </script>

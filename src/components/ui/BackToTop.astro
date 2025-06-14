@@ -19,7 +19,7 @@ import { ArrowUp } from "@lucide/astro";
   <div class="align-text-top no-underline hidden lg:block">Back to top</div>
 </a>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   function setupTopLink() {
     const backToTop = document.getElementById("backToTop");
     const trigger = document.getElementById("top-trigger");
@@ -40,5 +40,5 @@ import { ArrowUp } from "@lucide/astro";
     observer.observe(trigger);
   }
 
-  document.addEventListener("DOMContentLoaded", setupTopLink);
+  document.addEventListener("astro:page-load", setupTopLink);
 </script>

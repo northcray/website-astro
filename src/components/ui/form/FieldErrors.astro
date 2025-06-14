@@ -1,0 +1,21 @@
+---
+import { TriangleAlert } from "@lucide/astro";
+
+export interface Props {
+  id?: string;
+  errors?: string[];
+}
+
+const { id = "field-errors", errors = [] } = Astro.props;
+---
+
+<ul id={id} class="field-error">
+  {
+    errors.map((error) => (
+      <li class="flex gap-1.5 items-center">
+        <TriangleAlert size={18} />
+        <span>{error}</span>
+      </li>
+    ))
+  }
+</ul>

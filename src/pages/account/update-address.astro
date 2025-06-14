@@ -6,6 +6,7 @@ import AccountLayout from "@layouts/AccountLayout.astro";
 import { actions, isActionError, isInputError } from "astro:actions";
 import { loggedInPath } from "@/const";
 import { Search } from "@lucide/astro";
+import FieldErrors from "../../components/ui/form/FieldErrors.astro";
 
 // lookup
 const lookupResult = Astro.getActionResult(actions.profile.lookupPostcode);
@@ -24,6 +25,8 @@ const addressActionError = isActionError(addressResult?.error)
   ? addressResult.error.message
   : false;
 const addressSuccessful = addressResult?.data?.success;
+
+console.warn(addressInputErrors);
 
 if (addressSuccessful) {
   return Astro.redirect(loggedInPath);
@@ -59,7 +62,7 @@ if (addressSuccessful) {
   </form>
   <form
     id="address_form"
-    class:list={["form mt-4", lookupSuccessful ? "" : "hidden"]}
+    class:list={["form mt-4", { hidden: !lookupSuccessful }]}
     method="POST"
     action={actions.profile.updateAddress}
   >
@@ -71,6 +74,7 @@ if (addressSuccessful) {
         name="address"
         required
         class="input"
+        aria-describedby="address-error"
       >
         <option value="" disabled={!lookupSuccessful} selected
           >Select your address</option
@@ -82,11 +86,19 @@ if (addressSuccessful) {
             ))
         }
       </select>
+      {
+        addressInputErrors && addressInputErrors["address"] && (
+          <FieldErrors
+            id="address-error"
+            errors={addressInputErrors["address"]}
+          />
+        )
+      }
     </div>
     <button disabled class="button primary mt-4 sm:max-w-fit" type="submit"
       >Continue
     </button>
-    <script is:inline>
+    <script is:inline data-astro-rerun>
       function setAddressFormDisableState() {
         document.getElementById("address").addEventListener("change", (e) => {
           const button = document.querySelector(
@@ -96,7 +108,7 @@ if (addressSuccessful) {
         });
       }
 
-      document.addEventListener("DOMContentLoaded", setAddressFormDisableState);
+      document.addEventListener("astro:page-load", setAddressFormDisableState);
     </script>
   </form>
 </AccountLayout>

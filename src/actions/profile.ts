@@ -10,7 +10,7 @@ export const profile = {
   updateAddress: defineAction({
     accept: "form",
     input: z.object({
-      address: z.string().length(12, "UPRN must be exactly 12 characters"),
+      address: z.string().min(1, "Address is required"),
     }),
     handler: async ({ address }, { cookies }) => {
       try {

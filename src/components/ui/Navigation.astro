@@ -76,7 +76,7 @@ import { X, Menu } from "@lucide/astro";
   </Container>
 </section>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   function updateActiveLinks() {
     const current = window.location.pathname;
     const navLinks = document.querySelectorAll("[data-navlink]");
@@ -128,7 +128,7 @@ import { X, Menu } from "@lucide/astro";
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("astro:page-load", () => {
     updateActiveLinks();
     setupNav();
   });

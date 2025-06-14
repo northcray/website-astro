@@ -143,6 +143,7 @@ export async function getCurrentDirectusUser(token: string) {
           "last_name",
           "email",
           "telephone",
+          "role",
           "address.full_address",
           "address.street",
           "stripe_customer_id",
@@ -151,8 +152,6 @@ export async function getCurrentDirectusUser(token: string) {
         ],
       }),
     );
-
-    console.log(JSON.stringify(Object.keys(res)));
 
     if (!res.email) {
       // console.warn("No email found for current user, returning null.");
