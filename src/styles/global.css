@@ -211,7 +211,7 @@ html {
   }
 
   .button.primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-900;
+    @apply bg-blue-600 hover:bg-blue-700 text-white hover:text-white dark:bg-blue-900;
     &:focus {
       @apply shadow-blue-900 dark:shadow-sky-200;
     }
@@ -221,19 +221,19 @@ html {
   }
 
   .button.danger {
-    @apply bg-red-600 hover:bg-red-700 text-white dark:bg-red-900;
+    @apply bg-red-600 hover:bg-red-700 text-white hover:text-white dark:bg-red-900;
     &:focus {
       @apply shadow-red-900 dark:shadow-red-900;
     }
   }
 
   .button.search {
-    @apply bg-gray-100 shadow-2xs text-gray-900 border-2 border-gray-400  hover:bg-gray-300;
+    @apply bg-gray-100 shadow-2xs text-gray-900 hover:text-gray-900 border-2 border-gray-400  hover:bg-gray-300;
     @apply dark:text-gray-100 dark:bg-cinder-200 dark:hover:bg-cinder-100;
   }
 
   .button[disabled] {
-    @apply bg-gray-300 dark:bg-cinder-100 text-gray-600 dark:text-gray-400 cursor-not-allowed;
+    @apply bg-gray-300 dark:bg-cinder-100 text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 dark:text-gray-400 cursor-not-allowed;
   }
 
   .button:focus {
