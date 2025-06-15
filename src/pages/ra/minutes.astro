@@ -1,0 +1,61 @@
+---
+import { getMinutes } from "../../lib/directus/queries";
+export const prerender = false;
+
+import MainLayout from "@layouts/MainLayout.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import DataList from "@ui/DataList.astro";
+import Container from "@ui/Container.astro";
+import Section from "@ui/Section.astro";
+import { getCurrentUser } from "@lib/auth";
+import { tabsAssociation } from "../../const";
+import Alert from "../../components/ui/Alert.astro";
+
+const user = await getCurrentUser(Astro.cookies);
+const isActive = user && user.subscription_active;
+
+const minutes = await getMinutes();
+
+const dataItems = minutes.map((m) => ({
+  label: new Date(m.date).toLocaleDateString("en-GB"),
+  value: m.title,
+  action: m.document
+    ? {
+        label: "Download",
+        href: isActive
+          ? `${import.meta.env.PUBLIC_DIRECTUS_URL}/assets/${m.document}`
+          : "/account/signin",
+      }
+    : undefined,
+}));
+---
+
+<MainLayout>
+  <PageHeader
+    title={`Meeting Minutes`}
+    subtitle="Association"
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Association", href: "/ra" },
+      { label: "Minutes", href: "/ra/minutes", active: true },
+    ]}
+    tabs={tabsAssociation}
+  />
+
+  <Container>
+    <Section>
+      {
+        !isActive && (
+          <Alert
+            type="info"
+            items={[
+              "Members with an active subscription can download meeting minutes",
+            ]}
+          />
+        )
+      }
+      <DataList details={dataItems} />
+    </Section>
+    <Section />
+  </Container>
+</MainLayout>

@@ -7,9 +7,16 @@ export interface Props {
   grid?: number;
   vertical?: boolean;
   class?: string;
+  imageKey?: "large-thumbnail" | "medium-thumbnail-inside" | "small-thumbnail";
 }
 
-const { posts, grid, vertical = true, class: className = "" } = Astro.props;
+const {
+  posts,
+  grid,
+  vertical = true,
+  class: className = "",
+  imageKey = "large-thumbnail",
+} = Astro.props;
 
 const items = posts.map(
   (post) =>
@@ -26,7 +33,7 @@ const items = posts.map(
 <List
   items={items}
   grid={grid}
-  imageKey="large-thumbnail"
+  imageKey={imageKey}
   vertical={vertical}
   class={className}
 />

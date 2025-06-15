@@ -11,7 +11,7 @@ export const robotsDisallowPaths = [
 export const tabsAssociation = [
   { href: "/ra/about", label: "About" },
   { href: "/ra/history", label: "History" },
-  { href: "/ra/agm", label: "Minutes" },
+  { href: "/ra/minutes", label: "Minutes" },
   { href: "/ra/archive", label: "Archive" },
   { href: loggedInPath, label: "My Account" },
 ];

@@ -1,4 +1,5 @@
 ---
+import Section from "../../components/ui/Section.astro";
 export const prerender = true;
 import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 
@@ -10,6 +11,9 @@ import MainLayout from "@layouts/MainLayout.astro";
 import { createDirectusClient } from "@lib/directus";
 import { readItems } from "@directus/sdk";
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import PostList from "../../components/ui/PostList.astro";
+import { getImageSrc } from "../../lib/utils";
 
 export async function getStaticPaths() {
   const directus = createDirectusClient();
@@ -19,9 +23,9 @@ export async function getStaticPaths() {
     }),
   );
 
-  return posts.map((post: { slug: string }) => ({
+  return posts.map((post: { slug: string }, index, arr) => ({
     params: { slug: post.slug },
-    props: { post },
+    props: { post, next: arr[index + 1], prev: arr[index - 1] },
   }));
 }
 
@@ -29,7 +33,7 @@ type Params = InferGetStaticParamsType<typeof getStaticPaths>;
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { slug } = Astro.params as Params;
-const { post } = Astro.props as Props;
+const { post, next, prev } = Astro.props as Props;
 ---
 
 <MainLayout>
@@ -52,10 +56,10 @@ const { post } = Astro.props as Props;
       <Container>
         <img
           transition:name={post.image}
-          src={`${PUBLIC_DIRECTUS_URL}/assets/${post.image}`}
+          src={getImageSrc(post.image, "post-image-main")}
           alt={post.title}
-          width={650}
-          height={500}
+          width={600}
+          height={600}
           class="lg:float-right lg:p-10 lg:-mt-20 mx-auto"
         />
       </Container>
@@ -80,4 +84,19 @@ const { post } = Astro.props as Props;
       </Container>
     )
   }
+
+  <Container>
+    <hr />
+    <Section class="flex flex-col max-w-1/3">
+      {
+        next && (
+          <>
+            <h4>Next</h4>
+            <PostList grid={1} vertical={false} posts={[next]} />
+          </>
+        )
+      }
+    </Section>
+    <Section />
+  </Container>
 </MainLayout>

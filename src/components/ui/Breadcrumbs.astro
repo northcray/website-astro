@@ -10,7 +10,7 @@ export interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="font-light">
+<nav aria-label="Breadcrumb" class="font-light text-sm">
   <ol class="list-none inline-flex flex-wrap m-0 p-0">
     {
       items.map(({ label, href, active }, ind, arr) => (

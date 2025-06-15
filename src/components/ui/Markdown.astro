@@ -5,7 +5,7 @@ export interface Props {
   children: string;
 }
 
-const { children } = Astro.props;
+const { children, center } = Astro.props;
 
 marked.setOptions({
   gfm: true, // GitHub Flavored Markdown
@@ -41,12 +41,14 @@ function processMarkdownHtml(html: string): string {
       // Strong/bold
       .replace(/<strong>/g, '<strong class="font-bold">')
 
+      .replace(/<li>/g, '<li class="mb-2">')
+
       // Paragraphs
-      .replace(/<p>/g, '<p class="block mb-4">')
+      .replace(/<p>/g, '<p class="block mb-8">')
 
       // Lists
-      .replace(/<ol>/g, '<ol class="pl-6 mb-4">')
-      .replace(/<ul>/g, '<ul class="pl-6 mb-4 list-disc">')
+      .replace(/<ol>/g, '<ol class="pl-6 mb-8">')
+      .replace(/<ul>/g, '<ul class="pl-6 mb-8 list-disc">')
 
       // Links - handle external vs internal
       .replace(
@@ -67,7 +69,7 @@ function processMarkdownHtml(html: string): string {
       // Images
       .replace(
         /<img ([^>]*?)>/g,
-        '<img $1 class="max-w-full p-2 border border-solid border-gray-200 dark:border-gray-700" width="1000" height="500" />',
+        '<img $1 class="max-w-full p-1.5 border shadow-xs rounded bg-green-50 dark:bg-green-950 border-solid border-gray-200 dark:border-gray-700" width="1000" height="500" />',
       )
 
       // Tables
@@ -91,4 +93,4 @@ const rawHtml = marked(children || "");
 const processedHtml = processMarkdownHtml(rawHtml);
 ---
 
-<div class="text-lg/7 max-w-prose" set:html={processedHtml} />
+<div class:list={["text-lg/7 max-w-prose"]} set:html={processedHtml} />

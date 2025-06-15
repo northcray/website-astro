@@ -24,6 +24,7 @@ const { isOpen = false } = Astro.props;
     hasCookie && (
       <a
         data-astro-reload
+        data-astro-prefetch="false"
         href="/logout"
         class:list={[
           "nc-focus-outline py-1 px-2 flex items-center gap-2 text-white hover:bg-blue-50 hover:text-black",

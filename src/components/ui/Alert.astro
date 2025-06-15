@@ -1,16 +1,33 @@
 ---
-import { CircleAlert } from "@lucide/astro";
+import {
+  CircleAlert,
+  Info,
+  TriangleAlert,
+  CircleCheckBig,
+} from "@lucide/astro";
 
 export interface Props {
-  errors: string[];
+  type?: "error" | "warning" | "info" | "success";
+  items: string[];
 }
 
-const { errors = [] } = Astro.props;
+const { items = [], type = "error" } = Astro.props;
 ---
 
-<div class="bg-red-700 text-white p-4 mb-3 max-w-fit flex items-center gap-2">
-  <CircleAlert />
+<div
+  class:list={[
+    { "bg-red-600 text-white": type == "error" },
+    { "bg-green-600 text-white": type == "success" },
+    { "bg-blue-200 text-black text-shadow-white/0": type == "info" },
+    { "bg-orange-600 text-white": type == "warning" },
+    "px-5 py-3 mb-3 max-w-fit flex items-center gap-3 rounded-xs text-shadow-black/20 text-shadow-2xs",
+  ]}
+>
+  {type == "error" && <CircleAlert size={28} />}
+  {type == "success" && <CircleCheckBig size={28} />}
+  {type == "info" && <Info size={28} />}
+  {type == "warning" && <TriangleAlert size={28} />}
   <ul>
-    {errors.map((error) => <li>{error}</li>)}
+    {items.map((item) => <li>{item}</li>)}
   </ul>
 </div>

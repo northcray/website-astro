@@ -34,7 +34,7 @@ const nav: { href: string; label: string }[] = [
     subtitle="Let's manage your membership"
     breadcrumbs={[
       { label: "Home", href: "/" },
-      { label: "Association", href: "/association" },
+      { label: "Association", href: "/ra" },
       { label: "My Account", href: loggedInPath, active: true },
     ]}
     tabs={tabsAssociation}
@@ -44,17 +44,7 @@ const nav: { href: string; label: string }[] = [
     user.subscription_active && (
       <Container classes="relative">
         <div class="lg:absolute -bottom-15 right-10">
-          <MembershipCard
-            animated
-            user={
-              user.subscription_active
-                ? user
-                : {
-                    id: "6d74a89f-9a8f-46ad-9c78-4a4315094ba8",
-                    address: { street: user.address.street },
-                  }
-            }
-          />
+          <MembershipCard animated user={user} />
         </div>
       </Container>
     )

@@ -19,9 +19,23 @@ export const getArticles = async (topicSlug?: string) => {
   return await directus.request(
     readItems("articles", {
       fields: ["id", "title", "image", "topic.*" as any, "first_published_at"],
-      sort: ["-first_published_at"],
-      filter: topicSlug ? { topic: { slug: { _eq: topicSlug } } } : { status },
-      limit: 10,
+      sort: ["first_published_at"],
+      filter: topicSlug
+        ? { status, topic: { slug: { _eq: topicSlug } } }
+        : { status },
+      limit: 50,
+    }),
+  );
+};
+
+export const getMinutes = async () => {
+  const status = { _eq: "published" };
+  return await directus.request(
+    readItems("minutes", {
+      fields: ["id", "title", "date", "document"],
+      sort: ["-date"],
+      filter: { status },
+      limit: -1,
     }),
   );
 };

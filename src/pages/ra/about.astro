@@ -53,7 +53,9 @@ const founded = `Founded ${new Date(association.founded).toDateString()}`;
 <MainLayout>
   <PageHeader title="Association" subtitle={founded} tabs={tabsAssociation} />
 
-  <figure class={`bg-[url(/27171_032.jpg)] bg-fixed bg-cover relative mt-2`}>
+  <figure
+    class={`bg-[url(/27171_032.jpg)] bg-cover relative min-h-[50vh] flex items-center`}
+  >
     <Container classes="py-20">
       <div
         class="text-3xl md:text-4xl md:w-xl from-sky-800 to-sky-600/10 bg-linear-to-bl/oklab backdrop-blur-xs backdrop-saturate-150 rounded-md py-6"

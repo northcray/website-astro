@@ -4,25 +4,20 @@ export const prerender = true;
 import Container from "../components/ui/Container.astro";
 import PostList from "../components/ui/PostList.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
-import { getPosts } from "../lib/directus/queries";
 import MainLayout from "../components/layouts/MainLayout.astro";
+
+import { getPosts } from "../lib/directus/queries";
 
 const posts = await getPosts("newsmail");
 ---
 
 <MainLayout>
-  <PageHeader
-    title="News"
-    tabs={[
-      { label: "Public", href: "/news" },
-      { label: "For Residents", href: "/newsmail" },
-    ]}
-  />
+  <PageHeader title="News" />
 
-  <Container classes="flex flex-col gap-2 my-6">
+  <Container classes="flex flex-col gap-2 my-6 max-w-lg">
     {
       posts.length > 0 ? (
-        <PostList grid={5} posts={posts} />
+        <PostList grid={1} vertical={false} posts={posts} />
       ) : (
         <div>No posts found.</div>
       )

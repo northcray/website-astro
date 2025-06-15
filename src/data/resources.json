@@ -407,10 +407,10 @@
               "external": false
             },
             {
-              "ready": false,
-              "title": "Parish or Council Meetings",
-              "url": "/resources/meetings",
-              "external": false
+              "ready": true,
+              "title": "Council Meetings",
+              "url": "https://bexley.public-i.tv/core/portal/home",
+              "external": true
             },
             {
               "ready": true,
@@ -493,9 +493,9 @@
               "external": false
             },
             {
-              "ready": false,
+              "ready": true,
               "title": "Annual Meeting Minutes",
-              "url": "/files/meeting-minutes.pdf",
+              "url": "/ra/minutes",
               "external": false
             },
             {

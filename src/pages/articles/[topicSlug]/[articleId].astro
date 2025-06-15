@@ -1,7 +1,7 @@
 ---
+import { getImageSrc } from "../../../lib/utils";
 export const prerender = true;
 import Section from "@ui/Section.astro";
-import { PUBLIC_DIRECTUS_URL } from "astro:env/client";
 import MainLayout from "@layouts/MainLayout.astro";
 import PageHeader from "@ui/PageHeader.astro";
 import Container from "@ui/Container.astro";
@@ -10,6 +10,7 @@ import { createDirectusClient } from "@lib/directus";
 
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 import { readItems } from "@directus/sdk";
+import PropertyList from "../../../components/ui/PropertyList.astro";
 
 export async function getStaticPaths() {
   const directus = createDirectusClient();
@@ -19,12 +20,18 @@ export async function getStaticPaths() {
         "id",
         "title",
         "image",
+        "content",
+        "summary",
         "topic.*",
         "first_published_at",
         "tags",
         "blocks.collection" as any,
         "blocks.item.*" as any,
+        "belongs_to.*",
       ],
+      filter: {
+        status: { _eq: "published" },
+      },
     }),
   );
 
@@ -39,11 +46,15 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { articleId, topicSlug } = Astro.params as Params;
 const { article } = Astro.props as Props;
+
+console.log(article);
+const [t1, ...tRest] = article.title.split(" - ");
 ---
 
 <MainLayout>
   <PageHeader
-    title={article.title}
+    title={t1}
+    subtitle={tRest.join(" - ")}
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Articles", href: "/articles" },
@@ -57,28 +68,56 @@ const { article } = Astro.props as Props;
         active: true,
       },
     ]}
-    meta={[
-      {
-        label: "Published",
-        value: new Date(article.first_published_at).toDateString(),
-      },
-    ]}
   />
 
-  {
-    article.image && (
-      <Container classes="my-8">
-        <img
-          transition:name={article.image}
-          src={`${PUBLIC_DIRECTUS_URL}/assets/${article.image}`}
-          alt={article.title}
-          width={1000}
-          height={500}
-          class="h-auto w-auto lg:float-right lg:pl-10"
-        />
-      </Container>
-    )
-  }
+  <Container classes="my-24">
+    <p class="text-xl opacity-80 max-w-prose mx-auto">
+      {article.summary}
+    </p>
+  </Container>
+  <hr />
+  <Container classes="my-8 md:grid grid-cols-12 gap-8">
+    <aside class="col-span-3 flex flex-col gap-4 mb-10">
+      <PropertyList
+        details={[
+          {
+            label: "Published At",
+            value: new Date(article.first_published_at).toDateString(),
+          },
+          { label: "Series", value: article.belongs_to?.title || "None" },
+          { label: "Topic", value: article.topic.title },
+          { label: "Tags", value: article.tags?.join(", ") || "None" },
+        ]}
+      />
+    </aside>
+    <article class="lg:col-span-6 md:col-span-9">
+      <Markdown children={article.content} />
+
+      {
+        article.belongs_to && (
+          <div>
+            <hr class="mt-20" />
+            <h5 class="mt-5">This article belongs to a series</h5>
+            <a class="nc-link nc-focus">{article.belongs_to.title}</a>
+          </div>
+        )
+      }
+    </article>
+    <div class="lg:col-span-3">
+      {
+        article.image && (
+          <img
+            transition:name={article.image}
+            src={getImageSrc(article.image, "post-image-main")}
+            alt={article.title}
+            width={600}
+            height={600}
+            class=""
+          />
+        )
+      }
+    </div>
+  </Container>
 
   {
     article.blocks.map((block: any) => (
@@ -88,25 +127,6 @@ const { article } = Astro.props as Props;
         )}
       </Container>
     ))
-  }
-
-  <Container classes="my-10">
-    <Markdown>{article.content}</Markdown>
-  </Container>
-
-  {
-    article.tags && (
-      <Container>
-        <h5>Tags</h5>
-        <ul class="list-none my-10 p-0 m-0 flex gap-2">
-          {article.tags?.map((tag: string) => (
-            <li>
-              <a class="nc-tag nc-link nc-focus">{tag}</a>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    )
   }
   <Section />
 </MainLayout>

@@ -68,6 +68,7 @@ export default defineConfig({
     fonts: [
       {
         provider: fontProviders.bunny(),
+        // name: "Averia Serif Libre",
         name: "Lato",
         cssVariable: "--font-lato",
       },

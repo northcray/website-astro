@@ -11,12 +11,16 @@ export interface Props {
 }
 
 const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
+
+const noTitles = !title && !subtitle;
+const hasSecondarySlot = Astro.slots.has("secondary");
+const hasInteractionSlot = Astro.slots.has("interaction");
 ---
 
-<div class="bg2 py-6">
+<div class:list={["bg2", { "py-6": !noTitles }]}>
   {
     breadcrumbs && (
-      <Container>
+      <Container classes={noTitles ? "py-4" : "py-0"}>
         <Breadcrumbs items={breadcrumbs} />
       </Container>
     )
@@ -24,20 +28,36 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
   {
     (title || subtitle) && (
       <Container>
-        <div class="m-0 py-3 md:py-6 my-4 md:my-5 relative">
-          {title && (
-            <h1 class="lg:text-6xl" transition:name="pageHeaderTitle">
-              {title}
-            </h1>
-          )}
-          {subtitle && (
-            <div
-              class="text-2xl lg:text-3xl nc-display opacity-70"
-              transition:name="pageHeaderSubtitle"
-            >
-              {subtitle}
+        <div class="m-0 py-6 md:py-12 relative flex">
+          {hasSecondarySlot && (
+            <div class="top-0 left-0 right-0 bottom-0 absolute z-0">
+              <slot name="secondary" />
             </div>
           )}
+          <div>
+            {title && (
+              <h1 class="lg:text-6xl" transition:name="pageHeaderTitle">
+                {title}
+              </h1>
+            )}
+            {subtitle && (
+              <div
+                class="text-2xl lg:text-3xl nc-display opacity-70"
+                transition:name="pageHeaderSubtitle"
+              >
+                {subtitle}
+              </div>
+            )}
+          </div>
+        </div>
+      </Container>
+    )
+  }
+  {
+    hasInteractionSlot && (
+      <Container>
+        <div class="flex items-center gap-4">
+          <slot name="interaction" />
         </div>
       </Container>
     )
@@ -59,7 +79,7 @@ const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
   {
     tabs && (
       <Container>
-        <ul class="nc-page-tabs mt-8">
+        <ul class="nc-page-tabs pt-4">
           {tabs.map((tab) => (
             <li>
               <a data-tablink href={tab.href} class="nc-focus-outline">

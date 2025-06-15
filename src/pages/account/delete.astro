@@ -27,7 +27,7 @@ if (actionSuccess) {
     any time.
   </p>
 
-  {actionError && <Alert errors={[actionError]} />}
+  {actionError && <Alert type="error" items={[actionError]} />}
 
   <form class="form" method="POST" action={actions.auth.requestRemoval}>
     <Field

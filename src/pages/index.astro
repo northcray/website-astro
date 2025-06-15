@@ -77,8 +77,13 @@ const mainCards = [
       <PostList grid={4} posts={posts} />
     </Section>
     <Section>
-      <SectionHeader id="news">Recent Articles</SectionHeader>
-      <ArticleList grid={2} vertical={false} articles={articles} />
+      <SectionHeader id="articles">Recent Articles</SectionHeader>
+      <ArticleList
+        imageKey="small-thumbnail"
+        grid={2}
+        vertical={false}
+        articles={articles}
+      />
     </Section>
     <Section>
       <SectionHeader id="events">Upcoming Events</SectionHeader>

@@ -1,4 +1,8 @@
-/** * Generated TypeScript types for Directus Schema * Generated on: 2025-06-01T12:15:37.563Z */
+/** * Generated TypeScript types for Directus Schema * Generated on: 2025-06-16T06:29:55.277Z */
+export interface Admin {
+  id: string;
+}
+
 export interface Address {
   id: string;
   uprn: string;
@@ -34,6 +38,10 @@ export interface Article {
   tags: Record<string, unknown>;
   topic: string | Topic;
   related_businesses: number[] | ArticlesBusiness[];
+  related_persons: number[] | ArticlesPerson[];
+  summary: string;
+  content: string;
+  belongs_to: number | Series;
 }
 
 export interface ArticlesBlock {
@@ -47,6 +55,12 @@ export interface ArticlesBusiness {
   id: number;
   articles_id: number | Article;
   businesses_id: string | Business;
+}
+
+export interface ArticlesPerson {
+  id: number;
+  articles_id: number | Article;
+  persons_id: string | Person;
 }
 
 export interface ArticlesTopic {
@@ -159,6 +173,19 @@ export interface Group {
   image: string | DirectusFile;
 }
 
+export interface Minute {
+  id: string;
+  status: string;
+  user_created: string | DirectusUser;
+  date_created: "datetime";
+  user_updated: string | DirectusUser;
+  date_updated: "datetime";
+  title: string;
+  document: string | DirectusFile;
+  date: "datetime";
+  type: string;
+}
+
 export interface PageFeedback {
   id: string;
   date_created: "datetime";
@@ -198,6 +225,21 @@ export interface Payment {
   amount: number;
 }
 
+export interface Person {
+  id: string;
+  status: string;
+  user_created: string | DirectusUser;
+  date_created: "datetime";
+  user_updated: string | DirectusUser;
+  date_updated: "datetime";
+  name: string;
+  image: string | DirectusFile;
+  description: string;
+  biography: string;
+  born: "datetime";
+  died: "datetime";
+}
+
 export interface Post {
   id: string;
   status: string;
@@ -221,6 +263,16 @@ export interface PostsFile {
   id: number;
   posts_id: string | Post;
   directus_files_id: string | DirectusFile;
+}
+
+export interface Series {
+  id: number;
+  status: string;
+  sort: number;
+  date_updated: "datetime";
+  articles: number[] | Article[];
+  title: string;
+  description: string;
 }
 
 export interface SiteSettings {
@@ -263,6 +315,7 @@ export interface UserDeletion {
   directus_deleted_at: "datetime";
   status: string;
   address: string | Address;
+  reason: string;
 }
 
 export interface DirectusUser {
@@ -351,11 +404,13 @@ export interface DirectusRole {
 }
 
 export interface DirectusSchema {
+  Admin: Admin[];
   addresses: Address[];
   area: Area;
   articles: Article[];
   articles_blocks: ArticlesBlock[];
   articles_businesses: ArticlesBusiness[];
+  articles_persons: ArticlesPerson[];
   articles_topics: ArticlesTopic[];
   association: Association;
   block_hero: BlockHero[];
@@ -367,12 +422,15 @@ export interface DirectusSchema {
   committee: Committee[];
   events: Event[];
   groups: Group[];
+  minutes: Minute[];
   page_feedback: PageFeedback[];
   pages: Page[];
   pages_blocks: PagesBlock[];
   payments: Payment[];
+  persons: Person[];
   posts: Post[];
   posts_files: PostsFile[];
+  series: Series[];
   site_settings: SiteSettings;
   site_updates: SiteUpdate[];
   topics: Topic[];
@@ -384,11 +442,13 @@ export interface DirectusSchema {
 }
 
 export interface DirectusSchema {
+  Admin: Admin[];
   addresses: Address[];
   area: Area;
   articles: Article[];
   articles_blocks: ArticlesBlock[];
   articles_businesses: ArticlesBusiness[];
+  articles_persons: ArticlesPerson[];
   articles_topics: ArticlesTopic[];
   association: Association;
   block_hero: BlockHero[];
@@ -400,12 +460,15 @@ export interface DirectusSchema {
   committee: Committee[];
   events: Event[];
   groups: Group[];
+  minutes: Minute[];
   page_feedback: PageFeedback[];
   pages: Page[];
   pages_blocks: PagesBlock[];
   payments: Payment[];
+  persons: Person[];
   posts: Post[];
   posts_files: PostsFile[];
+  series: Series[];
   site_settings: SiteSettings;
   site_updates: SiteUpdate[];
   topics: Topic[];

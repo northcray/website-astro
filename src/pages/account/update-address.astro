@@ -34,8 +34,8 @@ if (addressSuccessful) {
 ---
 
 <AccountLayout header="Update your address">
-  {lookupActionError && <Alert errors={[lookupActionError]} />}
-  {addressActionError && <Alert errors={[addressActionError]} />}
+  {lookupActionError && <Alert type="error" items={[lookupActionError]} />}
+  {addressActionError && <Alert type="error" items={[addressActionError]} />}
   <form
     transition:persist
     class="form"
