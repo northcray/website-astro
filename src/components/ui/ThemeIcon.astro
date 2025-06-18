@@ -1,0 +1,56 @@
+---
+import { Sun, Moon } from "@lucide/astro";
+---
+
+<button
+  id="themeToggle"
+  class:list={[
+    "cursor-pointer nc-focus-outline py-1 px-2 flex items-center gap-2 hover:bg-blue-50 hover:text-black",
+  ]}
+>
+  <Sun class="sun" />
+  <Moon class="moon" />
+</button>
+
+<style>
+  :global([data-mode="light"]) .sun {
+    display: none;
+  }
+  :global([data-mode="light"]) .moon {
+    display: block;
+  }
+  :global([data-mode="dark"]) .sun {
+    display: block;
+  }
+  :global([data-mode="dark"]) .moon {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  const theme = (() => {
+    const localStorageTheme = localStorage?.getItem("theme") ?? "";
+    if (["dark", "light"].includes(localStorageTheme)) {
+      return localStorageTheme;
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  })();
+
+  document.documentElement.dataset.mode = theme;
+  window.localStorage.setItem("theme", theme);
+
+  const handleToggleClick = () => {
+    const element = document.documentElement;
+    const current = element.dataset.mode === "dark" ? "dark" : "light";
+    const next = current === "dark" ? "light" : "dark";
+    element.dataset.mode = next;
+    localStorage.setItem("theme", next);
+  };
+
+  document
+    .getElementById("themeToggle")
+    ?.addEventListener("click", handleToggleClick);
+</script>

@@ -68,9 +68,19 @@ export default defineConfig({
     fonts: [
       {
         provider: fontProviders.bunny(),
-        // name: "Averia Serif Libre",
         name: "Lato",
+        weights: [300, 400, 700],
+        fallbacks: ["Lucida Sans Unicode", "Tahoma"],
+        subsets: ["latin"],
         cssVariable: "--font-lato",
+      },
+      {
+        provider: fontProviders.fontshare(),
+        name: "Erode",
+        weights: [300, 400, 700],
+        fallbacks: ["Lucida Sans Unicode", "Tahoma"],
+        subsets: ["latin"],
+        cssVariable: "--font-erode",
       },
     ],
   },

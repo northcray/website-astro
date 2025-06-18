@@ -1,5 +1,6 @@
 ---
 export interface Props {
+  hideBorders?: boolean;
   details: Array<{
     label: string;
     value: string;
@@ -9,14 +10,24 @@ export interface Props {
     };
   }>;
 }
-const { details = [] } = Astro.props;
+const { details = [], hideBorders } = Astro.props;
 ---
 
-<div class="my-10 md:w-fit border-b border-gray-200 dark:border-gray-800">
+<div
+  class:list={[
+    "my-10 md:w-fit border-gray-100 dark:border-gray-800",
+    { "border-b": !hideBorders },
+  ]}
+>
   {
     details.map((d) => (
-      <div class="grid gap-2 md:gap-4 grid-cols-6 text-lg border-t border-gray-200 dark:border-gray-800 py-1">
-        <div class="flex col-span-6 md:col-span-1 font-bold opacity-70 text-base md:text-lg">
+      <div
+        class:list={[
+          { "border-t": !hideBorders },
+          "grid gap-2 md:gap-4 grid-cols-6 text-lg border-gray-100 dark:border-gray-800 py-1",
+        ]}
+      >
+        <div class="flex col-span-6 md:col-span-1 font-semibold opacity-70 text-base md:text-lg">
           {d.label}
         </div>
         <div class="flex col-span-6 md:col-span-4">{d.value}</div>
@@ -24,7 +35,7 @@ const { details = [] } = Astro.props;
           <div class="flex col-span-1 md:justify-end">
             <a
               href={d.action.href}
-              class="text-base nc-link nc-focus font-bold outline-none"
+              class="text-base nc-link nc-focus outline-none"
             >
               {d.action.label}
             </a>

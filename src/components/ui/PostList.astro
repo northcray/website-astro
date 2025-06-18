@@ -21,7 +21,7 @@ const {
 const items = posts.map(
   (post) =>
     ({
-      key: post.slug,
+      key: `post-${post.slug}`,
       href: `/news/${post.slug}`,
       label: post.title,
       subtitle: new Date(post.date).toDateString(),

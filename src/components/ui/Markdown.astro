@@ -93,4 +93,7 @@ const rawHtml = marked(children || "");
 const processedHtml = processMarkdownHtml(rawHtml);
 ---
 
-<div class:list={["text-lg/7 max-w-prose"]} set:html={processedHtml} />
+<div
+  class:list={["font-display text-lg/7 max-w-prose"]}
+  set:html={processedHtml}
+/>

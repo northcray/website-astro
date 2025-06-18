@@ -2,6 +2,7 @@
 import { LogOut, User } from "@lucide/astro";
 import { loggedInPath } from "@/const";
 import { TOKEN_COOKIE } from "@/lib/auth";
+import ThemeIcon from "./ThemeIcon.astro";
 
 const userSession = Astro.cookies.get(TOKEN_COOKIE);
 const hasCookie = userSession && !!userSession;
@@ -9,7 +10,7 @@ const hasCookie = userSession && !!userSession;
 const { isOpen = false } = Astro.props;
 ---
 
-<div class="gap-2 flex">
+<>
   <a
     href={loggedInPath}
     class:list={[
@@ -35,4 +36,4 @@ const { isOpen = false } = Astro.props;
       </a>
     )
   }
-</div>
+</>

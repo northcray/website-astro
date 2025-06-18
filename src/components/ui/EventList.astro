@@ -34,7 +34,7 @@ function formatEventDate(dateString: string) {
 
 <ul class:list={[`list-none p-0 m-0`, gridClass, className]}>
   {
-    items?.map((item) => {
+    items?.map(async (item) => {
       const { weekday, month, day } = formatEventDate(item.date);
 
       return (
@@ -46,7 +46,10 @@ function formatEventDate(dateString: string) {
               <div>{month}</div>
             </div>
             <div class="flex flex-col justify-between gap-2 p-4">
-              <div class="text-lg font-semibold">
+              <div
+                class="text-lg font-semibold"
+                transition:name={`event-${item.key}`}
+              >
                 {item.href ? (
                   <a href={item.href} class="focus:outline-none nc-link">
                     {item.label}

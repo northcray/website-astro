@@ -1,6 +1,7 @@
 ---
 import Container from "./Container.astro";
 import AccountMenu from "./AccountMenu.astro";
+import ThemeIcon from "./ThemeIcon.astro";
 
 export interface Props {
   isOpen?: boolean;
@@ -24,7 +25,10 @@ const { isOpen } = Astro.props;
           title="North Cray Residents Association">NCRA</a
         >
 
-        <AccountMenu isOpen={isOpen} server:defer />
+        <div class="gap-2 flex">
+          <!--<ThemeIcon transition:persist />-->
+          <AccountMenu isOpen={isOpen} server:defer />
+        </div>
       </div>
     </Container>
     {

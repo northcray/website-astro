@@ -14,10 +14,10 @@ const posts = await getPosts("newsmail");
 <MainLayout>
   <PageHeader title="News" />
 
-  <Container classes="flex flex-col gap-2 my-6 max-w-lg">
+  <Container classes="flex flex-col gap-2 my-6">
     {
       posts.length > 0 ? (
-        <PostList grid={1} vertical={false} posts={posts} />
+        <PostList grid={4} vertical posts={posts} />
       ) : (
         <div>No posts found.</div>
       )

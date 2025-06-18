@@ -38,6 +38,7 @@ const { post, next, prev } = Astro.props as Props;
 
 <MainLayout>
   <PageHeader
+    titleId={`post-${post.slug}`}
     title={post.title}
     breadcrumbs={[
       { label: "Home", href: "/" },
@@ -87,12 +88,12 @@ const { post, next, prev } = Astro.props as Props;
 
   <Container>
     <hr />
-    <Section class="flex flex-col max-w-1/3">
+    <Section class="flex flex-col">
       {
         next && (
           <>
             <h4>Next</h4>
-            <PostList grid={1} vertical={false} posts={[next]} />
+            <PostList grid={3} vertical={false} posts={[next]} />
           </>
         )
       }

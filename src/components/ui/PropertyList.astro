@@ -12,17 +12,17 @@ export interface Props {
 const { details = [] } = Astro.props;
 ---
 
-<div class="border-b border-gray-200 dark:border-gray-800">
+<div class="border-b border-gray-100 dark:border-gray-800">
   {
     details.map((d) => (
-      <div class="gap-4 border-t border-gray-200 dark:border-gray-800 py-1">
-        <div class="font-bold opacity-70 text-base md:text-lg">{d.label}</div>
-        <div class="text-lg">{d.value}</div>
+      <div class="gap-4 border-t border-gray-100 dark:border-gray-800 py-1">
+        <div class="opacity-70 text-base font-display">{d.label}</div>
+        <div class="text-lg font-display">{d.value}</div>
         {d.action && (
           <div class="">
             <a
               href={d.action.href}
-              class="text-base nc-link nc-focus font-bold outline-none"
+              class="text-base nc-link nc-focus font-thin outline-none"
             >
               {d.action.label}
             </a>

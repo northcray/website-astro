@@ -1,8 +1,10 @@
 ---
 import Breadcrumbs from "./Breadcrumbs.astro";
 import Container from "./Container.astro";
+import Meta from "./Meta.astro";
 
 export interface Props {
+  titleId?: string;
   title?: string;
   subtitle?: string;
   tabs?: { label: string; href: string }[];
@@ -10,7 +12,7 @@ export interface Props {
   breadcrumbs?: { label: string; href: string; active?: boolean }[];
 }
 
-const { title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
+const { titleId, title, subtitle, tabs, breadcrumbs, meta } = Astro.props;
 
 const noTitles = !title && !subtitle;
 const hasSecondarySlot = Astro.slots.has("secondary");
@@ -36,7 +38,10 @@ const hasInteractionSlot = Astro.slots.has("interaction");
           )}
           <div>
             {title && (
-              <h1 class="lg:text-6xl" transition:name="pageHeaderTitle">
+              <h1
+                class="lg:text-6xl"
+                transition:name={titleId || "pageHeaderTitle"}
+              >
                 {title}
               </h1>
             )}
@@ -66,11 +71,8 @@ const hasInteractionSlot = Astro.slots.has("interaction");
     meta && (
       <Container>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1 gap-4 max-w-(--breakpoint-lg)">
-          {meta.map(({ label, value }) => (
-            <div>
-              <div class="font-medium text-sm uppercase">{label}</div>
-              <div class="font-light text-xl">{value}</div>
-            </div>
+          {meta.map((item) => (
+            <Meta {...item} />
           ))}
         </div>
       </Container>

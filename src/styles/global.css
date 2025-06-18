@@ -21,15 +21,16 @@ html {
   --color-cinder: #0e0d13;
 
   --font-sans:
-    var(--font-lato), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    var(--font-lato), "Lucida Sans Unicode", Tahoma, ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 
   --shadow-focus-inset:
     inset 0 0 0 4px #80a1e8, inset 0 0 0 6px #0044d7, inset 0 0 0 8px #fff;
 }
 
 @theme inline {
-  --font-display: var(--font-sans);
+  --font-display: var(--font-erode);
 }
 
 /*
@@ -46,12 +47,11 @@ html {
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    @apply border-gray-100 dark:border-cinder-200;
   }
 
   html {
     font-size: 16px;
-    font-weight: 300;
   }
 
   body {
@@ -64,38 +64,36 @@ html {
 }
 
 @layer base {
+  [data-mode="dark"] {
+    @apply bg-cinder-800 text-slate-300;
+  }
+
   h1 {
-    @apply text-4xl md:text-5xl font-semibold;
-    font-family: var(--font-display), sans-serif;
+    @apply text-4xl md:text-5xl font-semibold font-display;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl font-semibold;
-    font-family: var(--font-display), sans-serif;
+    @apply text-3xl md:text-4xl font-semibold font-display;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl font-semibold;
-    font-family: var(--font-display), sans-serif;
+    @apply text-2xl md:text-3xl font-semibold font-display;
   }
 
   h4 {
-    @apply text-xl md:text-2xl font-semibold;
-    font-family: var(--font-display), sans-serif;
+    @apply text-xl md:text-2xl font-semibold font-display;
   }
 
   h5 {
-    @apply text-lg md:text-xl font-normal;
-    font-family: var(--font-display), sans-serif;
+    @apply text-lg md:text-xl font-normal font-display;
   }
 
   h6 {
-    @apply text-lg font-light;
-    font-family: var(--font-display), sans-serif;
+    @apply text-lg font-light font-display;
   }
 
   .nc-display {
-    font-family: var(--font-display), sans-serif;
+    @apply font-display;
   }
 
   html {

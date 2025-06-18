@@ -10,12 +10,15 @@ const isMember = true;
 <div class="perspective-origin-center perspective-dramatic">
   <div
     class:list={[
-      { "from-sky-300 to-sky-800": isMember },
+      {
+        "from-sky-300 to-sky-800 dark:from-indigo-950 dark:to-blue-900":
+          isMember,
+      },
       {
         "shadow-2xl transition-transform hover:rotate-x-0 hover:rotate-y-0 md:rotate-x-1 md:-rotate-y-1":
           animated,
       },
-      "bg-linear-to-br/oklab overflow-clip shadow ease-in-out duration-500 mx-auto text-white text-shadow-sky-600 text-shadow-xs grid grid-rows-10 grid-cols-12 gap-0 m-4 rounded-2xl max-w-96 aspect-[3.3/2] flex border-sky-500 border-1 outline-dotted outline-white outline-1 -outline-offset-6",
+      "bg-linear-to-br/oklab overflow-clip shadow ease-in-out duration-500 mx-auto text-white text-shadow-sky-600 text-shadow-xs grid grid-rows-10 grid-cols-12 gap-0 m-4 rounded-2xl max-w-96 aspect-[3.3/2] flex border-sky-500 dark:border-sky-900 border-1 outline-dotted outline-white dark:outline-white/40 outline-1 -outline-offset-6",
     ]}
   >
     <div class="col-span-8 col-start-2 row-start-2 text-xl">

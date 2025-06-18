@@ -19,7 +19,7 @@ const {
 } = Astro.props;
 
 const items = articles.map((article) => ({
-  key: String(article.id),
+  key: `article-${article.id}`,
   href: `/articles/${article.topic.slug}/${article.id}`,
   label: article.title,
   subtitle: new Date(article.first_published_at).toDateString(),
