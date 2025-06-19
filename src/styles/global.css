@@ -30,7 +30,7 @@ html {
 }
 
 @theme inline {
-  --font-display: var(--font-erode);
+  --font-display: var(--font-lato);
 }
 
 /*

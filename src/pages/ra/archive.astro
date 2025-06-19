@@ -1,3 +1,64 @@
 ---
-return Astro.redirect("/ra/about");
+import MainLayout from "@layouts/MainLayout.astro";
+import PageHeader from "../../components/ui/PageHeader.astro";
+import { loggedInPath, tabsAssociation } from "../../const";
+import Section from "../../components/ui/Section.astro";
+import Container from "../../components/ui/Container.astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("newsmail");
+
+console.log(posts[0]);
+
+const postList = posts
+  .sort((a, b) => a.id > b.id)
+  .map((post) => {
+    const body = post.body?.split("\n");
+
+    if (!body) {
+      console.log(`Post ${post.id} has no body.`);
+    }
+
+    let date = "Unknown";
+
+    if (!Number.isNaN(body[0][0])) {
+      date = body[0];
+    }
+
+    return {
+      key: post.id,
+      date,
+      label: post.id.toUpperCase(),
+      href: `/ra/archive/emails/item/${post.id}`,
+    };
+  });
 ---
+
+<MainLayout>
+  <PageHeader
+    title="Archive"
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Association", href: "/ra" },
+      { label: "Archive", href: loggedInPath, active: true },
+    ]}
+  />
+  <Container>
+    <Section>
+      <SectionHeader>Posts</SectionHeader>
+      <ol class="list-decimal list-inside">
+        {
+          postList.map((post) => (
+            <li>
+              <a href={post.href}>
+                {post.date} ({post.key.toUpperCase()})
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </Section>
+    <Section />
+  </Container>
+</MainLayout>

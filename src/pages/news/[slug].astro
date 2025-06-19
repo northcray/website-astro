@@ -14,12 +14,14 @@ import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 import SectionHeader from "../../components/ui/SectionHeader.astro";
 import PostList from "../../components/ui/PostList.astro";
 import { getImageSrc } from "../../lib/utils";
+import Meta from "../../components/ui/Meta.astro";
 
 export async function getStaticPaths() {
   const directus = createDirectusClient();
   const posts = await directus.request(
     readItems("posts", {
       fields: ["slug", "date", "type", "title", "content", "topics", "image"],
+      sort: ["date"],
     }),
   );
 
@@ -34,6 +36,11 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { slug } = Astro.params as Params;
 const { post, next, prev } = Astro.props as Props;
+
+const meta = [
+  { label: "Published", value: new Date(post.date).toDateString() },
+  { label: "Topics", value: (post?.topics || ["-"]).join(", ") },
+];
 ---
 
 <MainLayout>
@@ -49,55 +56,36 @@ const { post, next, prev } = Astro.props as Props;
         active: true,
       },
     ]}
-    meta={[{ label: "Published", value: new Date(post.date).toDateString() }]}
   />
 
-  {
-    post.image && (
-      <Container>
-        <img
-          transition:name={post.image}
-          src={getImageSrc(post.image, "post-image-main")}
-          alt={post.title}
-          width={600}
-          height={600}
-          class="lg:float-right lg:p-10 lg:-mt-20 mx-auto"
-        />
-      </Container>
-    )
-  }
-
-  <Container classes="my-10">
-    <Markdown children={post.content} />
-  </Container>
-
-  {
-    post.topics && (
-      <Container>
-        <h5>Topics</h5>
-        <ul class="list-none my-10 p-0 m-0 flex gap-2">
-          {post.topics?.map((topic: string) => (
-            <li>
-              <a class="nc-tag nc-link nc-focus">{topic}</a>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    )
-  }
-
-  <Container>
-    <hr />
-    <Section class="flex flex-col">
-      {
-        next && (
-          <>
-            <h4>Next</h4>
-            <PostList grid={3} vertical={false} posts={[next]} />
-          </>
-        )
-      }
+  <Container classes="lg:grid grid-cols-12 gap-8">
+    {
+      post.image && (
+        <Section class="col-span-4 lg:border-r border-gray-100 dark:border-gray-800">
+          <img
+            transition:name={post.image}
+            src={getImageSrc(post.image, "post-image-main")}
+            alt={post.title}
+            width={600}
+            height={600}
+            class="w-full"
+          />
+          <div class="my-10 flex flex-col gap-4">
+            {meta.map((i) => (
+              <Meta {...i} />
+            ))}
+          </div>
+          {next && (
+            <>
+              <h5>Next</h5>
+              <PostList grid={1} vertical={false} posts={[next]} />
+            </>
+          )}
+        </Section>
+      )
+    }
+    <Section class="col-span-8">
+      <Markdown children={post.content} />
     </Section>
-    <Section />
   </Container>
 </MainLayout>

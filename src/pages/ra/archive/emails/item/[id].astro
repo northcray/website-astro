@@ -1,0 +1,70 @@
+---
+export const prerender = true;
+import { getCollection, render } from "astro:content";
+import MainLayout from "@layouts/MainLayout.astro";
+import { loggedInPath } from "@/const";
+import Section from "@ui/Section.astro";
+import Container from "@ui/Container.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const posts = await getCollection("newsmail");
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+// 2. For your template, you can get the entry directly from the prop
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<MainLayout>
+  <PageHeader
+    title={`Item ${post.id}`}
+    subtitle="Email"
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Association", href: "/ra" },
+      { label: "Archive", href: "/ra/archive" },
+      { label: "Emails", href: "/ra/archive/emails", active: true },
+    ]}
+  />
+  <Container>
+    <Section class="archive-item max-w-prose text-lg/8">
+      <Content />
+    </Section>
+    <Section />
+  </Container>
+</MainLayout>
+
+<style is:inline>
+  section.archive-item {
+    a {
+      color: #0070f3;
+      text-decoration: underline;
+    }
+    table {
+      margin-bottom: 1em;
+    }
+    tr {
+      border-bottom: 1px solid #ccc;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+    }
+    td,
+    th {
+      padding: 0.5em;
+      border-right: 1px solid #ccc;
+    }
+    hr {
+      margin: 2em 0;
+      border-top: 1px solid #ccc;
+      height: 1px;
+    }
+    p {
+      margin-bottom: 1em;
+    }
+  }
+</style>

@@ -46,10 +46,7 @@ const hasInteractionSlot = Astro.slots.has("interaction");
               </h1>
             )}
             {subtitle && (
-              <div
-                class="text-2xl lg:text-3xl nc-display opacity-70"
-                transition:name="pageHeaderSubtitle"
-              >
+              <div class="text-2xl lg:text-3xl nc-display opacity-70">
                 {subtitle}
               </div>
             )}
@@ -70,7 +67,7 @@ const hasInteractionSlot = Astro.slots.has("interaction");
   {
     meta && (
       <Container>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1 gap-4 max-w-(--breakpoint-lg)">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-1 gap-4">
           {meta.map((item) => (
             <Meta {...item} />
           ))}

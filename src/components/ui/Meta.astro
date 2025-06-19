@@ -2,16 +2,17 @@
 export interface Props {
   label: string;
   value: string;
+  class?: string;
 }
 
-const { label, value } = Astro.props;
+const { label, value, class: className } = Astro.props;
 ---
 
-<div class="font-display">
-  <div class="text-sm uppercase opacity-80">
+<div class:list={["font-display", className || ""]}>
+  <div class="text-xs uppercase opacity-80">
     {label}
   </div>
-  <div class="text-xl font-light">
+  <div class="text-lg font-light">
     {value}
   </div>
 </div>

@@ -28,12 +28,7 @@ const topics = await getTopics();
   <Container classes="flex flex-col gap-2 my-6">
     {
       articles.length > 0 ? (
-        <ArticleList
-          imageKey="small-thumbnail"
-          grid={2}
-          vertical={false}
-          articles={articles}
-        />
+        <ArticleList grid={2} vertical={false} articles={articles} />
       ) : (
         <NoPosts />
       )

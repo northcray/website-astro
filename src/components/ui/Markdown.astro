@@ -20,7 +20,7 @@ function processMarkdownHtml(html: string): string {
   return (
     html
       // Headings
-      .replace(/<h([1-6])>/g, '<h$1 class="my-10">')
+      .replace(/<h([1-6])>/g, '<h$1 class="my-10 first:mt-0">')
 
       // Code blocks and inline code
       .replace(
@@ -94,6 +94,8 @@ const processedHtml = processMarkdownHtml(rawHtml);
 ---
 
 <div
-  class:list={["font-display text-lg/7 max-w-prose"]}
+  class:list={[
+    "font-display text-lg/8 font-normal text-gray-700 dark:text-gray-300",
+  ]}
   set:html={processedHtml}
 />

@@ -44,7 +44,7 @@ const location = event.location
 
 const duration = formatDuration(event.start, event.end);
 
-const details = [
+const meta = [
   { label: "Start", value: new Date(event.start).toLocaleString("en-GB") },
   { label: "End", value: new Date(event.end).toLocaleString("en-GB") },
   { label: "Duration", value: duration },
@@ -63,13 +63,12 @@ const details = [
     ]}
     title={event.name}
     subtitle={`${location} Event (${duration})`}
-    meta={details}
   />
 
   <Container classes="my-8 md:grid grid-cols-12 gap-8 relative">
     <aside class="col-span-3 flex flex-col gap-4 mb-10">
-      <div class="rounded bg-gray-50 p-2 hidden">
-        <PropertyList details={details} />
+      <div class="rounded bg-gray-50 dark:bg-cinder-700 p-4">
+        <PropertyList details={meta} />
       </div>
     </aside>
     <article class="lg:col-span-6 md:col-span-9">

@@ -51,6 +51,7 @@ const gridClass = grid
           transition:name={item.image}
           src={getImageSrc(item.image, imageKey)}
           alt="Image"
+          class="w-full dark:opacity-50 hover:opacity-100 duration-150"
         />
       ) : null;
 
@@ -78,7 +79,7 @@ const gridClass = grid
 
       if (vertical) {
         return (
-          <li class="flex flex-col border-b-gray-100 dark:border-b-gray-700 border-b border-solid border-0">
+          <li class="flex flex-col border-b-gray-100 dark:border-b-gray-800 border-b border-solid border-0">
             {item.href ? (
               <a
                 href={item.href}
@@ -102,8 +103,8 @@ const gridClass = grid
 
       const content = imageEl ? (
         <>
-          <div class="sm:basis-1/3">{imageEl}</div>
-          <div class="sm:basis-2/3 gap-2 flex flex-col">
+          <div class="w-full sm:max-w-52">{imageEl}</div>
+          <div class="gap-2 flex flex-col">
             {labelEl}
             {subtitleEl}
             {tagEl}
@@ -118,7 +119,7 @@ const gridClass = grid
       );
 
       return (
-        <li class="border-b-gray-100 dark:border-b-gray-700 border-b border-solid border-0">
+        <li class="border-b-gray-100 dark:border-b-gray-800 border-b border-solid border-0">
           {item.href ? (
             <a
               href={item.href}
