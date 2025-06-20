@@ -1,0 +1,84 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+import PageHeader from "@ui/PageHeader.astro";
+import { loggedInPath, tabsAssociation } from "../../const";
+import Section from "@ui/Section.astro";
+import Container from "@ui/Container.astro";
+import SectionHeader from "@ui/SectionHeader.astro";
+import { getCollection } from "astro:content";
+import { formatArchivePosts } from "../../../lib/utils";
+import Alert from "@ui/Alert.astro";
+
+const allPosts = await getCollection("newsmail");
+const sortedPosts = formatArchivePosts(allPosts);
+
+const byYear = sortedPosts.reduce((acc, item) => {
+  const year = item.year;
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(item);
+  return acc;
+}, {});
+
+const sortedYears = Object.keys(byYear)
+  .sort((a, b) => b.localeCompare(a))
+  .filter((y) => !isNaN(y));
+---
+
+<MainLayout>
+  <PageHeader
+    title="Archive"
+    subtitle="Emails"
+    breadcrumbs={[
+      { label: "Home", href: "/" },
+      { label: "Association", href: "/ra" },
+      { label: "Archive", href: "/ra/archive" },
+      { label: "Emails", href: "/ra/archive/emails", active: true },
+    ]}
+  />
+  <Container>
+    <Section class="max-w-prose">
+      <SectionHeader>Years</SectionHeader>
+      <ul class="flex flex-wrap gap-2">
+        {
+          sortedYears.map((year) => (
+            <li class="inline">
+              <a href={`#year-${year}`} class="nc-link nc-focus">
+                {year}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="my-5">
+        <Alert
+          type="info"
+          items={[
+            "The archive is not complete and we hope to fill in the gaps in the future.",
+          ]}
+        />
+      </div>
+    </Section>
+    {
+      sortedYears.map((year) => (
+        <Section>
+          <SectionHeader id={`year-${year}`}>{year}</SectionHeader>
+          <ol class="mt-10 columns-1 sm:columns-2 md:columns-3 lg:columns-4">
+            {byYear[year].map((post) => (
+              <li>
+                <a href={post.href}>
+                  <span class="inline-flex items-center justify-center font-mono text-xs bg-gray-100 px-1 py-0.1 rounded">
+                    {post.key.toUpperCase()}
+                  </span>
+                  <span class="ml-2">{post.date}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </Section>
+      ))
+    }
+    <Section />
+  </Container>
+</MainLayout>

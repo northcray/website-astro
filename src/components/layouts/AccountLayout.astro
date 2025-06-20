@@ -9,7 +9,7 @@ import Section from "../ui/Section.astro";
 import Footer from "../ui/Footer.astro";
 
 export interface Props {
-  header: string;
+  header?: string;
 }
 
 const { header } = Astro.props;
@@ -25,10 +25,19 @@ const { header } = Astro.props;
       <SiteHeader isOpen />
       <main class="bg2 grow">
         <Container>
-          <Section>
-            <SectionHeader>{header}</SectionHeader>
-            <slot />
-          </Section>
+          {
+            header ? (
+              <Section>
+                <>
+                  <SectionHeader>{header}</SectionHeader>
+                  <slot />
+                </>
+              </Section>
+            ) : (
+              <slot />
+            )
+          }
+
           <Section />
         </Container>
       </main>
