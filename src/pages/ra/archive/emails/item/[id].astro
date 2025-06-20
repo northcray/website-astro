@@ -39,26 +39,36 @@ const { Content } = await render(post);
   />
   <Container classes="grid grid-cols-12 gap-8 my-6">
     <Section class="col-span-6 lg:col-span-2 pt-0!">
-      <Meta label="Previous">
-        <a
-          href={prev.href}
-          transition:name={prev.post.id}
-          class="nc-link nc-focus w-fit flex gap-1 items-center"
-          ><ArrowLeft /> {prev.date}</a
-        >
-      </Meta>
+      {
+        prev && (
+          <Meta label="Previous">
+            <a
+              href={prev.href}
+              transition:name={prev.post.id}
+              class="nc-link nc-focus w-fit flex gap-1 items-center"
+            >
+              <ArrowLeft /> {prev.date}
+            </a>
+          </Meta>
+        )
+      }
     </Section>
     <Section
       class="col-span-6 lg:col-span-2 lg:order-last flex justify-end pt-0!"
     >
-      <Meta label="Next">
-        <a
-          href={next.href}
-          transition:name={next.post.id}
-          class="nc-link nc-focus w-fit flex gap-1 items-center"
-          >{next.date} <ArrowRight /></a
-        >
-      </Meta>
+      {
+        next && (
+          <Meta label="Next">
+            <a
+              href={next.href}
+              transition:name={next.post.id}
+              class="nc-link nc-focus w-fit flex gap-1 items-center"
+            >
+              {next.date} <ArrowRight />
+            </a>
+          </Meta>
+        )
+      }
     </Section>
     <Section
       class="archive-item col-span-12 lg:col-span-8 max-w-full lg:bg-gray-100 rounded lg:p-6 pt-8! mx-auto"

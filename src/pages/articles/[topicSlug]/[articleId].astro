@@ -64,7 +64,6 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { articleId, topicSlug } = Astro.params as Params;
 const { article, seriesArticles } = Astro.props as Props;
 
-console.log(article);
 const [t1, ...tRest] = article.title.split(" - ");
 ---
 
