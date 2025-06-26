@@ -137,7 +137,7 @@ html {
   }
 
   .nc-focus,
-  .nc-link-within:focus,
+  .nc-link-within,
   section.archive-item a {
     @apply hover:decoration-2 focus-within:bg-amber-300 focus-within:text-black focus-within:no-underline underline underline-offset-4;
 
@@ -149,7 +149,7 @@ html {
   }
 
   .nc-focus-outline {
-    @apply underline-offset-4 hover:underline focus:underline active:text-black transition-discrete duration-100 outline-amber-300/0 outline-0 focus:outline-4 focus:outline-amber-300 focus:outline-offset-0;
+    @apply underline-offset-4 hover:underline focus:underline active:text-black transition-discrete duration-200 outline-amber-300/0 outline-0 focus:outline-4 focus:outline-amber-300 focus:outline-offset-0;
   }
 
   .nc-link,
