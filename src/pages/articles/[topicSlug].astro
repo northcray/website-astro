@@ -29,13 +29,18 @@ const articles = await getArticles(topicSlug);
 const topics = await getTopics();
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: topic.title,
+    description: `Explore articles on ${topic.title} covering various topics and insights.`,
+  }}
+>
   <PageHeader
     title={topic.title}
     subtitle="Articles"
     breadcrumbs={[
       { label: "Home", href: "/" },
-      { label: "Articles", href: "/articles", active: true },
+      { label: "Articles", href: "/articles" },
     ]}
     tabs={topics.map(({ title, slug }) => ({
       label: title,

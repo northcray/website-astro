@@ -1,16 +1,14 @@
 ---
-import AccountLayout from "../../../../../components/layouts/AccountLayout.astro";
 export const prerender = true;
 import { getCollection, render } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
-import { loggedInPath } from "@/const";
 import Section from "@ui/Section.astro";
 import Container from "@ui/Container.astro";
 import PageHeader from "@ui/PageHeader.astro";
-import SectionHeader from "@ui/SectionHeader.astro";
-import { formatArchivePosts } from "../../../../../lib/utils";
-import Meta from "../../../../../components/ui/Meta.astro";
+import { formatArchivePosts } from "@lib/utils";
+import Meta from "@ui/Meta.astro";
 import { ArrowLeft, ArrowRight } from "@lucide/astro";
+
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const allPosts = await getCollection("newsmail");
@@ -18,23 +16,30 @@ export async function getStaticPaths() {
   const sortedPosts = formatArchivePosts(allPosts);
 
   return sortedPosts.map((item, ind, arr) => ({
-    params: { id: item.post.id },
+    params: { emailId: item.post.id },
     props: { post: item.post, prev: arr[ind - 1], next: arr[ind + 1] },
   }));
 }
+
 // 2. For your template, you can get the entry directly from the prop
 const { post, prev, next } = Astro.props;
+const { emailId } = Astro.params;
 const { Content } = await render(post);
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Email Item",
+    description:
+      "Explore the details of a specific email from the NCRA archive, including its content and metadata.",
+  }}
+>
   <PageHeader
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Association", href: "/ra" },
       { label: "Archive", href: "/ra/archive" },
       { label: "Emails", href: "/ra/archive/emails" },
-      { label: post.id, href: `/ra/archive/emails/${post.id}`, active: true },
     ]}
   />
   <Container classes="grid grid-cols-12 gap-8 my-6">
@@ -71,41 +76,11 @@ const { Content } = await render(post);
       }
     </Section>
     <Section
-      class="archive-item col-span-12 lg:col-span-8 max-w-full lg:bg-gray-100 rounded lg:p-6 pt-8! mx-auto"
+      class="archive-item col-span-12 lg:col-span-8 max-w-full lg:bg-gray-100 lg:dark:bg-gray-800 rounded lg:p-6 pt-8! mx-auto"
     >
-      <div transition:name={post.id}>
+      <div transition:name={emailId}>
         <Content />
       </div>
     </Section>
   </Container>
 </MainLayout>
-
-<style is:inline>
-  section.archive-item {
-    a {
-      color: #0070f3;
-      text-decoration: underline;
-    }
-    table {
-      margin-bottom: 1em;
-    }
-    tr {
-      border-bottom: 1px solid #ccc;
-      border-top: 1px solid #ccc;
-      border-left: 1px solid #ccc;
-    }
-    td,
-    th {
-      padding: 0.5em;
-      border-right: 1px solid #ccc;
-    }
-    hr {
-      margin: 2em 0;
-      border-top: 1px solid #ccc;
-      height: 1px;
-    }
-    p {
-      margin-bottom: 1em;
-    }
-  }
-</style>

@@ -12,13 +12,15 @@ const articles = await getArticles();
 const topics = await getTopics();
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Articles",
+    description:
+      "Explore a variety of articles covering different topics and insights from the North Cray Residents Association.",
+  }}
+>
   <PageHeader
     title="Articles"
-    breadcrumbs={[
-      { label: "Home", href: "/" },
-      { label: "Articles", href: "/articles", active: true },
-    ]}
     tabs={topics.map(({ title, slug }) => ({
       label: title,
       href: `/articles/${slug}`,

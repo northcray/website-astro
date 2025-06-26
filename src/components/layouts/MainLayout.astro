@@ -4,11 +4,18 @@ import Head from "@ui/Head.astro";
 import Navigation from "@ui/Navigation.astro";
 import SiteHeader from "@ui/SiteHeader.astro";
 import "@styles/global.css";
+import { type SEOProps } from "astro-seo";
+
+export interface Props {
+  seo: SEOProps;
+}
+
+const { seo = {} } = Astro.props;
 ---
 
 <html lang="en" data-mode="light">
   <head>
-    <Head />
+    <Head seo={seo} />
   </head>
   <body>
     <div id="vtop" class="flex flex-col min-h-screen">

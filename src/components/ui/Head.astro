@@ -2,6 +2,13 @@
 import { Font } from "astro:assets";
 // import "@/styles/view-transition.css";
 import { ClientRouter } from "astro:transitions";
+import { SEO, type SEOProps } from "astro-seo";
+
+export interface Props {
+  seo: SEOProps;
+}
+
+const { seo } = Astro.props;
 ---
 
 <meta charset="utf-8" />
@@ -11,9 +18,20 @@ import { ClientRouter } from "astro:transitions";
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
 
-<title>North Cray</title>
-
 <Font cssVariable="--font-lato" preload={true} />
 <Font cssVariable="--font-erode" preload={true} />
 
 <ClientRouter />
+
+<SEO
+  {...{
+    ...seo,
+    ...{
+      titleTemplate: "%s · North Cray",
+      titleDefault: "NCRA",
+      nofollow: true,
+      noindex: true,
+      charset: "utf-8",
+    },
+  }}
+/>

@@ -137,22 +137,24 @@ html {
   }
 
   .nc-focus,
-  .nc-link-within:focus {
+  .nc-link-within:focus,
+  section.archive-item a {
     @apply hover:decoration-2 focus-within:bg-amber-300 focus-within:text-black focus-within:no-underline underline underline-offset-4;
-  }
-
-  .nc-focus-outline {
-    @apply underline-offset-4 hover:underline focus:underline active:text-black transition-discrete duration-100 outline-amber-300/0 outline-0 focus:outline-4 focus:outline-amber-300 focus:outline-offset-0;
-  }
-
-  .nc-link {
-    @apply underline underline-offset-4;
 
     &:focus {
       box-shadow:
         0 -2px #fd0,
         0 4px #0b0c0c;
     }
+  }
+
+  .nc-focus-outline {
+    @apply underline-offset-4 hover:underline focus:underline active:text-black transition-discrete duration-100 outline-amber-300/0 outline-0 focus:outline-4 focus:outline-amber-300 focus:outline-offset-0;
+  }
+
+  .nc-link,
+  section.archive-item a {
+    @apply underline underline-offset-4;
   }
 
   .bg1 {
@@ -184,7 +186,7 @@ html {
   }
 
   .input {
-    @apply bg-white  appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 border-2 border-solid border-cinder-700;
+    @apply bg-white transition-all duration-100 outline-offset-2 outline-amber-300/0 outline outline-0 appearance-none box-border text-base font-normal h-10 leading-tight w-full mt-0 py-2 px-3 border-2 border-solid border-cinder-700;
     @apply dark:bg-cinder-500 dark:border-cinder-100;
     @apply max-w-full rounded-xs;
   }
@@ -198,7 +200,7 @@ html {
   }
 
   .input:focus {
-    @apply shadow-[inset_0_0_0_2px] outline-offset-2 outline-amber-300 outline outline-4;
+    @apply shadow-[inset_0_0_0_2px] outline-4 outline-amber-300;
     @apply shadow-cinder-600 dark:shadow-sky-200;
   }
 
@@ -241,5 +243,21 @@ html {
   .top-button {
     cursor: pointer;
     @apply hover:underline;
+  }
+
+  section.archive-item {
+    table {
+      @apply mb-4;
+    }
+    tr {
+      @apply border-gray-200 dark:border-gray-500 border-b border-t border-l;
+    }
+    td,
+    th {
+      @apply border-gray-200 dark:border-gray-500 border-r p-2.5;
+    }
+    p {
+      @apply mb-4;
+    }
   }
 }

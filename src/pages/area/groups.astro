@@ -22,7 +22,12 @@ const nav = groups.map((group) => ({
 }));
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Community Groups",
+    description: `Explore community groups in the area, their activities, and how to get involved.`,
+  }}
+>
   <PageHeader
     breadcrumbs={[
       { label: "Home", href: "/" },

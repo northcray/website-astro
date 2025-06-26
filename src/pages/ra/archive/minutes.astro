@@ -1,5 +1,5 @@
 ---
-import { getMinutes } from "../../lib/directus/queries";
+import { getMinutes } from "@lib/directus/queries";
 export const prerender = false;
 
 import MainLayout from "@layouts/MainLayout.astro";
@@ -8,8 +8,8 @@ import DataList from "@ui/DataList.astro";
 import Container from "@ui/Container.astro";
 import Section from "@ui/Section.astro";
 import { getCurrentUser } from "@lib/auth";
-import { tabsAssociation } from "../../const";
-import Alert from "../../components/ui/Alert.astro";
+import { tabsAssociation } from "@/const";
+import Alert from "@ui/Alert.astro";
 
 const user = await getCurrentUser(Astro.cookies);
 const isActive = user && user.subscription_active;
@@ -30,14 +30,18 @@ const dataItems = minutes.map((m) => ({
 }));
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Meeting Minutes",
+    description: "Access the archive of meeting minutes for the NCRA.",
+  }}
+>
   <PageHeader
-    title={`Meeting Minutes`}
-    subtitle="Association"
+    title="Meeting Minutes"
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Association", href: "/ra" },
-      { label: "Minutes", href: "/ra/minutes", active: true },
+      { label: "Archive", href: "/ra/archive" },
     ]}
     tabs={tabsAssociation}
   />

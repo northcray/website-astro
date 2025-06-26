@@ -59,11 +59,11 @@ import { X, Menu } from "@lucide/astro";
         class="sm:inline-flex sm:flex-wrap list-none m-0 p-0 -mx-4"
       >
         {
-          navItems.map((nav) => (
+          navItems.map((nav, i) => (
             <li>
               <a
                 data-navlink
-                class="nc-focus-outline text-inherit no-underline px-8 sm:px-4 py-4 block hover:underline text-lg sm:text-base"
+                class="nc-focus-outline text-inherit no-underline px-8 sm:px-4 py-4 block hover:underline text-lg sm:text-base transition-none"
                 href={nav.href}
               >
                 {nav.label}

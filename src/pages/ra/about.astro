@@ -1,7 +1,7 @@
 ---
 export const prerender = true;
 
-import { tabsAssociation } from "../../const";
+import { officerRoles, tabsAssociation } from "../../const";
 
 import PageHeader from "@ui/PageHeader.astro";
 import MainLayout from "@layouts/MainLayout.astro";
@@ -27,7 +27,7 @@ const headings: { [key: string]: { title: string; id: string } } = {
     id: "How to help".toLowerCase().replaceAll(" ", "-"),
   },
   ExecutiveCommittee: {
-    title: "Executive Committee",
+    title: "Committee",
     id: "Executive Committee".toLowerCase().replaceAll(" ", "-"),
   },
 };
@@ -47,10 +47,19 @@ const committee = await getCommittee();
 //     value: new Date(association.founded).toDateString(),
 // },
 // ]}
+
+const officers = committee.filter((m) => officerRoles.includes(m.position));
+const nonofficers = committee.filter((m) => !officerRoles.includes(m.position));
 const founded = `Founded ${new Date(association.founded).toDateString()}`;
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "NCRA",
+    description:
+      "The NCRA is a community association dedicated to preserving and enhancing the unique character of our area.",
+  }}
+>
   <PageHeader title="Association" subtitle={founded} tabs={tabsAssociation} />
 
   <figure
@@ -101,13 +110,39 @@ const founded = `Founded ${new Date(association.founded).toDateString()}`;
         <SectionHeader id={headings.ExecutiveCommittee.id}>
           {headings.ExecutiveCommittee.title}
         </SectionHeader>
-        <List
-          items={committee.map((member) => ({
-            key: member.id,
-            label: member.position,
-            subtitle: member.name,
-          }))}
-        />
+        <div class="flex flex-col gap-5">
+          <div class="mt-4">
+            <h5
+              class="cursor-help underline decoration-dotted underline-offset-4 decoration-1"
+              title="Elected roles defined in the Constitution"
+            >
+              Officers
+            </h5>
+            <List
+              items={officers.map((member) => ({
+                key: member.id,
+                label: member.name,
+                subtitle: member.position,
+              }))}
+            />
+          </div>
+          <div class="mt-4">
+            <h5
+              class="cursor-help underline decoration-dotted underline-offset-4 decoration-1"
+              title="Elected members supporting various tasks and
+              projects."
+            >
+              Committee Members
+            </h5>
+            <List
+              items={nonofficers.map((member) => ({
+                key: member.id,
+                label: member.name,
+                subtitle: member.position,
+              }))}
+            />
+          </div>
+        </div>
       </Section>
     </div>
   </Container>

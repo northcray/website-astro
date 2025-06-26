@@ -11,7 +11,12 @@ import { getPosts } from "../lib/directus/queries";
 const posts = await getPosts("newsmail");
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "News",
+    description: "Updates, announcements, and news from North Cray.",
+  }}
+>
   <PageHeader title="News" />
 
   <Container classes="flex flex-col gap-2 my-6">

@@ -9,19 +9,31 @@ import LinkCards from "@ui/LinkCards.astro";
 const archiveCards = [
   {
     heading: "Emails",
-    message: "Archive of all emails sent by the association.",
+    message:
+      "Collection of Newsmails and Groupmails including those sent during COVID-19 lockdowns.",
     href: "/ra/archive/emails",
+  },
+  {
+    heading: "Minutes",
+    message:
+      "Downloadable minutes from the residents association's annual general meetings (AGM).",
+    href: "/ra/archive/minutes",
   },
 ];
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Archive",
+    description:
+      "Explore the archive of the Residents Association, including emails and minutes from past meetings.",
+  }}
+>
   <PageHeader
     title="Archive"
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Association", href: "/ra" },
-      { label: "Archive", href: "/ra/archive", active: true },
     ]}
     tabs={tabsAssociation}
   />

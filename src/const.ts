@@ -10,10 +10,15 @@ export const robotsDisallowPaths = [
 
 export const tabsAssociation = [
   { href: "/ra/about", label: "About" },
-  { href: "/ra/history", label: "History" },
-  { href: "/ra/minutes", label: "Minutes" },
   { href: "/ra/archive", label: "Archive" },
   { href: loggedInPath, label: "My Account" },
+];
+
+export const officerRoles = [
+  "Chairman",
+  "Honorary Secretary",
+  "Honorary Treasurer",
+  "Digital Services",
 ];
 
 enum Role {

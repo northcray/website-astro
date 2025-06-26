@@ -67,7 +67,12 @@ const { article, seriesArticles } = Astro.props as Props;
 const [t1, ...tRest] = article.title.split(" - ");
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: article.title,
+    description: article.summary,
+  }}
+>
   <PageHeader
     titleId={`article-${articleId}`}
     title={t1}
@@ -78,11 +83,6 @@ const [t1, ...tRest] = article.title.split(" - ");
       {
         label: article.topic.title,
         href: `/articles/${topicSlug}`,
-      },
-      {
-        label: "Article",
-        href: `/articles/${topicSlug}/${articleId}`,
-        active: true,
       },
     ]}
     meta={[

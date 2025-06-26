@@ -52,14 +52,18 @@ const meta = [
 ];
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: `Event: ${event.name}`,
+    description: "",
+  }}
+>
   <PageHeader
     titleId={`event-${event.id}`}
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Area and Community", href: "/area" },
       { label: "Events", href: "/area/events" },
-      { label: event.category, href: `/area/events/${eventId}`, active: true },
     ]}
     title={event.name}
     subtitle={`${location} Event (${duration})`}

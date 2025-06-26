@@ -1,12 +1,12 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
 import PageHeader from "@ui/PageHeader.astro";
-import { loggedInPath, tabsAssociation } from "../../const";
+import { loggedInPath, tabsAssociation } from "@/const";
 import Section from "@ui/Section.astro";
 import Container from "@ui/Container.astro";
 import SectionHeader from "@ui/SectionHeader.astro";
 import { getCollection } from "astro:content";
-import { formatArchivePosts } from "../../../lib/utils";
+import { formatArchivePosts } from "@lib/utils";
 import Alert from "@ui/Alert.astro";
 
 const allPosts = await getCollection("newsmail");
@@ -26,16 +26,21 @@ const sortedYears = Object.keys(byYear)
   .filter((y) => !isNaN(y));
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Email Archive",
+    description:
+      "Explore the email archive of the NCRA, featuring newsletters and updates from previous years.",
+  }}
+>
   <PageHeader
-    title="Archive"
-    subtitle="Emails"
+    title="Emails"
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Association", href: "/ra" },
       { label: "Archive", href: "/ra/archive" },
-      { label: "Emails", href: "/ra/archive/emails", active: true },
     ]}
+    tabs={tabsAssociation}
   />
   <Container>
     <Section class="max-w-prose">
@@ -68,7 +73,7 @@ const sortedYears = Object.keys(byYear)
             {byYear[year].map((post) => (
               <li>
                 <a href={post.href}>
-                  <span class="inline-flex items-center justify-center font-mono text-xs bg-gray-100 px-1 py-0.1 rounded">
+                  <span class="inline-flex items-center justify-center font-mono text-xs bg-gray-100 dark:bg-gray-700 px-1 py-0.1 rounded">
                     {post.key.toUpperCase()}
                   </span>
                   <span class="ml-2">{post.date}</span>

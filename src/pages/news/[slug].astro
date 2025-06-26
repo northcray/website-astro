@@ -43,18 +43,17 @@ const meta = [
 ];
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: post.title,
+  }}
+>
   <PageHeader
     titleId={`post-${post.slug}`}
     title={post.title}
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "News", href: "/news" },
-      {
-        label: "Post",
-        href: `/news/${slug}`,
-        active: true,
-      },
     ]}
   />
 

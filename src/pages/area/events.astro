@@ -19,12 +19,16 @@ const eventList = events.map((event) => ({
 }));
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Community Events",
+    description: `Explore upcoming community events in our area, from local gatherings to special activities. Stay connected and engaged with your neighborhood.`,
+  }}
+>
   <PageHeader
     breadcrumbs={[
       { label: "Home", href: "/" },
       { label: "Area and Community", href: "/area" },
-      { label: "Events", href: "/area/events", active: true },
     ]}
     title="Events"
     subtitle="Public community events and activities"

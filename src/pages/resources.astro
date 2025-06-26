@@ -16,7 +16,13 @@ const sidenavItems = data.resources.map((r) => ({
 }));
 ---
 
-<MainLayout>
+<MainLayout
+  seo={{
+    title: "Resources",
+    description:
+      "Links to local groups, organisations, related articles and resources",
+  }}
+>
   <PageHeader title="Resources" />
   <Container classes="mb-20 lg:grid grid-cols-5 gap-20">
     <aside class="col-span-2 relative">
